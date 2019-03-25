@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1047220741005",
+    "firebase_url": "https://restaurant-app-ac6c5.firebaseio.com",
+    "project_id": "restaurant-app-ac6c5",
+    "storage_bucket": "restaurant-app-ac6c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047220741005:android:673c6165354df4e8",
+        "android_client_info": {
+          "package_name": "com.example.uberfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047220741005-o8ov0q4j3rtru42nqniljhsrqo2f3n9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.uberfood",
+            "certificate_hash": "5438adb3c7e738656fce804ecca107be0f37bf01"
+          }
+        },
+        {
+          "client_id": "1047220741005-0o0733sf6ntibrtd5ad7hlq9q1i4hv78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9RLAxuGB0lbjpJqelWc_4TU4vR5Xwhb8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047220741005-0o0733sf6ntibrtd5ad7hlq9q1i4hv78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

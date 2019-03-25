@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">UberFood</string>
+    <string name="first_screen_search_text">Find Food in:</string>
+    <string name="hint_search_text">Enter your suburb or postcode</string>
+    <string name="first_screen_button">let\'s  start</string>
+    <string name="text_signin">Already have an account? Sign in</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="text_login">Login</string>
+    <string name="sign_up_text">Don\'t have an account? Sign up</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="hint_username">Username</string>
+    <string name="text_sign_up">Sign up</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_location">Location</string>
+    <string name="hint_postal_code">Postal code</string>
+</resources>
