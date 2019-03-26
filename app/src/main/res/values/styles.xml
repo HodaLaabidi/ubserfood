@@ -16,4 +16,12 @@
 
     </style>
 
+
+    <style name="AppCompatAlertDialogStyleSuggest" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/colorDarkGrey</item>
+        <item name="android:background">@color/transparent_background</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
 </resources>

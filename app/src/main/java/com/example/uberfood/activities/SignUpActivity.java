@@ -11,25 +11,42 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
+import com.example.uberfood.models.User;
 import com.example.uberfood.utils.ConnectivityService;
+import com.example.uberfood.utils.Constants;
 import com.example.uberfood.utils.CustomToast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import static com.example.uberfood.utils.Constants.USER_COLLECTION;
+import static com.example.uberfood.utils.Utils.exists;
+import static com.example.uberfood.utils.Utils.isNew;
 
 public class SignUpActivity extends AppCompatActivity {
 
     ImageView arrowBack ;
     AppCompatEditText username  , mail , password , confirmPassword , phoneNumber , location , postalCode;
     LinearLayout buttonSignup ;
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    //FirebaseAuth auth = FirebaseAuth.getInstance();
     DatabaseReference reference ;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static final String TAG = "SignUpActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +54,18 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         initializeViews();
-        inscriptionProcess();
+        Signup();
+    }
+
+    private void Signup() {
+
+        buttonSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG , "signup clicked");
+                inscriptionProcess();
+            }
+        });
     }
 
     private void inscriptionProcess() {
@@ -63,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
         else if (!((postalCode.getText() + "").matches("\\d{4}")) ||
                 ((Integer.parseInt(postalCode.getText() + "")) > 9999) ||
                 ((Integer.parseInt(postalCode.getText() + "")) < 1000)) {
-            new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.verify_postal_code), R.drawable.ic_erreur, CustomToast.ERROR).show();
+           new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.verify_postal_code), R.drawable.ic_erreur, CustomToast.ERROR).show();
             return;
 
 
@@ -83,8 +111,15 @@ public class SignUpActivity extends AppCompatActivity {
 
 
             } else {
+
+
+
+                    // do that if it 's not saved
+                    createUserIntoFirebasePlatform();
+
+
                 
-                createUserIntoFirebasePlatform();
+
 
             }
             }
@@ -93,47 +128,103 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void createUserIntoFirebasePlatform() {
 
-        auth.createUserWithEmailAndPassword(mail.getText()+"", password.getText()+"").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        exists = false ;
+        Query query = db.collection(Constants.USER_COLLECTION).whereEqualTo("mail", mail.getText()+"");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-                    boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
-                    if (isNew){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.exists()) {
+                            Log.e(TAG , " exists ="+exists);
+                            exists = true;
+                            if(!isNew){
 
-                        FirebaseUser firebaseUser = auth.getCurrentUser();
-                        String userId = firebaseUser.getUid();
-                        reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-                        HashMap<String, String> hashMap = new HashMap<>();
-                        hashMap.put("id", userId);
-                        hashMap.put("username", username.getText()+"");
-                        hashMap.put("location", location.getText()+"");
-                        hashMap.put("postal_code", postalCode.getText()+"");
-                        hashMap.put("phone_number", phoneNumber.getText()+"");
+                                isNew = false ;
+                                new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.existing_email), R.drawable.ic_erreur, CustomToast.ERROR).show();
 
-
-                        reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    // get the token for the first connexion , here i will use a webservice to send token to DB
-
-                                            /*Intent intent = new Intent(ConnexionActivity.this, HomeActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(intent);
-                                            finish();*/
-                                    Log.e("successful connexion to" , "firebase");
-
-                                }
                             }
-                        });
+                            return;
 
-
+                        }
                     }
+                } else {
+                    Log.e(TAG , " failed task");
+                    return;
                 }
+
+                //add a new user to database
+
 
             }
         });
+
+        Query query2 = db.collection(Constants.USER_COLLECTION).whereEqualTo("phone_number", phoneNumber.getText()+"");
+        query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.exists()) {
+                            Log.e(TAG , " exists = "+exists);
+                            exists = true;
+                            if (!isNew){
+
+                                isNew = false ;
+                                new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.existing_phone_number), R.drawable.ic_erreur, CustomToast.ERROR).show();
+
+                            }
+                            return;
+
+                        }
+                    }
+                } else {
+                    Log.e(TAG , "failed task");
+                }
+
+                //add a new user to Firestore database
+
+
+            }
+        });
+
+
+       if (!exists){
+           Map<String , Object> userObject = new HashMap<>();
+           userObject.put("username" , username.getText()+"");
+           userObject.put("location" , location.getText()+"");
+           userObject.put("mail" , mail.getText()+"");
+           userObject.put("password",password.getText()+"");
+           userObject.put("postal_code" , postalCode.getText()+"");
+           userObject.put("phone_number" , phoneNumber.getText()+"");
+
+
+
+           db.collection(USER_COLLECTION)
+                   .add(userObject)
+                   .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                       @Override
+                       public void onSuccess(DocumentReference documentReference) {
+                           Log.e(TAG , "document reference "+documentReference.getId());
+                           Intent intent = new Intent(SignUpActivity.this , LoginActivity.class);
+                           startActivity(intent);
+                           isNew = true ;
+
+                           finish();
+                       }
+                   })
+                   .addOnFailureListener(new OnFailureListener() {
+                       @Override
+                       public void onFailure(@NonNull Exception e) {
+                           Log.e(TAG , "error adding doc", e);
+                       }
+                   });
+
+           exists = false ;
+
+       }
+
     }
 
     private void initializeViews() {
@@ -167,5 +258,16 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent = new Intent(SignUpActivity.this , LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+
+    private boolean doesUserEmailExist(String email , String phoneNumber) {
+
+
+
+
+          return  exists ;
+
+
     }
 }

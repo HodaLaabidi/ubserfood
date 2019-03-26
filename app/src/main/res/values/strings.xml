@@ -14,4 +14,29 @@
     <string name="hint_phone_number">Phone number</string>
     <string name="hint_location">Location</string>
     <string name="hint_postal_code">Postal code</string>
+    <string name="error">Error</string>
+    <string name="warning">Warning</string>
+    <string name="verify_info_login">Please fill out all required fields</string>
+    <string name="verify_form_email">Invalid email address</string>
+    <string name="verify_phone_number">Invalid phone number</string>
+    <string name="verify_postal_code">Invalid postal code</string>
+    <string name="verify_length_password">invalid password</string>
+    <string name="verify_internet">Please verify your internet connexion</string>
+    <string name="verify_confirmed_password">Not confirmed password</string>
+    <string name="existing_email">Your email already exists in the database</string>
+    <string name="existing_phone_number">Your phone number already exists in the database </string>
+    <string name="no_email">Please fill out  your email address</string>
+    <string name="no_password">Please fill out your password</string>
+    <string name="hint_search_text_from_search_activity">Search ...</string>
+
+
+    <string-array name="switch_tabs">
+        <item>Delivery</item>
+        <item>Pick-up</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_alert_dialog">Refine your Search</string>
+
 </resources>

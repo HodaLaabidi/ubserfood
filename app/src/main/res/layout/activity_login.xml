@@ -97,6 +97,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/login"
             android:background="@drawable/background_white_button"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"

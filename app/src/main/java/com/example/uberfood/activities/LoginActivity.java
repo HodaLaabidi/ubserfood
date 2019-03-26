@@ -3,11 +3,14 @@ package com.example.uberfood.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
+import com.example.uberfood.utils.ConnectivityService;
+import com.example.uberfood.utils.CustomToast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
 
     ImageView arrowBack;
     LinearLayout signUpText ;
+    LinearLayout loginButton;
+    AppCompatEditText mail , password ;
 
 
     @Override
@@ -33,8 +38,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initializeViews() {
 
+
+
         arrowBack = findViewById(R.id.arrow_back_from_login);
+        mail = findViewById(R.id.et_email_sign_in);
+        password = findViewById(R.id.et_password_sign_in);
         signUpText = findViewById(R.id.sign_up);
+        loginButton = findViewById(R.id.login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyFromFireStore();
+            }
+        });
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,5 +68,51 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void verifyFromFireStore() {
+
+
+
+        if ((mail.getText()+"").equalsIgnoreCase("")){
+
+
+            new CustomToast(getBaseContext(), getResources().getString(R.string.error), getResources().getString(R.string.no_email), R.drawable.ic_erreur, CustomToast.ERROR).show();
+
+
+
+
+        }else if ((password.getText()+"").equalsIgnoreCase("")) {
+
+
+
+
+            new CustomToast(getBaseContext(), getResources().getString(R.string.error), getResources().getString(R.string.no_password), R.drawable.ic_erreur, CustomToast.ERROR).show();
+
+
+
+
+        } else {
+            if (ConnectivityService.isOnline(getBaseContext())){
+
+                connectToPlatform();
+
+
+            } else {
+
+                new CustomToast(getBaseContext(), getResources().getString(R.string.error), getResources().getString(R.string.verify_internet), R.drawable.ic_erreur, CustomToast.ERROR).show();
+
+
+            }
+
+
+        }
+
+    }
+
+    private void connectToPlatform() {
+
+
+
     }
 }

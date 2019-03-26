@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.CustomCarouselPageAdapter;
@@ -20,6 +21,8 @@ public class FirstScreenActivity extends AppCompatActivity {
     ViewPager carouselViewPager ;
     CustomCarouselPageAdapter customCarouselPageAdapter;
     AppCompatTextView signIn;
+    LinearLayout searchButton ;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +42,32 @@ public class FirstScreenActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
+
+        signIn = findViewById(R.id.sign_in);
+
         carouselViewPager = findViewById(R.id.carousel_view_pager);
+        searchButton = findViewById(R.id.search_button);
 
         customCarouselPageAdapter = new CustomCarouselPageAdapter(this, this.getSupportFragmentManager());
 
 
-        signIn = findViewById(R.id.sign_in);
+
+
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FirstScreenActivity.this , LoginActivity.class);
+               startActivity(intent);
+               finish();
+
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FirstScreenActivity.this , SearchActivity.class);
                 startActivity(intent);
                 finish();
             }
