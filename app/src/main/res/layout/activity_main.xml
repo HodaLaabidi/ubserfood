@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@drawable/background_color"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_frame">
 
-</android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/main_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        app:itemIconTint="@color/tint_icon_view_pager"
+        app:itemTextColor="@color/tint_icon_view_pager"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent_white"
+        app:menu="@menu/menu_view_pager">
+
+    </android.support.design.widget.BottomNavigationView>
+
+
+
+
+
+
+
+</RelativeLayout>

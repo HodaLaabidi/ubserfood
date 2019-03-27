@@ -21,6 +21,7 @@
     <color name="lightBlack">#757575</color>
     <color name="colorGreen">#43A047</color>
     <color name="transparent_background">#75000000</color>
+    <color name="transparent_white">#59FFFFF0</color>
 
 
 </resources>
