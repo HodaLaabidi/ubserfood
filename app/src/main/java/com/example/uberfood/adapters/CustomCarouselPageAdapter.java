@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 import com.example.uberfood.R;
 import com.example.uberfood.fragments.CustomCarouselFragment;
+import com.example.uberfood.fragments.ItemCarousel1Fragment;
+import com.example.uberfood.fragments.ItemCarousel2Fragment;
+import com.example.uberfood.fragments.ItemCarousel3Fragment;
 import com.example.uberfood.utils.CustomLinearLayout;
 
 public class CustomCarouselPageAdapter extends FragmentPagerAdapter implements ViewPager.PageTransformer {
@@ -20,6 +23,7 @@ public class CustomCarouselPageAdapter extends FragmentPagerAdapter implements V
     public final static int FIRST_PAGE = 0  ;
         public final static float SMALL_SCALE = 0.7f;
         public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
+    ImageView imageView;
 
         private Activity mContext;
         private FragmentManager mFragmentManager;
@@ -41,7 +45,10 @@ public class CustomCarouselPageAdapter extends FragmentPagerAdapter implements V
             else
                 mScale = SMALL_SCALE;
 
-            return CustomCarouselFragment.newInstance(mContext, position, mScale);
+
+
+
+            return ItemCarousel1Fragment.newInstance(mContext, position, mScale);
         }
 
         @Override

@@ -1,6 +1,8 @@
 package com.example.uberfood.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,10 +47,12 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView arrowBack ;
     AppCompatEditText username  , mail , password , confirmPassword , phoneNumber , location , postalCode;
     LinearLayout buttonSignup ;
-    //FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseAuth auth ;
     DatabaseReference reference ;
+    String userId ;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static final String TAG = "SignUpActivity";
+    ProgressDialog progressDialog ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,101 +135,59 @@ public class SignUpActivity extends AppCompatActivity {
     private void createUserIntoFirebasePlatform() {
 
 
-        exists = false ;
-        Query query = db.collection(Constants.USER_COLLECTION).whereEqualTo("mail", mail.getText()+"");
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                progressDialog.show();
+
+        auth = FirebaseAuth.getInstance() ;
+        String mailString =mail.getText()+"";
+        String passwordString = password.getText()+"";
+
+        auth.createUserWithEmailAndPassword(mailString, passwordString).addOnCompleteListener( this ,new OnCompleteListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        if (document.exists()) {
-                            Log.e(TAG , " exists ="+exists);
-                            exists = true;
-                            if(!isNew){
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+                    if (isNew) {
 
-                                isNew = false ;
-                                new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.existing_email), R.drawable.ic_erreur, CustomToast.ERROR).show();
+                        FirebaseUser firebaseUser = auth.getCurrentUser();
+                        userId = firebaseUser.getUid();
+                        reference = FirebaseDatabase.getInstance().getReference(USER_COLLECTION).child(userId);
 
-                            }
-                            return;
+                        Map<String, String> userObject = new HashMap<>();
+                        userObject.put("id", userId);
+                        userObject.put("username", username.getText() + "");
+                        userObject.put("location", location.getText() + "");
+                        userObject.put("postal_code", postalCode.getText() + "");
+                        userObject.put("phone_number", phoneNumber.getText() + "");
 
-                        }
+
+                        db.collection(USER_COLLECTION)
+                                .document(userId)
+                                .set(userObject)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            progressDialog.dismiss();
+                                            startActivity(new Intent(getBaseContext(), LoginActivity.class));
+                                            finish();
+                                        }  else {
+                                            progressDialog.dismiss();
+                                            new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.technical_error), R.drawable.ic_erreur, CustomToast.ERROR).show();
+
+
+                                        }
+                                    }
+                                });
                     }
+
                 } else {
-                    Log.e(TAG , " failed task");
-                    return;
+                    progressDialog.dismiss();
+                    Log.e(TAG , "error"+ task.getException()+"!");
+                    new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.technical_error), R.drawable.ic_erreur, CustomToast.ERROR).show();
+
                 }
-
-                //add a new user to database
-
-
             }
         });
-
-        Query query2 = db.collection(Constants.USER_COLLECTION).whereEqualTo("phone_number", phoneNumber.getText()+"");
-        query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        if (document.exists()) {
-                            Log.e(TAG , " exists = "+exists);
-                            exists = true;
-                            if (!isNew){
-
-                                isNew = false ;
-                                new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.existing_phone_number), R.drawable.ic_erreur, CustomToast.ERROR).show();
-
-                            }
-                            return;
-
-                        }
-                    }
-                } else {
-                    Log.e(TAG , "failed task");
-                }
-
-                //add a new user to Firestore database
-
-
-            }
-        });
-
-
-       if (!exists){
-           Map<String , Object> userObject = new HashMap<>();
-           userObject.put("username" , username.getText()+"");
-           userObject.put("location" , location.getText()+"");
-           userObject.put("mail" , mail.getText()+"");
-           userObject.put("password",password.getText()+"");
-           userObject.put("postal_code" , postalCode.getText()+"");
-           userObject.put("phone_number" , phoneNumber.getText()+"");
-
-
-
-           db.collection(USER_COLLECTION)
-                   .add(userObject)
-                   .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                       @Override
-                       public void onSuccess(DocumentReference documentReference) {
-                           Log.e(TAG , "document reference "+documentReference.getId());
-                           Intent intent = new Intent(SignUpActivity.this , LoginActivity.class);
-                           startActivity(intent);
-                           isNew = true ;
-
-                           finish();
-                       }
-                   })
-                   .addOnFailureListener(new OnFailureListener() {
-                       @Override
-                       public void onFailure(@NonNull Exception e) {
-                           Log.e(TAG , "error adding doc", e);
-                       }
-                   });
-
-           exists = false ;
-
-       }
 
     }
 
@@ -241,6 +205,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         arrowBack = findViewById(R.id.arrow_back_from_signup);
         buttonSignup = findViewById(R.id.button_signup);
+        progressDialog = new ProgressDialog(SignUpActivity.this , R.style.MyAlertDialogStyle);
+        progressDialog.setMessage("Storing data ...");
+
 
         arrowBack.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -261,13 +228,5 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private boolean doesUserEmailExist(String email , String phoneNumber) {
 
-
-
-
-          return  exists ;
-
-
-    }
 }

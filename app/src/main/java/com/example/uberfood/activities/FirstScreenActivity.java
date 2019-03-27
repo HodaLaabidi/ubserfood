@@ -32,7 +32,7 @@ public class FirstScreenActivity extends AppCompatActivity {
         carouselViewPager.setAdapter(customCarouselPageAdapter);
         carouselViewPager.setPageTransformer(false, customCarouselPageAdapter);
 
-        carouselViewPager.setCurrentItem(FIRST_PAGE);
+        carouselViewPager.setCurrentItem(1);
 
 
         carouselViewPager.setOffscreenPageLimit(3);

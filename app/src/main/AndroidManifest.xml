@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/uberfood"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".activities.SearchActivity"></activity>
+        <activity android:name=".activities.MainActivity"></activity>
+        <activity android:name=".activities.SearchActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.FirstScreenActivity">

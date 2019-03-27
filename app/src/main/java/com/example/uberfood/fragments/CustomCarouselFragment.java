@@ -1,7 +1,6 @@
 package com.example.uberfood.fragments;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.uberfood.R;
 import com.example.uberfood.utils.CustomLinearLayout;
@@ -33,13 +31,13 @@ public class CustomCarouselFragment extends Fragment {
             }
 
             LinearLayout linearLayout = (LinearLayout)
-                    inflater.inflate(R.layout.item_carousel, container, false);
+                    inflater.inflate(R.layout.item_carousel_1, container, false);
 
             int position = this.getArguments().getInt("position");
 
 
             CustomLinearLayout root = (CustomLinearLayout) linearLayout.findViewById(R.id.item_root);
-            ImageView imageCarousel = linearLayout.findViewById(R.id.image_item_carousel);
+            ImageView imageCarousel = linearLayout.findViewById(R.id.image_item_carousel_1);
 
 
             float scale = this.getArguments().getFloat("scale");

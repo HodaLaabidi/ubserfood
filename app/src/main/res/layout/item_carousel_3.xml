@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".fragments.DeliveryFragment">
+<com.example.uberfood.utils.CustomLinearLayout
+    android:id="@+id/item_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:scaleType="centerInside"
+        android:src="@drawable/slider_3"
+        android:id = "@+id/image_item_carousel_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</com.example.uberfood.utils.CustomLinearLayout>
+
+</FrameLayout>

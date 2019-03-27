@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1047220741005-o8ov0q4j3rtru42nqniljhsrqo2f3n9k.apps.googleusercontent.com",
+          "client_id": "1047220741005-4acj1h0vb0dhaull0fpaduqeq3rp1ipm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.uberfood",
-            "certificate_hash": "5438adb3c7e738656fce804ecca107be0f37bf01"
+            "certificate_hash": "3cf9f50d6c9710d73b47707280c466f41ca6091b"
           }
         },
         {
