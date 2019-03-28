@@ -1,5 +1,6 @@
 package com.example.uberfood.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    ProgressDialog progressDialog ;
 
     @Override
     public void onBackPressed() {
@@ -53,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.et_password_sign_in);
         signUpText = findViewById(R.id.sign_up);
         loginButton = findViewById(R.id.login);
+        progressDialog = new ProgressDialog(LoginActivity.this , R.style.MyAlertDialogStyle);
+        progressDialog.setMessage("Login ...");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         if ((mail.getText()+"").equalsIgnoreCase("")){
 
 
-            new CustomToast(getBaseContext(), getResources().getString(R.string.error), getResources().getString(R.string.no_email), R.drawable.ic_erreur, CustomToast.ERROR).show();
+            new CustomToast(LoginActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.no_email), R.drawable.ic_erreur, CustomToast.ERROR).show();
 
 
 
@@ -95,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-            new CustomToast(getBaseContext(), getResources().getString(R.string.error), getResources().getString(R.string.no_password), R.drawable.ic_erreur, CustomToast.ERROR).show();
+            new CustomToast(LoginActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.no_password), R.drawable.ic_erreur, CustomToast.ERROR).show();
 
 
 
@@ -108,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 
             } else {
 
-                new CustomToast(getBaseContext(), getResources().getString(R.string.error), getResources().getString(R.string.verify_internet), R.drawable.ic_erreur, CustomToast.ERROR).show();
+                new CustomToast(LoginActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.verify_internet), R.drawable.ic_erreur, CustomToast.ERROR).show();
 
 
             }
@@ -120,14 +124,25 @@ public class LoginActivity extends AppCompatActivity {
 
     private void connectToPlatform() {
 
+        progressDialog.show();
+
         auth.signInWithEmailAndPassword(mail.getText().toString() , password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    startActivity(new Intent(getBaseContext() , MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this , MainActivity.class));
+                    progressDialog.dismiss();
                     finish();
+                } else {
+
+                    progressDialog.dismiss();
+                    new CustomToast(LoginActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.login_error_message), R.drawable.ic_erreur, CustomToast.ERROR).show();
+
+
                 }
+
             }
+
         });
 
     }

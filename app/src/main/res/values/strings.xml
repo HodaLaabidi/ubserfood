@@ -28,6 +28,7 @@
     <string name="no_email">Please fill out  your email address</string>
     <string name="no_password">Please fill out your password</string>
     <string name="hint_search_text_from_search_activity">Search ...</string>
+    <string name="pref_key_transition_time" translatable="false">pref_key_transition_time</string>
 
 
     <string-array name="switch_tabs">
@@ -39,5 +40,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_alert_dialog">Refine your Search</string>
     <string name="technical_error">Technical Error , please try again !</string>
+    <string name="login_error_message">Couldn\'t login, please verify your email or password !</string>
 
 </resources>
