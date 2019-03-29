@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/background_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MenuActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_restaurant"
+                android:scaleType="fitXY"
+                android:src="@drawable/slider_3"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_marginLeft="50dp"
+                android:layout_alignParentBottom="true"
+                    android:textSize="22sp"
+                android:layout_marginBottom="-50dp"
+                android:layout_below="@id/img_restaurant"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:text="Restaurant Name"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/arrow_back_from_menu_activity"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/arrow_back" />
+            <LinearLayout
+                android:layout_margin="20dp"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/background_menu_icon"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:text="10$"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:padding="3dp"
+                    android:src="@drawable/shopping_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+          <android.support.v7.widget.RecyclerView
+              android:id="@+id/recyler_view_menu_activity"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+      </LinearLayout>
+  </ScrollView>
+
+</LinearLayout>

@@ -24,9 +24,9 @@
 
         <ImageView
             android:src="@drawable/close"
-            android:id="@+id/tv_retour_chat_dialog"
-            android:layout_width="18dp"
-            android:layout_height="17dp"
+            android:id="@+id/close_filter"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:textSize="13sp" />
@@ -36,7 +36,7 @@
             android:id="@+id/view_separate_chat_dialog"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/tv_retour_chat_dialog"
+            android:layout_below="@+id/close_filter"
             android:layout_marginTop="9dp"
             android:background="@color/lightGray" />
 
@@ -89,9 +89,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Best Match"
                         android:layout_width="wrap_content"
@@ -103,9 +106,13 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
+
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Alphabetical"
                         android:layout_width="wrap_content"
@@ -117,9 +124,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Rating"
                         android:layout_width="wrap_content"
@@ -131,9 +141,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Show On a Map"
                         android:layout_width="wrap_content"
@@ -171,9 +184,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Show all Venues"
                         android:layout_width="wrap_content"
@@ -185,9 +201,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Show Only Open Venues"
                         android:layout_width="wrap_content"
@@ -226,9 +245,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="First Order Discount"
                         android:layout_width="wrap_content"
@@ -240,9 +262,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Minimum Spend Discount"
                         android:layout_width="wrap_content"
@@ -254,9 +279,12 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatCheckBox
+                    <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
                         android:text="Meal Deals"
                         android:layout_width="wrap_content"
@@ -277,6 +305,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/clear_all"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -288,6 +317,7 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"/>
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/ok_filter"
                 android:gravity="center"
                 android:text="OK"
                 android:textColor="@color/colorOrange"

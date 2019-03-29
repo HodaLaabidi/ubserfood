@@ -3,12 +3,9 @@ package com.example.uberfood.utils;
 import android.graphics.Point;
 import android.view.View;
 
-
 import com.yarolegovich.discretescrollview.RecyclerViewProxy;
 
-/**
- * Created by yarolegovich on 16.03.2017.
- */
+
 public enum DSVOrientation {
 
     HORIZONTAL {
