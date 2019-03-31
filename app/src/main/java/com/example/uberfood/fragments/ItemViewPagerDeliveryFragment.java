@@ -1,16 +1,21 @@
 package com.example.uberfood.fragments;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
@@ -30,6 +35,8 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView ;
+    ImageView imageRestaurant ;
+    AppCompatTextView nameRestaurant ;
 
 
     public ItemViewPagerDeliveryFragment() {
@@ -69,11 +76,17 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.item_view_pager_delivery, container, false);
+        imageRestaurant = rootView.findViewById(R.id.image_item_delivery);
+        nameRestaurant = rootView.findViewById(R.id.restaurant_name_delivery_item);
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext() , MenuActivity.class);
-                startActivity(intent);
+                Pair[] pairs = new Pair[2];
+                pairs[0] = new Pair<View , String>(imageRestaurant,"image_item_delivery");
+                pairs[1] = new Pair<View , String>(nameRestaurant,"restaurant_name_tansition");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity() , pairs);
+                startActivity(intent, options.toBundle());
             }
         });
         return rootView ;

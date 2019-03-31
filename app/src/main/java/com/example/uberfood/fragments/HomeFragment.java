@@ -3,10 +3,12 @@ package com.example.uberfood.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.LinearLayout;
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.SearchActivityViewPager;
 import com.example.uberfood.factories.DialogBuilderFactory;
+import com.tooltip.Tooltip;
 
 import lib.kingja.switchbutton.SwitchMultiButton;
 
@@ -66,16 +69,14 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewPager = getView().findViewById(R.id.home_fragment_view_pager);
-        switchMultiButton = getView().findViewById(R.id.switch_multi_button_from_home_fragment);
-        fiterIcon = getView().findViewById(R.id.filter_icon);
 
-        initializeViews();
-        setClickableLayouts();
+
     }
 
     private void initializeViews() {
@@ -85,13 +86,28 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                initializeViews();
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
        View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
 
-
-
+        viewPager = rootView.findViewById(R.id.home_fragment_view_pager);
+        switchMultiButton = rootView.findViewById(R.id.switch_multi_button_from_home_fragment);
+        fiterIcon = rootView.findViewById(R.id.filter_icon);
+        initializeViews();
+        setClickableLayouts();
 
         return rootView ;
     }
@@ -102,6 +118,15 @@ public class HomeFragment extends Fragment {
         fiterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.Tooltip)
+                        .setCancelable(true)
+                        .setArrowEnabled(false)
+                        .setDismissOnClick(false)
+                        .setCornerRadius(20f)
+                        .setGravity(Gravity.TOP)
+                        .setText(R.string.filter_tooltip_text);
+                builder.show();
                 DialogBuilderFactory.showFilterDialog(getContext());
             }
         });
@@ -158,5 +183,9 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+
+
+
 
 }

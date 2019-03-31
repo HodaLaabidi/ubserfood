@@ -18,7 +18,8 @@
             android:layout_marginLeft="16dp"
             android:text="@string/label_alert_dialog"
             android:textColor="@color/colorDarkGrey"
-            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textSize="14sp"
             />
 
 
@@ -73,6 +74,8 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.AppCompatTextView
+                android:textStyle="bold"
+                android:textSize="12sp"
                 android:padding="10dp"
                 android:layout_marginLeft="15dp"
                 android:textAllCaps="true"
@@ -96,6 +99,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Best Match"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -114,6 +118,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Alphabetical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -131,6 +136,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -148,6 +154,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Show On a Map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -168,6 +175,8 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.AppCompatTextView
+                android:textStyle="bold"
+                android:textSize="14sp"
                 android:padding="10dp"
                 android:layout_marginLeft="15dp"
                 android:textAllCaps="true"
@@ -191,6 +200,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Show all Venues"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -208,6 +218,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Show Only Open Venues"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -228,6 +239,8 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.AppCompatTextView
+                android:textStyle="bold"
+                android:textSize="14sp"
                 android:padding="10dp"
                 android:layout_marginLeft="15dp"
                 android:textAllCaps="true"
@@ -252,6 +265,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="First Order Discount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -269,6 +283,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Minimum Spend Discount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -286,6 +301,7 @@
                         android:layout_marginRight="3dp"
                         android:theme="@style/CheckBoxGray" />
                     <android.support.v7.widget.AppCompatTextView
+                        android:textSize="12sp"
                         android:text="Meal Deals"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -305,6 +321,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.v7.widget.AppCompatTextView
+                android:textSize="14sp"
                 android:id="@+id/clear_all"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -317,6 +334,8 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"/>
             <android.support.v7.widget.AppCompatTextView
+                android:textStyle="bold"
+                android:textSize="14sp"
                 android:id="@+id/ok_filter"
                 android:gravity="center"
                 android:text="OK"

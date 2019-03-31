@@ -41,5 +41,11 @@
     <string name="label_alert_dialog">Refine your Search</string>
     <string name="technical_error">Technical Error , please try again !</string>
     <string name="login_error_message">Couldn\'t login, please verify your email or password !</string>
+    <string name="Your_order">Your Order</string>
+    <string name="edit">Edit</string>
+    <string name="for_delivery">For delivery</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="filter_tooltip_text">Filter restaurants</string>
 
 </resources>

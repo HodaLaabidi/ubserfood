@@ -4,17 +4,16 @@
     android:layout_width="match_parent"
     android:layout_gravity="top"
     android:layout_marginTop="60dp"
-    android:layout_height="350dp"
+    android:layout_height="match_parent"
     tools:context=".fragments.DeliveryFragment">
 
 
    <android.support.v4.view.ViewPager
-
      android:layout_gravity="top"
        android:clipToPadding="false"
        android:overScrollMode="never"
        android:id="@+id/viewPager"
        android:foregroundGravity="center"
        android:layout_width="match_parent"
-       android:layout_height="300dp"/>
+       android:layout_height="match_parent"/>
 </FrameLayout>

@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:transitionName="image_transition"
                 android:id="@+id/img_restaurant"
                 android:scaleType="fitXY"
                 android:src="@drawable/slider_3"
@@ -21,7 +22,9 @@
                 android:layout_height="150dp" />
             <android.support.v7.widget.AppCompatTextView
                 android:layout_marginLeft="50dp"
+                android:transitionName="restaurant_name_tansition"
                 android:layout_alignParentBottom="true"
+                android:textStyle="bold"
                     android:textSize="22sp"
                 android:layout_marginBottom="-50dp"
                 android:layout_below="@id/img_restaurant"
@@ -34,11 +37,11 @@
                 android:id="@+id/arrow_back_from_menu_activity"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
                 android:src="@drawable/arrow_back" />
             <LinearLayout
                 android:layout_margin="20dp"
@@ -49,9 +52,11 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content">
                 <android.support.v7.widget.AppCompatTextView
+                    android:textStyle="bold"
+                    android:textSize="14dp"
                     android:layout_gravity="center"
                     android:textColor="@color/colorWhite"
-                    android:text="10$"
+                    android:text="$10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
@@ -73,6 +78,8 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent">
           <android.support.v7.widget.RecyclerView
+              android:layout_marginTop="20dp"
+
               android:id="@+id/recyler_view_menu_activity"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"/>

@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/background_white_edittext"
     android:layout_margin="10dp"
-
+   android:gravity="center"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="90dp">
 
     <LinearLayout
         android:gravity="center"
@@ -15,36 +15,53 @@
 
        <ImageView
            android:layout_gravity="center"
-           android:src="@drawable/restaurant"
+           android:src="@drawable/chiken_pizza"
            android:layout_weight="1"
            android:layout_width="0dp"
-           android:layout_height="wrap_content" />
+           android:layout_height="60dp" />
         <LinearLayout
+            android:gravity="center"
+            android:layout_gravity="center"
             android:orientation="horizontal"
             android:layout_weight="4"
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <LinearLayout
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:layout_gravity="center"
                 android:layout_weight="3"
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-                <android.support.v7.widget.AppCompatTextView
-                    android:text="Restaurant Speciality"
-                    android:textSize="10sp"
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.AppCompatTextView
+                        android:textColor="@color/colorBlack"
+                        android:text="Restaurant Speciality"
+                        android:textStyle="italic"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_margin="10dp"
+                        android:src="@drawable/restaurant"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp" />
+                </LinearLayout>
                 <android.support.v7.widget.AppCompatTextView
                     android:text="Restaurant Name"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
             <LinearLayout
-                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:orientation="vertical"
@@ -52,13 +69,16 @@
                 android:layout_height="match_parent">
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:text="Price TND"
-                    android:textSize="10sp"
+                    android:text="Price 20TND"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginTop="5dp"
                     android:text="26/03/2019"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
