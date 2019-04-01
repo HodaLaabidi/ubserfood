@@ -1,24 +1,22 @@
 package com.example.uberfood.models;
 
-import java.io.Serializable;
 
-public class User implements Serializable {
+public class User  {
+
 
     String username ;
     String location ;
     String email ;
-    String password ;
-    int postalCode ;
-    double phoneNumber ;
+    String postal_code ;
+    String phone_number ;
 
 
-    public User(String username, String location, String email, String password, int postalCode, double phoneNumber) {
+    public User(String username, String location, String email,  String postalCode, String phoneNumber) {
         this.username = username;
         this.location = location;
         this.email = email;
-        this.password = password;
-        this.postalCode = postalCode;
-        this.phoneNumber = phoneNumber;
+        this.postal_code = postalCode;
+        this.phone_number = phoneNumber;
     }
 
 
@@ -50,27 +48,26 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+
+    public String getPostalCode() {
+        return postal_code;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPostalCode(String postalCode) {
+        this.postal_code = postalCode;
     }
 
-    public int getPostalCode() {
-        return postalCode;
+    public String getPhoneNumber() {
+        return phone_number;
     }
 
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phone_number = phoneNumber;
     }
 
-    public double getPhoneNumber() {
-        return phoneNumber;
-    }
 
-    public void setPhoneNumber(double phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    @Override
+    public String toString() {
+        return username+ location +postal_code + phone_number ;
     }
 }

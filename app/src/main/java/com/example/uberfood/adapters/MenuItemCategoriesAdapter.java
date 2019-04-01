@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
+import com.example.uberfood.activities.MenuActivity;
 import com.example.uberfood.activities.OrderActivity;
 import com.example.uberfood.models.Menu;
 
@@ -51,8 +52,12 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
         holder.order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent intent = new Intent(context , OrderActivity.class);
-               context.startActivity(intent );
+               /* float itemPrice = Float.parseFloat(holder.price.getText().toString());
+                float panierPrice = Float.parseFloat(MenuActivity.priceText.getText().toString());
+                float finalPrice = itemPrice + panierPrice ;
+                MenuActivity.priceText.setText(finalPrice+"");*/
+
+
             }
         });
 

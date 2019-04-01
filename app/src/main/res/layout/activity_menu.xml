@@ -44,6 +44,7 @@
                 android:paddingBottom="5dp"
                 android:src="@drawable/arrow_back" />
             <LinearLayout
+                android:id="@+id/panier"
                 android:layout_margin="20dp"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"
@@ -52,6 +53,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content">
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/price"
                     android:textStyle="bold"
                     android:textSize="14dp"
                     android:layout_gravity="center"

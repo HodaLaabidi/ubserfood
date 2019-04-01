@@ -98,7 +98,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
         adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext());
         viewPager = rootView.findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
-        viewPager.setPadding(70, 0 , 70 ,50);
+        viewPager.setPadding(60, 0 , 60 ,50);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

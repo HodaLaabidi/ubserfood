@@ -47,5 +47,9 @@
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
     <string name="filter_tooltip_text">Filter restaurants</string>
+    <string name="logout">Logout</string>
+    <string name="menu_profil_item_one">Add Feedback</string>
+    <string name="menu_profil_item_two">Help Center</string>
+    <string name="menu_profil_item_three">Settings</string>
 
 </resources>

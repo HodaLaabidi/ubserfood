@@ -21,6 +21,7 @@ import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
 import com.example.uberfood.adapters.OrdersFragmentAdapter;
 import com.example.uberfood.models.Restaurant;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView ;
-    ImageView imageRestaurant ;
+    CircularImageView imageRestaurant ;
     AppCompatTextView nameRestaurant ;
 
 

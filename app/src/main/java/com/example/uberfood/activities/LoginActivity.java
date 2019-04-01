@@ -50,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
+
+
         arrowBack = findViewById(R.id.arrow_back_from_login);
         mail = findViewById(R.id.et_email_sign_in);
         password = findViewById(R.id.et_password_sign_in);
@@ -72,6 +75,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        /*
+
+
+         */
+
         signUpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void verifyFromFireStore() {
-
 
 
         if ((mail.getText()+"").equalsIgnoreCase("")){
@@ -115,12 +123,15 @@ public class LoginActivity extends AppCompatActivity {
                 new CustomToast(LoginActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.verify_internet), R.drawable.ic_erreur, CustomToast.ERROR).show();
 
 
+
             }
 
 
         }
 
     }
+
+    // i can the two tests
 
     private void connectToPlatform() {
 

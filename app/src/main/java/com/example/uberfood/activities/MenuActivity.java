@@ -1,11 +1,14 @@
 package com.example.uberfood.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.MenuCategoriesAdapter;
@@ -18,7 +21,9 @@ public class MenuActivity extends AppCompatActivity {
     RecyclerView recyclerViewCategories ;
     ArrayList<Menu> listOfMenus = new ArrayList<>();
     ImageView arrowBack ;
-
+    public static LinearLayout panierLayout ;
+    public static AppCompatTextView priceText ;
+    public static String price = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +68,20 @@ public class MenuActivity extends AppCompatActivity {
 
         recyclerViewCategories = findViewById(R.id.recyler_view_menu_activity);
         arrowBack = findViewById(R.id.arrow_back_from_menu_activity);
+        panierLayout = findViewById(R.id.panier);
+        priceText = findViewById(R.id.price);
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        panierLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
+                startActivity(intent );
             }
         });
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="7dp"
+    android:paddingLeft="7dp"
+    android:paddingRight="7dp"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
@@ -11,25 +12,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
+
+        android:background="@color/lightWhite"
+        android:elevation="10dp"
         app:cardCornerRadius="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="100dp"
         android:layout_width="match_parent"
-        android:layout_height="350dp">
+        android:layout_height="380dp">
         <LinearLayout
+            android:background="@color/lightWhite"
+            android:paddingTop="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/image_item_delivery"
-                android:transitionName="image_transition"
-                android:scaleType="centerCrop"
-                android:layout_weight="2.5"
-                android:src="@drawable/slider_3"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
+           <LinearLayout
+               android:background="@color/lightWhite"
+               android:gravity="center"
+               android:layout_gravity="center"
+               android:layout_weight="3"
+               android:layout_width="match_parent"
+               android:layout_height="0dp">
+               <com.mikhaellopez.circularimageview.CircularImageView
+                   android:background="@color/lightWhite"
+                   android:id="@+id/image_item_delivery"
+                   app:civ_border_color="@color/colorWhite"
+                   app:civ_border_width="1dp"
+                   app:civ_shadow="true"
+                   app:civ_shadow_radius="10"
+                   app:civ_shadow_color="@color/colorWhite"
+                   android:transitionName="image_transition"
+                   android:scaleType="centerCrop"
+                   android:src="@drawable/slider_3"
+                   android:layout_width="200dp"
+                   android:layout_height="200dp" />
+           </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:orientation="vertical"
@@ -40,6 +59,7 @@
                     android:transitionName="restaurant_name_tansition"
                     android:layout_gravity="center"
                     android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center"
                     android:text="Restaurant Name"
                     android:textColor="@color/colorBlack"
@@ -51,6 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:layout_margin="3dp"
                         android:layout_marginRight="5dp"
                         android:gravity="right"
                         android:layout_gravity="center"
@@ -68,16 +89,18 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
+                        android:layout_margin="3dp"
                         android:layout_marginLeft="5dp"
                         android:gravity="left"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
+
                         <ImageView
-                            android:src="@drawable/location_icon"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+                            android:src="@drawable/location_icon" />
                         <android.support.v7.widget.AppCompatTextView
                             android:text="Location"
                             android:layout_width="wrap_content"
@@ -86,6 +109,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:layout_margin="3dp"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
@@ -98,6 +122,7 @@
                 </LinearLayout>
 
                 <RatingBar
+                    android:layout_margin="1dp"
                     android:outlineAmbientShadowColor="@color/colorOrange"
                     android:layout_gravity="center"
                     android:outlineSpotShadowColor="@color/colorOrange"

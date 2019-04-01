@@ -64,12 +64,11 @@
         </LinearLayout>
 
         <lib.kingja.switchbutton.SwitchMultiButton
-            android:padding="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:id="@+id/switch_multi_button_from_home_fragment"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             app:strokeRadius="5dp"
             app:strokeWidth="1dp"
             app:selectedTab="0"
