@@ -67,9 +67,7 @@ public class FirstScreenActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FirstScreenActivity.this , SearchActivity.class);
-                startActivity(intent);
-                finish();
+
             }
         });
 

@@ -11,7 +11,7 @@
 
 
    <LinearLayout
-       android:layout_weight="1"
+       android:layout_weight="0.75"
        android:layout_marginTop="40dp"
        android:layout_width="match_parent"
        android:layout_height="0dp"
@@ -24,7 +24,7 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent">
            <android.support.v4.view.ViewPager
-               android:layout_weight="3"
+               android:layout_weight="7"
                android:id="@+id/carousel_view_pager"
                android:layout_width="match_parent"
                android:layout_height="0dp" />
@@ -49,95 +49,105 @@
                app:piv_viewPager="@id/carousel_view_pager" />
        </LinearLayout>
    </LinearLayout>
-   <LinearLayout
-       android:layout_weight="1"
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="0dp">
 
-       <android.support.v7.widget.AppCompatTextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:layout_marginTop="10dp"
-           android:fontFamily="@font/lato"
-           android:gravity="center"
-           android:text="@string/first_screen_search_text"
-           android:textColor="@android:color/white"
-           android:textSize="18sp"
-           android:textStyle="bold" />
 
-       <LinearLayout
-           android:padding="5dp"
-           android:layout_margin="20dp"
-           android:background="@drawable/background_white_edittext"
-           android:orientation="horizontal"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-
-           <ImageView
-               android:layout_marginRight="15dp"
-               android:layout_marginLeft="15dp"
-               android:layout_gravity="center"
-               android:src="@drawable/location_icon"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-
-           <android.support.v7.widget.AppCompatEditText
-               android:id="@+id/et-search"
-               android:textCursorDrawable="@drawable/color_cursor"
-               android:textSize="14sp"
-               android:backgroundTint="@android:color/transparent"
-               android:hint="@string/hint_search_text"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content" />
-
-       </LinearLayout>
-
-       <LinearLayout
-           android:id="@+id/search_button"
-           android:background="@drawable/background_white_button"
-           android:layout_marginTop="40dp"
-           android:layout_gravity="center"
+       <RelativeLayout
+           android:layout_weight="1.25"
            android:orientation="vertical"
-           android:layout_width="150dp"
-           android:layout_height="wrap_content">
-
-           <android.support.v7.widget.AppCompatTextView
-               android:layout_width="wrap_content"
-               android:textSize="14sp"
-               android:textStyle="italic"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:layout_marginLeft="20dp"
-               android:layout_marginTop="12dp"
-               android:layout_marginRight="20dp"
-               android:layout_marginBottom="12dp"
-               android:text="@string/first_screen_button"
-               android:textAllCaps="true"
-               android:textColor="@android:color/black" />
-
-       </LinearLayout>
-       <LinearLayout
-           android:gravity="center"
-           android:layout_gravity="center"
-           android:layout_marginTop="30dp"
-           android:orientation="horizontal"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-           <android.support.v7.widget.AppCompatTextView
-               android:id="@+id/sign_in"
-               android:layout_margin="10dp"
-               android:textStyle="bold"
-               android:textSize="14sp"
-               android:textColor="@android:color/white"
-               android:text="@string/text_signin"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+           android:layout_height="0dp">
+           <LinearLayout
+               android:layout_centerInParent="true"
+               android:orientation="vertical"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <android.support.v7.widget.AppCompatTextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:layout_marginTop="20dp"
+                   android:fontFamily="@font/lato"
+                   android:gravity="center"
+                   android:text="@string/first_screen_search_text"
+                   android:textColor="@android:color/white"
+                   android:textSize="18sp"
+                   android:textStyle="bold" />
+
+               <LinearLayout
+                   android:padding="5dp"
+                   android:layout_margin="20dp"
+                   android:background="@drawable/background_white_edittext"
+                   android:orientation="horizontal"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_marginLeft="15dp"
+                       android:layout_gravity="center"
+                       android:src="@drawable/location_icon"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content" />
+
+                   <android.support.v7.widget.AppCompatEditText
+                       android:id="@+id/et-search"
+                       android:textCursorDrawable="@drawable/color_cursor"
+                       android:textSize="14sp"
+                       android:backgroundTint="@android:color/transparent"
+                       android:hint="@string/hint_search_text"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:id="@+id/search_button"
+                   android:background="@drawable/background_white_button"
+                   android:layout_marginTop="40dp"
+                   android:layout_gravity="center"
+                   android:orientation="vertical"
+                   android:layout_width="150dp"
+                   android:layout_height="wrap_content">
+
+                   <android.support.v7.widget.AppCompatTextView
+                       android:layout_width="wrap_content"
+                       android:textSize="14sp"
+                       android:textStyle="italic"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:layout_marginLeft="20dp"
+                       android:layout_marginTop="8dp"
+                       android:layout_marginRight="20dp"
+                       android:layout_marginBottom="12dp"
+                       android:text="@string/first_screen_button"
+                       android:textAllCaps="true"
+                       android:textColor="@android:color/black" />
+
+               </LinearLayout>
+
+           </LinearLayout>
+           <LinearLayout
+               android:layout_marginBottom="20dp"
+               android:layout_alignParentBottom="true"
+               android:gravity="center"
+               android:layout_gravity="center"
+               android:layout_marginTop="30dp"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <android.support.v7.widget.AppCompatTextView
+                   android:id="@+id/sign_in"
+                   android:layout_margin="10dp"
+                   android:textStyle="bold"
+                   android:textSize="14sp"
+                   android:textColor="@android:color/white"
+                   android:text="@string/text_signin"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
 
 
-       </LinearLayout>
+           </LinearLayout>
+       </RelativeLayout>
 
-   </LinearLayout>
 
 </LinearLayout>

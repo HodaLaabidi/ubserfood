@@ -1,5 +1,6 @@
 package com.example.uberfood.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import com.example.uberfood.fragments.HomeFragment;
 import com.example.uberfood.fragments.OrdersFragment;
 import com.example.uberfood.fragments.ProfilFragment;
 import com.example.uberfood.fragments.SearchFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeFragments() {
+
+        FirebaseAuth auth = FirebaseAuth.getInstance() ;
+        final FirebaseUser firebaseUser = auth.getCurrentUser();
+        if (firebaseUser == null) {
+          Intent intent = new Intent(MainActivity.this , LoginActivity.class);
+          startActivity(intent);
+          finish();
+
+        }
 
 
 
