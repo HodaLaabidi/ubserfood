@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,9 +14,16 @@ import android.view.ViewGroup;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.ViewPagerDeliveryAdapter;
+import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.Utils;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
+
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 
 
 public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener{
@@ -24,7 +32,9 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private ViewPager viewPager;
-    ViewPagerDeliveryAdapter adapter ;
+    ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
+   // ViewPagerDeliveryAdapter adapter ;
+   ViewPagerDeliveryAdapter adapter ;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
     private InfiniteScrollAdapter infiniteAdapter;
@@ -95,9 +105,11 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
 
         View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
 
-        adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext());
+
+        adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext() , listOfRestaurants);
+
         viewPager = rootView.findViewById(R.id.viewPager);
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter( adapter);
         viewPager.setPadding(60, 0 , 60 ,50);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

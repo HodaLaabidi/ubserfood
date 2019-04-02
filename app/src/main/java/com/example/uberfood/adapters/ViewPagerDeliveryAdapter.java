@@ -1,6 +1,7 @@
 package com.example.uberfood.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,24 +14,55 @@ import android.view.ViewGroup;
 
 import com.example.uberfood.R;
 import com.example.uberfood.fragments.ItemViewPagerDeliveryFragment;
+import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 
 public class ViewPagerDeliveryAdapter  extends FragmentStatePagerAdapter {
     Context context ;
+    ArrayList<Restaurant> listOfRestaurants ;
 
-    public ViewPagerDeliveryAdapter(FragmentManager fm ,Context context) {
+    public ViewPagerDeliveryAdapter(FragmentManager fm ,Context context, ArrayList<Restaurant> listOfRestaurants) {
         super(fm);
         this.context = context;
+        this.listOfRestaurants = listOfRestaurants ;
     }
 
     @Override
     public Fragment getItem(int i) {
-        return  new ItemViewPagerDeliveryFragment();
+
+        ItemViewPagerDeliveryFragment itemFragment  = new ItemViewPagerDeliveryFragment();
+
+
+        Bundle args = new Bundle();
+        String personJsonString = Utils.getGsonParser().toJson(listOfRestaurants.get(i));
+        args.putString(RESTAURANT_KEY, personJsonString);
+        itemFragment.setArguments(args);
+
+
+
+        return  itemFragment ;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return super.getItemPosition(object);
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        return super.instantiateItem(container, position);
     }
 
 
     @Override
     public int getCount() {
-        return 5;
+        return this.listOfRestaurants.size();
     }
 
 

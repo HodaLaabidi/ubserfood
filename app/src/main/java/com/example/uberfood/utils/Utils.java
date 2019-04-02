@@ -5,12 +5,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.uberfood.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Utils {
 
 
     public static boolean exists = false ;
     public static boolean isNew = false ;
+
+
+    private static Gson gson;
+
+    public static Gson getGsonParser() {
+        if(null == gson) {
+            GsonBuilder builder = new GsonBuilder();
+            gson = builder.create();
+        }
+        return gson;
+    }
     public static void setupItem(final View view, final LibraryObject libraryObject) {
         final TextView txt = (TextView) view.findViewById(R.id.txt_item);
         txt.setText(libraryObject.getTitle());

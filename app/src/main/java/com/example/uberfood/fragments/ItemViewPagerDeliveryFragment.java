@@ -21,9 +21,12 @@ import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
 import com.example.uberfood.adapters.OrdersFragmentAdapter;
 import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.Utils;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
+
+import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 
 
 public class ItemViewPagerDeliveryFragment extends Fragment {
@@ -38,6 +41,7 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
     private RecyclerView recyclerView ;
     CircularImageView imageRestaurant ;
     AppCompatTextView nameRestaurant ;
+    Restaurant  restaurant = new Restaurant();
 
 
     public ItemViewPagerDeliveryFragment() {
@@ -52,15 +56,6 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
 
     }
 
-
-    public static OrdersFragment newInstance(String param1, String param2) {
-        OrdersFragment fragment = new OrdersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,17 +72,34 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.item_view_pager_delivery, container, false);
+        if (getArguments() != null){
+            Bundle args = getArguments();
+
+            @SuppressWarnings("unchecked")
+            String personJsonString = (String) args.get(RESTAURANT_KEY);
+            restaurant = Utils.getGsonParser().fromJson(personJsonString, Restaurant.class);
+        }
         imageRestaurant = rootView.findViewById(R.id.image_item_delivery);
         nameRestaurant = rootView.findViewById(R.id.restaurant_name_delivery_item);
+        nameRestaurant.setText(restaurant.getName());
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext() , MenuActivity.class);
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View , String>(imageRestaurant,"image_item_delivery");
-                pairs[1] = new Pair<View , String>(nameRestaurant,"restaurant_name_tansition");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity() , pairs);
-                startActivity(intent, options.toBundle());
+
+
+                if (android.os.Build.VERSION.SDK_INT >= 21){
+                    Pair[] pairs = new Pair[2];
+                    pairs[0] = new Pair<View , String>(imageRestaurant,"image_item_delivery");
+                    pairs[1] = new Pair<View , String>(nameRestaurant,"restaurant_name_tansition");
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity() , pairs);
+                    startActivity(intent, options.toBundle());
+                } else{
+                    // do something for phones running an SDK before 21
+                    //
+                    startActivity(intent);
+                }
+
             }
         });
         return rootView ;

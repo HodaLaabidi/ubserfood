@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
        <ImageView
+           android:padding="3dp"
            android:layout_gravity="center"
            android:src="@drawable/chiken_pizza"
            android:layout_weight="1"
@@ -42,7 +43,7 @@
                         android:textColor="@color/colorBlack"
                         android:text="Restaurant Speciality"
                         android:textStyle="italic"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <ImageView
@@ -71,13 +72,13 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:text="Price 20TND"
                     android:textColor="@color/colorBlack"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginTop="5dp"
                     android:text="26/03/2019"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textColor="@color/gray_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

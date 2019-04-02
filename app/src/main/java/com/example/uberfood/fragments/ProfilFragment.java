@@ -104,7 +104,6 @@ public class ProfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                auth.signOut();
                 Intent intent = new Intent (getContext() , FirstScreenActivity.class) ;
                 auth.signOut();
                 startActivity(intent);
