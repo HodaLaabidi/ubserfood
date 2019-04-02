@@ -39,7 +39,7 @@ public class ViewPagerDeliveryAdapter  extends FragmentStatePagerAdapter {
 
 
         Bundle args = new Bundle();
-        String personJsonString = Utils.getGsonParser().toJson(listOfRestaurants.get(i));
+       String personJsonString = Utils.getGsonParser().toJson(listOfRestaurants.get(i));
         args.putString(RESTAURANT_KEY, personJsonString);
         itemFragment.setArguments(args);
 

@@ -27,12 +27,22 @@ public class Restaurant {
     String email ;
     Date inscription_date ;
     String  menu ;
+    String image ;
 
     public Restaurant() {
     }
 
-    public Restaurant(String _id, String adress_building, String adress_zipcode, GeoPoint adress_coord_longitude, String name, DecimalFormat avrgprc, ArrayList opendays, Date close_time, Date open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, Date inscription_date, String menu) {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Restaurant(String _id, String image , String adress_building, String adress_zipcode, GeoPoint adress_coord_longitude, String name, DecimalFormat avrgprc, ArrayList opendays, Date close_time, Date open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, Date inscription_date, String menu) {
         this._id = _id;
+        this.image = image ;
         this.adress_building = adress_building;
         this.adress_zipcode = adress_zipcode;
         this.adress_coord_longitude = adress_coord_longitude;
