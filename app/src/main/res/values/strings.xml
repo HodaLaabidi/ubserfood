@@ -9,7 +9,8 @@
     <string name="text_login">Login</string>
     <string name="sign_up_text">Don\'t have an account? Sign up</string>
     <string name="hint_confirm_password">Confirm password</string>
-    <string name="hint_username">Username</string>
+    <string name="hint_first_name">First name </string>
+    <string name="hint_last_name">Last name </string>
     <string name="text_sign_up">Sign up</string>
     <string name="hint_phone_number">Phone number</string>
     <string name="hint_location">Location</string>
@@ -51,5 +52,16 @@
     <string name="menu_profil_item_one">Add Feedback</string>
     <string name="menu_profil_item_two">Help Center</string>
     <string name="menu_profil_item_three">Settings</string>
+    <string name="open_hour">Open Hour</string>
+    <string name="sun">Sun</string>
+    <string name="schedule">Takeaway Schedule</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="location">Location</string>
+    <string name="gallery">Gallery</string>
 
 </resources>

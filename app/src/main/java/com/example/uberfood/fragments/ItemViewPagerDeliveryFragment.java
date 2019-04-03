@@ -20,11 +20,11 @@ import android.widget.TextView;
 import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
 import com.example.uberfood.adapters.OrdersFragmentAdapter;
+
 import com.example.uberfood.models.Restaurant;
 import com.example.uberfood.utils.Utils;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-import java.util.ArrayList;
 
 import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 
@@ -32,6 +32,7 @@ import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 public class ItemViewPagerDeliveryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 

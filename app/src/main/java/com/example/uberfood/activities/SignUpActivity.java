@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
@@ -33,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +47,7 @@ import static com.example.uberfood.utils.Utils.isNew;
 public class SignUpActivity extends AppCompatActivity {
 
     ImageView arrowBack ;
-    AppCompatEditText username  , mail , password , confirmPassword , phoneNumber , location , postalCode;
+    AppCompatEditText firstname  , mail , password , confirmPassword , phoneNumber , lastname;
     LinearLayout buttonSignup ;
     FirebaseAuth auth ;
     DatabaseReference reference ;
@@ -53,6 +55,8 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static final String TAG = "SignUpActivity";
     ProgressDialog progressDialog ;
+    LinearLayout layoutImage ;
+    CircularImageView image ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +78,18 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private void inscriptionProcess() {
 
-        if ((username.getText() + "").equalsIgnoreCase("")
+        if ((firstname.getText() + "").equalsIgnoreCase("")
                 || (mail.getText() + "").equalsIgnoreCase("") || ((phoneNumber.getText() + "").equalsIgnoreCase(""))
-                || ((location.getText() + "").equalsIgnoreCase("")) || ((password.getText() + "").equalsIgnoreCase(""))
-                || ((confirmPassword.getText() + "").equalsIgnoreCase(""))) {
+               || ((password.getText() + "").equalsIgnoreCase(""))
+                || ((confirmPassword.getText() + "").equalsIgnoreCase("")) || (lastname.getText().toString().equalsIgnoreCase(""))) {
 
             new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.verify_info_login), R.drawable.ic_erreur, CustomToast.ERROR).show();
             return;
@@ -92,14 +102,6 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (!((phoneNumber.getText() + "").matches("\\d{8}"))) {
             new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.verify_phone_number), R.drawable.ic_erreur, CustomToast.ERROR).show();
             return;
-
-        }
-        else if (!((postalCode.getText() + "").matches("\\d{4}")) ||
-                ((Integer.parseInt(postalCode.getText() + "")) > 9999) ||
-                ((Integer.parseInt(postalCode.getText() + "")) < 1000)) {
-           new CustomToast(SignUpActivity.this, getResources().getString(R.string.error), getResources().getString(R.string.verify_postal_code), R.drawable.ic_erreur, CustomToast.ERROR).show();
-            return;
-
 
         }
         else if (!(password.getText() + "").matches("[\\W\\w]{6,}")) {
@@ -151,13 +153,10 @@ public class SignUpActivity extends AppCompatActivity {
                         FirebaseUser firebaseUser = auth.getCurrentUser();
                         userId = firebaseUser.getUid();
                         reference = FirebaseDatabase.getInstance().getReference(USER_COLLECTION).child(userId);
-
                         Map<String, String> userObject = new HashMap<>();
-                        userObject.put("id", userId);
-                        userObject.put("username", username.getText() + "");
-                        userObject.put("location", location.getText() + "");
-                        userObject.put("postal_code", postalCode.getText() + "");
-                        userObject.put("phone_number", phoneNumber.getText() + "");
+                        userObject.put("name", firstname.getText() + "");
+                        userObject.put("last_Name", lastname.getText() + "");
+                        userObject.put("phone_Number", phoneNumber.getText() + "");
 
 
                         db.collection(USER_COLLECTION)
@@ -194,19 +193,19 @@ public class SignUpActivity extends AppCompatActivity {
     private void initializeViews() {
 
 
-        username = findViewById(R.id.et_username_sign_up);
+        firstname = findViewById(R.id.et_first_name_sign_up);
 
         mail = findViewById(R.id.et_email_sign_up);
         password = findViewById(R.id.et_password_sign_up);
         confirmPassword = findViewById(R.id.et_confirm_password_sign_up);
         phoneNumber = findViewById(R.id.et_phone_number);
-        location = findViewById(R.id.et_location);
-        postalCode = findViewById(R.id.et_postal_code);
-
+        lastname = findViewById(R.id.et_last_name_sign_up);
         arrowBack = findViewById(R.id.arrow_back_from_signup);
         buttonSignup = findViewById(R.id.button_signup);
         progressDialog = new ProgressDialog(SignUpActivity.this , R.style.MyAlertDialogStyle);
         progressDialog.setMessage("Storing data ...");
+        layoutImage = findViewById(R.id.ll_profil_pic);
+        image = findViewById(R.id.profil_image_from_sign_up);
 
 
         arrowBack.setOnClickListener(new View.OnClickListener() {

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,19 @@ import android.view.ViewGroup;
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.ViewPagerDeliveryAdapter;
 import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.models.User;
 import com.example.uberfood.utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
@@ -24,6 +37,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
+import static com.example.uberfood.utils.Constants.USER_COLLECTION;
 
 
 public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener{
@@ -33,8 +47,11 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
     private static final String ARG_PARAM2 = "param2";
     private ViewPager viewPager;
     ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
+    FirebaseAuth auth ;
    // ViewPagerDeliveryAdapter adapter ;
    ViewPagerDeliveryAdapter adapter ;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+   String userId ;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
     private InfiniteScrollAdapter infiniteAdapter;
@@ -95,7 +112,50 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
         }
 
 
+      getDataFromBackend() ;
 
+
+
+
+
+
+    }
+
+    private void getDataFromBackend() {
+
+        auth = FirebaseAuth.getInstance() ;
+        final FirebaseUser firebaseUser = auth.getCurrentUser();
+        userId = firebaseUser.getUid();
+        CollectionReference restaurant = db.collection(RESTAURANT_KEY);
+        DocumentReference docRef = db.collection(RESTAURANT_KEY).document("Sgz0GQRJSDOXiEmcOhoM");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Restaurant restaurant = new Restaurant();
+                Log.e( "DocumentSnapshot data: " , documentSnapshot.getData().toString());
+                //restaurant =  documentSnapshot.toObject(Restaurant.class);
+
+
+            }});
+
+        db.collection(RESTAURANT_KEY)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.e("FB" , document.getId() + " => " + document.getData());
+                                listOfRestaurants.add(document.toObject(Restaurant.class));
+                            }
+                        } else {
+
+
+
+                            Log.e("FB" ,"Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     @Override
@@ -104,6 +164,9 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
+
+
+
 
 
         adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext() , listOfRestaurants);

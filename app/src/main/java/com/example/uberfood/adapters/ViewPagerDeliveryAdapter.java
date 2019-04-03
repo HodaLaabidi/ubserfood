@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.uberfood.R;
+
 import com.example.uberfood.fragments.ItemViewPagerDeliveryFragment;
 import com.example.uberfood.models.Restaurant;
 import com.example.uberfood.utils.Utils;
@@ -33,13 +33,13 @@ public class ViewPagerDeliveryAdapter  extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int i) {
+    public Fragment getItem(int position) {
 
         ItemViewPagerDeliveryFragment itemFragment  = new ItemViewPagerDeliveryFragment();
 
 
         Bundle args = new Bundle();
-       String personJsonString = Utils.getGsonParser().toJson(listOfRestaurants.get(i));
+       String personJsonString = Utils.getGsonParser().toJson(listOfRestaurants.get(position));
         args.putString(RESTAURANT_KEY, personJsonString);
         itemFragment.setArguments(args);
 

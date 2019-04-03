@@ -11,49 +11,52 @@ public class Restaurant {
 
     String _id ;
     String adress_building ;
+    String adress_street ;
     String adress_zipcode ;
-    GeoPoint adress_coord_longitude ;
+    GeoPoint adress_coord ;
     String name ;
-    DecimalFormat avrgprc ;
+    long avgprc ;
     ArrayList opendays ;
-    Date close_time ;
-    Date open_time ;
+    String close_time ;
+    String open_time ;
     String matricule_fiscale ;
-    String phone_number ;
-    String webSite ;
+    String phone_Number ;
+    String website ;
     String adress_state ;
     String description ;
     Double number_of_orders ;
     String email ;
-    Date inscription_date ;
+    String inscription_date ;
     String  menu ;
-    String image ;
+    String logo ;
+    // i m using phone_Number twice !
 
     public Restaurant() {
     }
 
     public String getImage() {
-        return image;
+        return logo;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.logo = image;
     }
 
-    public Restaurant(String _id, String image , String adress_building, String adress_zipcode, GeoPoint adress_coord_longitude, String name, DecimalFormat avrgprc, ArrayList opendays, Date close_time, Date open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, Date inscription_date, String menu) {
+    public Restaurant(String _id,String adress_street, String image , String adress_building, String adress_zipcode, GeoPoint adress_coord_longitude, String name, long avgprc, ArrayList opendays, String close_time, String open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, String inscription_date, String menu) {
         this._id = _id;
-        this.image = image ;
+        this.adress_street = adress_street;
+        this.logo = image ;
         this.adress_building = adress_building;
         this.adress_zipcode = adress_zipcode;
-        this.adress_coord_longitude = adress_coord_longitude;
+        this.adress_coord = adress_coord_longitude;
         this.name = name;
-        this.avrgprc = avrgprc;
+        this.avgprc = avgprc;
         this.opendays = opendays;
         this.close_time = close_time;
         this.open_time = open_time;
         this.matricule_fiscale = matricule_fiscale;
-        this.phone_number = phone_number;
-        this.webSite = webSite;
+        this.phone_Number = phone_number;
+        this.website = webSite;
         this.adress_state = adress_state;
         this.description = description;
         this.number_of_orders = number_of_orders;
@@ -63,32 +66,41 @@ public class Restaurant {
     }
 
 
-    public String get_id() {
+    public String getId() {
         return _id;
     }
 
-    public String getAdress_building() {
+    public String getAdressBuilding() {
         return adress_building;
     }
 
-    public void setAdress_building(String adress_building) {
+    public void setAdressBuilding(String adress_building) {
         this.adress_building = adress_building;
     }
 
-    public String getAdress_zipcode() {
+    public String getAdressZipcode() {
         return adress_zipcode;
     }
 
-    public void setAdress_zipcode(String adress_zipcode) {
+    public String getAdressStreet() {
+        return adress_street;
+    }
+
+    public void setAdressStreet(String adress_street) {
+        this.adress_street = adress_street;
+    }
+
+    public void setAdressZipcode(String adress_zipcode) {
         this.adress_zipcode = adress_zipcode;
     }
 
-    public GeoPoint getAdress_coord_longitude() {
-        return adress_coord_longitude;
+
+    public GeoPoint getAdressCoord() {
+        return adress_coord;
     }
 
-    public void setAdress_coord_longitude(GeoPoint adress_coord_longitude) {
-        this.adress_coord_longitude = adress_coord_longitude;
+    public void setAdressCoord(GeoPoint adress_coord_longitude) {
+        this.adress_coord = adress_coord_longitude;
     }
 
     public String getName() {
@@ -99,12 +111,12 @@ public class Restaurant {
         this.name = name;
     }
 
-    public DecimalFormat getAvrgprc() {
-        return avrgprc;
+    public long getAvrgprc() {
+        return avgprc;
     }
 
-    public void setAvrgprc(DecimalFormat avrgprc) {
-        this.avrgprc = avrgprc;
+    public void setAvrgprc(long avrgprc) {
+        this.avgprc = avrgprc;
     }
 
     public ArrayList getOpendays() {
@@ -115,51 +127,51 @@ public class Restaurant {
         this.opendays = opendays;
     }
 
-    public Date getClose_time() {
+    public String getCloseTime() {
         return close_time;
     }
 
-    public void setClose_time(Date close_time) {
+    public void setCloseTime(String close_time) {
         this.close_time = close_time;
     }
 
-    public Date getOpen_time() {
+    public String getOpenTime() {
         return open_time;
     }
 
-    public void setOpen_time(Date open_time) {
+    public void setOpenTime(String open_time) {
         this.open_time = open_time;
     }
 
-    public String getMatricule_fiscale() {
+    public String getMatriculeFiscale() {
         return matricule_fiscale;
     }
 
-    public void setMatricule_fiscale(String matricule_fiscale) {
+    public void setMatriculeFiscale(String matricule_fiscale) {
         this.matricule_fiscale = matricule_fiscale;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phone_Number;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phone_number) {
+        this.phone_Number = phone_number;
     }
 
-    public String getWebSite() {
-        return webSite;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setWebSite(String webSite) {
-        this.webSite = webSite;
+    public void setWebsite(String webSite) {
+        this.website = webSite;
     }
 
-    public String getAdress_state() {
+    public String getAdressState() {
         return adress_state;
     }
 
-    public void setAdress_state(String adress_state) {
+    public void setAdressState(String adress_state) {
         this.adress_state = adress_state;
     }
 
@@ -171,11 +183,11 @@ public class Restaurant {
         this.description = description;
     }
 
-    public Double getNumber_of_orders() {
+    public Double getNumberOfOrders() {
         return number_of_orders;
     }
 
-    public void setNumber_of_orders(Double number_of_orders) {
+    public void setNumberOfOrders(Double number_of_orders) {
         this.number_of_orders = number_of_orders;
     }
 
@@ -187,11 +199,11 @@ public class Restaurant {
         this.email = email;
     }
 
-    public Date getInscription_date() {
+    public String getInscriptionDate() {
         return inscription_date;
     }
 
-    public void setInscription_date(Date inscription_date) {
+    public void setInscriptionDate(String inscription_date) {
         this.inscription_date = inscription_date;
     }
 
