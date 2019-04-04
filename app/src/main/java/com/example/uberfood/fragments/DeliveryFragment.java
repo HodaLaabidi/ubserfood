@@ -1,6 +1,7 @@
 package com.example.uberfood.fragments;
 
 import android.animation.ArgbEvaluator;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,7 +47,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private ViewPager viewPager;
-    ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
+    private static ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
     FirebaseAuth auth ;
    // ViewPagerDeliveryAdapter adapter ;
    ViewPagerDeliveryAdapter adapter ;
@@ -104,6 +105,12 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -112,7 +119,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
         }
 
 
-      getDataFromBackend() ;
+
 
 
 
@@ -123,20 +130,19 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
 
     private void getDataFromBackend() {
 
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        final View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
+
         auth = FirebaseAuth.getInstance() ;
         final FirebaseUser firebaseUser = auth.getCurrentUser();
         userId = firebaseUser.getUid();
-        CollectionReference restaurant = db.collection(RESTAURANT_KEY);
-        DocumentReference docRef = db.collection(RESTAURANT_KEY).document("Sgz0GQRJSDOXiEmcOhoM");
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Restaurant restaurant = new Restaurant();
-                Log.e( "DocumentSnapshot data: " , documentSnapshot.getData().toString());
-                //restaurant =  documentSnapshot.toObject(Restaurant.class);
-
-
-            }});
 
         db.collection(RESTAURANT_KEY)
                 .get()
@@ -146,7 +152,35 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.e("FB" , document.getId() + " => " + document.getData());
-                                listOfRestaurants.add(document.toObject(Restaurant.class));
+                                Log.e("rest name" ,document.toObject(Restaurant.class).getName()+"!" );
+                                Restaurant restaurant = document.toObject(Restaurant.class);
+                                if (!listOfRestaurants.contains(restaurant))
+                                listOfRestaurants.add(restaurant);
+                                Log.e("list of restaurants" , listOfRestaurants.size()+"!");
+
+                                adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext() , listOfRestaurants);
+
+                                viewPager = rootView.findViewById(R.id.viewPager);
+                                viewPager.setAdapter( adapter);
+                                viewPager.setPadding(60, 0 , 60 ,50);
+                                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                                    @Override
+                                    public void onPageScrolled(int i, float v, int i1) {
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onPageSelected(int i) {
+
+                                    }
+
+                                    @Override
+                                    public void onPageScrollStateChanged(int i) {
+
+
+                                    }
+                                });
+
                             }
                         } else {
 
@@ -156,40 +190,11 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
                         }
                     }
                 });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
 
 
 
 
 
-        adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext() , listOfRestaurants);
-
-        viewPager = rootView.findViewById(R.id.viewPager);
-        viewPager.setAdapter( adapter);
-        viewPager.setPadding(60, 0 , 60 ,50);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
 
         return rootView ;
     }
@@ -200,6 +205,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
 
         int positionInDataSet = infiniteAdapter.getRealPosition(adapterPosition);
        // onItemChanged(data.get(positionInDataSet));
+        adapter.notifyDataSetChanged();
 
     }
 }
