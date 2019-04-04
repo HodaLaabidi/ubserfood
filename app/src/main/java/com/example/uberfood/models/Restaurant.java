@@ -12,7 +12,7 @@ public class Restaurant {
     String _id ;
     String adress_building ;
     String adress_street ;
-    String adress_zipcode ;
+    long adress_zipcode ;
     GeoPoint adress_coord ;
     String name ;
     long avgprc ;
@@ -29,6 +29,7 @@ public class Restaurant {
     String inscription_date ;
     String  menu ;
     String logo ;
+    String cuisine ;
     // i m using phone_Number twice !
 
     public Restaurant() {
@@ -42,7 +43,7 @@ public class Restaurant {
         this.logo = image;
     }
 
-    public Restaurant(String _id,String adress_street, String image , String adress_building, String adress_zipcode, GeoPoint adress_coord_longitude, String name, long avgprc, ArrayList opendays, String close_time, String open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, String inscription_date, String menu) {
+    public Restaurant(String _id,String adress_street, String cuisine  ,String image , String adress_building, long adress_zipcode, GeoPoint adress_coord_longitude, String name, long avgprc, ArrayList opendays, String close_time, String open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, String inscription_date, String menu) {
         this._id = _id;
         this.adress_street = adress_street;
         this.logo = image ;
@@ -63,6 +64,8 @@ public class Restaurant {
         this.email = email;
         this.inscription_date = inscription_date;
         this.menu = menu;
+        this.cuisine = cuisine ;
+
     }
 
 
@@ -78,7 +81,7 @@ public class Restaurant {
         this.adress_building = adress_building;
     }
 
-    public String getAdressZipcode() {
+    public long getAdressZipcode() {
         return adress_zipcode;
     }
 
@@ -90,7 +93,7 @@ public class Restaurant {
         this.adress_street = adress_street;
     }
 
-    public void setAdressZipcode(String adress_zipcode) {
+    public void setAdressZipcode(long adress_zipcode) {
         this.adress_zipcode = adress_zipcode;
     }
 
@@ -213,5 +216,14 @@ public class Restaurant {
 
     public void setMenu(String menu) {
         this.menu = menu;
+    }
+
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
     }
 }

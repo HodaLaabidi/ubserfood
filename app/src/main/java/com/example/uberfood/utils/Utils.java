@@ -1,5 +1,10 @@
 package com.example.uberfood.utils;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,4 +63,17 @@ public class Utils {
             mRes = res;
         }
     }
+
+
+    public static boolean hasPermissions(Context context, int permission_request, String... permissions) {
+
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((Activity) context, permissions, permission_request);
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

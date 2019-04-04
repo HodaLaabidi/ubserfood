@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
 import com.example.uberfood.adapters.OrdersFragmentAdapter;
@@ -41,7 +42,7 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
     private String mParam2;
     private RecyclerView recyclerView ;
     CircularImageView imageRestaurant ;
-    AppCompatTextView nameRestaurant ;
+    AppCompatTextView nameRestaurant , speciality , location ;
     Restaurant  restaurant = new Restaurant();
 
 
@@ -82,7 +83,15 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
         }
         imageRestaurant = rootView.findViewById(R.id.image_item_delivery);
         nameRestaurant = rootView.findViewById(R.id.restaurant_name_delivery_item);
+        speciality = rootView.findViewById(R.id.speciality);
+        location = rootView.findViewById(R.id.location);
+        Glide.with(getContext())
+                .load(restaurant.getImage())
+                .into(imageRestaurant);
+
         nameRestaurant.setText(restaurant.getName());
+        location.setText(restaurant.getAdressState());
+        speciality.setText(restaurant.getCuisine());
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
