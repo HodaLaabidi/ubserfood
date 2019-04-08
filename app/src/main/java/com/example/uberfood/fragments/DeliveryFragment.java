@@ -30,12 +30,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import static com.example.uberfood.utils.Constants.MENU_COLLECTION;
 import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 import static com.example.uberfood.utils.Constants.USER_COLLECTION;
 
@@ -46,8 +49,9 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private ViewPager viewPager;
-    private static ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
+    private ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
     FirebaseAuth auth ;
+    static HashMap<String,String> MenuReferences  = new HashMap<String, String>();
    // ViewPagerDeliveryAdapter adapter ;
    ViewPagerDeliveryAdapter adapter ;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -149,13 +153,19 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (final QueryDocumentSnapshot document : task.getResult()) {
                                 Log.e("FB" , document.getId() + " => " + document.getData());
-                                Log.e("rest name" ,document.toObject(Restaurant.class).getName()+"!" );
+
+
+
+
                                 Restaurant restaurant = document.toObject(Restaurant.class);
-                                if (!listOfRestaurants.contains(restaurant))
-                                listOfRestaurants.add(restaurant);
-                                Log.e("list of restaurants" , listOfRestaurants.size()+"!");
+                                //Restaurant restaurant = new Gson().fromJson(document.getData().toString(), Restaurant.class);
+                                Log.e("restaurant values " , restaurant.toString()+" !");
+                                if (!listOfRestaurants.contains(restaurant)){
+                                    listOfRestaurants.add(restaurant);
+                                }
+
 
                                 adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext() , listOfRestaurants);
 
@@ -180,7 +190,10 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
                                     }
                                 });
 
+
                             }
+
+
                         } else {
 
 

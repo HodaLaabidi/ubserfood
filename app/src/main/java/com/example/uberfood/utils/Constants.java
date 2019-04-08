@@ -4,7 +4,11 @@ import android.Manifest;
 
 public class Constants {
 
+
+
     public static final String USER_COLLECTION = "users" ;
+
+    public static final String MENU_COLLECTION = "menu" ;
 
     public static final  String RESTAURANT_KEY ="Restaurants";
 

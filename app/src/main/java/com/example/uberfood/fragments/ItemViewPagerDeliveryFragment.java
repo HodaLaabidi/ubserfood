@@ -79,6 +79,7 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
 
             @SuppressWarnings("unchecked")
             String personJsonString = (String) args.get(RESTAURANT_KEY);
+
             restaurant = Utils.getGsonParser().fromJson(personJsonString, Restaurant.class);
         }
         imageRestaurant = rootView.findViewById(R.id.image_item_delivery);
@@ -86,7 +87,7 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
         speciality = rootView.findViewById(R.id.speciality);
         location = rootView.findViewById(R.id.location);
         Glide.with(getContext())
-                .load(restaurant.getImage())
+                .load(restaurant.getLogo())
                 .into(imageRestaurant);
 
         nameRestaurant.setText(restaurant.getName());
@@ -96,6 +97,9 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext() , MenuActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id_restaurant" , restaurant.getId());
+                intent.putExtras(bundle);
 
 
                 if (android.os.Build.VERSION.SDK_INT >= 21){

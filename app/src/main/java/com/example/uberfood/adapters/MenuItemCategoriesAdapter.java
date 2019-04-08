@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +46,11 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final  Menu menu = listOfMenus.get(position);
-        holder.menuImage.setImageResource(menu.getImage());
-        holder.label.setText(menu.getLabel());
+        Log.e("menu from adapter" , menu.toString());
+        //holder.menuImage.setImageResource(menu.getImage());
+        holder.label.setText(menu.getItemName());
         holder.description.setText(menu.getDescription());
-        holder.price.setText(menu.getPrice());
+        holder.price.setText(menu.getPrice()+"");
         holder.order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class MenuCategoriesAdapter extends RecyclerView.Adapter<MenuCategoriesAd
 
         final  Menu menu = listOfMenus.get(position);
         holder.category.setText(menu.getCategory());
+        Log.e("menu from adapter" , menu.toString());
         holder.recyclerCategoryItem.setVisibility(View.GONE);
         holder.itemMenu.setOnClickListener(new View.OnClickListener() {
             @Override

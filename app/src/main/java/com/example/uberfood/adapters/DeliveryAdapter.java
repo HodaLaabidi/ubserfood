@@ -33,7 +33,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext())
-                .load(data.get(position).getImage())
+                .load(data.get(position).getLogo())
                 .into(holder.image);
     }
 

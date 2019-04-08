@@ -32,6 +32,8 @@ public class ViewPagerDeliveryAdapter  extends FragmentStatePagerAdapter {
         this.listOfRestaurants = listOfRestaurants ;
     }
 
+
+
     @Override
     public Fragment getItem(int position) {
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/background_color"
+    android:background="@color/gray_light"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MenuActivity">
@@ -73,6 +73,20 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/button_restaurant_informations"
+                android:padding="8dp"
+                android:layout_margin="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <ImageView
+                    android:src="@drawable/more_vert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </RelativeLayout>
