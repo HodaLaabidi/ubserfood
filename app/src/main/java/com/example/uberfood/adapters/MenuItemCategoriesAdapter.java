@@ -17,10 +17,11 @@ import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
 import com.example.uberfood.activities.OrderActivity;
 import com.example.uberfood.models.Menu;
+import com.example.uberfood.utils.Utils;
 
 import java.util.ArrayList;
-
-
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCategoriesAdapter.MyViewHolder> {
@@ -29,6 +30,8 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
 
     ArrayList<Menu> listOfMenus ;
     Context context ;
+    Integer number = 0 ;
+    public static LinkedHashMap<Menu , Integer> listOfOrderedMenu = new LinkedHashMap<>() ;
 
 
     public MenuItemCategoriesAdapter(Context context , ArrayList<Menu> listOfMenus){
@@ -45,27 +48,27 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+         number = 0 ;
+
         final  Menu menu = listOfMenus.get(position);
         Log.e("menu from adapter" , menu.toString());
         //holder.menuImage.setImageResource(menu.getImage());
-        holder.label.setText(menu.getItemName());
+        holder.label.setText(menu.getItem_name());
         holder.description.setText(menu.getDescription());
         holder.price.setText(menu.getPrice()+"");
+
         holder.order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* float itemPrice = Float.parseFloat(holder.price.getText().toString());
-                float panierPrice = Float.parseFloat(MenuActivity.priceText.getText().toString());
-                float finalPrice = itemPrice + panierPrice ;
-                MenuActivity.priceText.setText(finalPrice+"");*/
+                Utils.price += menu.getPrice();
+                MenuActivity.priceText.setText(Utils.price + " DT");
+                number ++;
+                notifyDataSetChanged();
+                listOfOrderedMenu.put(menu , number );
 
 
             }
         });
-
-
-
-
     }
 
     @Override

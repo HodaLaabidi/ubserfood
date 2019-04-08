@@ -83,12 +83,12 @@
                         android:layout_width="70dp"
                         android:layout_height="wrap_content">
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/price"
+                            android:id="@+id/price_from_informations_activity"
                             android:textStyle="bold"
                             android:textSize="12dp"
                             android:layout_gravity="center"
                             android:textColor="@color/colorWhite"
-                            android:text="$10"
+                            android:text="0 DT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <ImageView

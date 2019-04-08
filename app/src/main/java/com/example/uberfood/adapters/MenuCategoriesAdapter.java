@@ -44,7 +44,7 @@ public class MenuCategoriesAdapter extends RecyclerView.Adapter<MenuCategoriesAd
 
 
         final  Menu menu = listOfMenus.get(position);
-        holder.category.setText(menu.getCategory());
+        holder.category.setText(menu.getCategory_name());
         Log.e("menu from adapter" , menu.toString());
         holder.recyclerCategoryItem.setVisibility(View.GONE);
         holder.itemMenu.setOnClickListener(new View.OnClickListener() {

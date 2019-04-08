@@ -2,22 +2,34 @@ package com.example.uberfood.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
+import com.example.uberfood.adapters.MenuItemCategoriesAdapter;
+import com.example.uberfood.adapters.OrderActivityAdapter;
+import com.example.uberfood.models.Menu;
+import com.example.uberfood.models.Order;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class OrderActivity extends AppCompatActivity {
 
     LinearLayout arrowBack ;
     LinearLayout cancel , ok ;
+    RecyclerView recyclerView;
+    LinkedHashMap<Menu, Integer> listOfOrderedMenu = new LinkedHashMap<>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         initializeViews();
+
     }
 
     private void initializeViews() {
@@ -31,6 +43,7 @@ public class OrderActivity extends AppCompatActivity {
         });
         cancel = findViewById(R.id.activity_order_cancel);
         ok = findViewById(R.id.activity_order_ok);
+        recyclerView = findViewById(R.id.recycler_view_orders);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +57,9 @@ public class OrderActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        OrderActivityAdapter orderActivityAdapter = new OrderActivityAdapter(OrderActivity.this ,  MenuItemCategoriesAdapter.listOfOrderedMenu) ;
+        recyclerView.setAdapter(orderActivityAdapter);
     }
 
     @Override

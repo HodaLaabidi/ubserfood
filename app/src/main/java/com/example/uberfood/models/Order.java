@@ -6,7 +6,7 @@ import java.util.Date;
 public class Order {
 
 
-    String _id;
+    String id;
     String adress_building;
     String adress_street;
     String adress_zipcode;
@@ -22,7 +22,7 @@ public class Order {
     }
 
     public Order(String _id, String adress_building, String adress_street, String adress_zipcode, String adress_coord_longitude, String customer_id, String restaurant_id, Date date, float total, ArrayList plates, ArrayList description) {
-        this._id = _id;
+        this.id = id;
         this.adress_building = adress_building;
         this.adress_street = adress_street;
         this.adress_zipcode = adress_zipcode;
@@ -37,11 +37,11 @@ public class Order {
 
 
     public String get_id() {
-        return _id;
+        return id;
     }
 
     public void set_id(String _id) {
-        this._id = _id;
+        this.id = _id;
     }
 
     public String getAdress_building() {

@@ -15,8 +15,11 @@ import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.MenuCategoriesAdapter;
+
+import com.example.uberfood.factories.DialogBuilderFactory;
 import com.example.uberfood.models.Menu;
 import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,8 +42,8 @@ public class MenuActivity extends AppCompatActivity {
     String id = "";
     public static LinearLayout panierLayout ;
     CameraImagePicker cameraPicker ;
-    public static AppCompatTextView priceText ;
-    public static String price = "";
+    public static AppCompatTextView priceText  , restaurantName ;
+
     LinearLayout buttonInformations ;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String pickerPath;
@@ -68,7 +71,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void getValuesFromServer() {
 
-        // dunamic method
+        // dynamic method
 
 
 
@@ -127,8 +130,7 @@ public class MenuActivity extends AppCompatActivity {
     private void initializeViews() {
 
          id = getIntent().getExtras().getString("id_restaurant");
-
-
+         restaurantName = findViewById(R.id.name_restaurant_from_menu_activity);
         recyclerViewCategories = findViewById(R.id.recyler_view_menu_activity);
         buttonInformations = findViewById(R.id.button_restaurant_informations);
         arrowBack = findViewById(R.id.arrow_back_from_menu_activity);
@@ -140,11 +142,15 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+        restaurantName.setText(getIntent().getExtras().getString("name_restaurant"));
 
         panierLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
+                Bundle bundle = new Bundle();
+                bundle.putString("id_restaurant" , id );
+                intent.putExtras(bundle);
                 startActivity(intent );
             }
         });
@@ -169,6 +175,14 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        if (Utils.price == 0 ){
+            finish();
+        } else {
+            DialogBuilderFactory.showDialog(MenuActivity.this);
+        }
+
+
+
     }
 }

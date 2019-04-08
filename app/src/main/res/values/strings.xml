@@ -64,5 +64,12 @@
     <string name="location">Location</string>
     <string name="gallery">Gallery</string>
     <string name="feedback">Send Feedback</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="price">0.0 DT</string>
+    <string name="tax_amount">Tax amount</string>
+    <string name="pourcentage">2.0 %</string>
+    <string name="delivery_free">Delivery free</string>
+    <string name="delivery_price">6.0 DT</string>
+    <string name="total">Total</string>
 
 </resources>

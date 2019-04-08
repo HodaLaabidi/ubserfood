@@ -21,6 +21,7 @@ import com.example.uberfood.models.Menu;
 import com.example.uberfood.models.OnePhoto;
 import com.example.uberfood.models.Restaurant;
 import com.example.uberfood.utils.ExpandableHeightGridView;
+import com.example.uberfood.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -43,9 +44,11 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
     LinearLayout  arrowBack  , llImageSlider;
     ViewPager viewPager ;
 
+
+
     private  ArrayList<OnePhoto> galleryArrayList = new ArrayList<>();
     ExpandableHeightGridView gridView ;
-    AppCompatTextView restaurantName ;
+    AppCompatTextView restaurantName  , price;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageView logo ;
@@ -142,6 +145,7 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
 
         id = getIntent().getExtras().getString("id_restaurant");
         viewPager = findViewById(R.id.view_pager_gallery);
+        price = findViewById(R.id.price_from_informations_activity);
         llImageSlider = findViewById(R.id.ll_image_slider);
         arrowBack = findViewById(R.id.arrow_back_from_restaurant_infos_activity);
         logo = findViewById(R.id.image_item_delivery);
@@ -153,6 +157,7 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        price.setText(Utils.price + " DT");
 
     }
 

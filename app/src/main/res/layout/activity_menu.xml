@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp" />
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/name_restaurant_from_menu_activity"
                 android:layout_marginLeft="50dp"
                 android:transitionName="restaurant_name_tansition"
                 android:layout_alignParentBottom="true"
@@ -52,6 +53,8 @@
             <LinearLayout
                 android:id="@+id/panier"
                 android:layout_margin="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -59,19 +62,21 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content">
                 <android.support.v7.widget.AppCompatTextView
+                    android:layout_margin="3dp"
                     android:id="@+id/price"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_gravity="center"
                     android:textColor="@color/colorWhite"
-                    android:text="$10"
+                    android:text="0 DT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
-                    android:padding="3dp"
+                    android:layout_gravity="center"
+                   android:layout_marginLeft="3dp"
                     android:src="@drawable/shopping_cart"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
             </LinearLayout>
 

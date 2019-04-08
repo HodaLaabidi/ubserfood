@@ -6,7 +6,6 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-
         android:background="@android:color/white"
         android:padding="10dp"
         android:id="@+id/layout_item_order"
@@ -25,6 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/order_label"
             android:layout_marginLeft="20dp"
             android:textSize="16sp"
             android:text="Your order"
@@ -34,8 +34,8 @@
 
     </LinearLayout>
     <LinearLayout
-        android:layout_marginRight="-10dp"
-        android:layout_marginTop="-10dp"
+        android:layout_marginRight="-8dp"
+        android:layout_marginTop="-8dp"
         android:layout_alignParentRight="true"
         android:orientation="vertical"
         android:layout_alignEnd="@+id/layout_item_order"
@@ -43,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/number_of_orders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"

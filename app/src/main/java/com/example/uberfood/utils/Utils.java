@@ -18,6 +18,7 @@ public class Utils {
 
     public static boolean exists = false ;
     public static boolean isNew = false ;
+    public static double price = 0;
 
 
     private static Gson gson;

@@ -16,7 +16,7 @@ public class Restaurant {
     private GeoPoint adress_coord ;
     private String name ;
     private long avgprc ;
-    private ArrayList open_days ;
+    private ArrayList<Integer> open_days ;
     private String close_time ;
     private String open_time ;
     private String martricule_fiscale ;
@@ -74,37 +74,40 @@ public class Restaurant {
         return id;
     }
 
-    public String getAdressBuilding() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAdress_building() {
         return adress_building;
     }
 
-    public void setAdressBuilding(String adress_building) {
+    public void setAdress_building(String adress_building) {
         this.adress_building = adress_building;
     }
 
-    public long getAdressZipcode() {
-        return adress_zipcode;
-    }
-
-    public String getAdressStreet() {
+    public String getAdress_street() {
         return adress_street;
     }
 
-    public void setAdressStreet(String adress_street) {
+    public void setAdress_street(String adress_street) {
         this.adress_street = adress_street;
     }
 
-    public void setAdressZipcode(long adress_zipcode) {
+    public long getAdress_zipcode() {
+        return adress_zipcode;
+    }
+
+    public void setAdress_zipcode(long adress_zipcode) {
         this.adress_zipcode = adress_zipcode;
     }
 
-
-    public GeoPoint getAdressCoord() {
+    public GeoPoint getAdress_coord() {
         return adress_coord;
     }
 
-    public void setAdressCoord(GeoPoint adress_coord_longitude) {
-        this.adress_coord = adress_coord_longitude;
+    public void setAdress_coord(GeoPoint adress_coord) {
+        this.adress_coord = adress_coord;
     }
 
     public String getName() {
@@ -115,67 +118,67 @@ public class Restaurant {
         this.name = name;
     }
 
-    public long getAvrgprc() {
+    public long getAvgprc() {
         return avgprc;
     }
 
-    public void setAvrgprc(long avrgprc) {
-        this.avgprc = avrgprc;
+    public void setAvgprc(long avgprc) {
+        this.avgprc = avgprc;
     }
 
-    public ArrayList getOpendays() {
+    public ArrayList<Integer> getOpen_days() {
         return open_days;
     }
 
-    public void setOpendays(ArrayList opendays) {
-        this.open_days = opendays;
+    public void setOpen_days(ArrayList<Integer> open_days) {
+        this.open_days = open_days;
     }
 
-    public String getCloseTime() {
+    public String getClose_time() {
         return close_time;
     }
 
-    public void setCloseTime(String close_time) {
+    public void setClose_time(String close_time) {
         this.close_time = close_time;
     }
 
-    public String getOpenTime() {
+    public String getOpen_time() {
         return open_time;
     }
 
-    public void setOpenTime(String open_time) {
+    public void setOpen_time(String open_time) {
         this.open_time = open_time;
     }
 
-    public String getMatriculeFiscale() {
+    public String getMartricule_fiscale() {
         return martricule_fiscale;
     }
 
-    public void setMatriculeFiscale(String matricule_fiscale) {
-        this.martricule_fiscale = matricule_fiscale;
+    public void setMartricule_fiscale(String martricule_fiscale) {
+        this.martricule_fiscale = martricule_fiscale;
     }
 
-    public String getPhoneNumber() {
+    public String getPhone_Number() {
         return phone_Number;
     }
 
-    public void setPhoneNumber(String phone_number) {
-        this.phone_Number = phone_number;
+    public void setPhone_Number(String phone_Number) {
+        this.phone_Number = phone_Number;
     }
 
     public String getWebsite() {
         return website;
     }
 
-    public void setWebsite(String webSite) {
-        this.website = webSite;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
-    public String getAdressState() {
+    public String getAdress_state() {
         return adress_state;
     }
 
-    public void setAdressState(String adress_state) {
+    public void setAdress_state(String adress_state) {
         this.adress_state = adress_state;
     }
 
@@ -187,11 +190,11 @@ public class Restaurant {
         this.description = description;
     }
 
-    public Double getNumberOfOrders() {
+    public Double getNumber_of_orders() {
         return number_of_orders;
     }
 
-    public void setNumberOfOrders(Double number_of_orders) {
+    public void setNumber_of_orders(Double number_of_orders) {
         this.number_of_orders = number_of_orders;
     }
 
@@ -203,11 +206,11 @@ public class Restaurant {
         this.email = email;
     }
 
-    public String getInscriptionDate() {
+    public String getInscription_date() {
         return inscription_date;
     }
 
-    public void setInscriptionDate(String inscription_date) {
+    public void setInscription_date(String inscription_date) {
         this.inscription_date = inscription_date;
     }
 
@@ -219,7 +222,6 @@ public class Restaurant {
         this.menu = menu;
     }
 
-
     public String getCuisine() {
         return cuisine;
     }
@@ -228,12 +230,10 @@ public class Restaurant {
         this.cuisine = cuisine;
     }
 
-
-
     @Override
     public String toString() {
-        return this.getName() + " " + this.getLogo() + " " + this.getCuisine() + " " + this.getAdressBuilding() + " " + this.getAdressStreet() + " " +this.getAdressZipcode() + " "
-                + " " +this.getPhoneNumber()+ " " +this.getDescription()+ " " +this.getEmail()+ " " +this.getWebsite()+ " " +this.getMatriculeFiscale()
-                + " " +this.getOpenTime()+ " " +this.getOpenTime()+ " " +this.getOpendays()+ " " +this.getNumberOfOrders()+ " " +this.avgprc + " " ;
+        return this.getName() + " " + this.getLogo() + " " + this.getCuisine() + " " + this.getAdress_building() + " " + this.adress_street + " " +this.getAdress_zipcode() + " "
+                + " " +this.getPhone_Number()+ " " +this.getDescription()+ " " +this.getEmail()+ " " +this.getWebsite()+ " " +this.getMartricule_fiscale()
+                + " " +this.getOpen_time()+ " " +this.getClose_time()+ " " +this.getOpen_days()+ " " +this.getNumber_of_orders()+ " " +this.avgprc + " " ;
     }
 }

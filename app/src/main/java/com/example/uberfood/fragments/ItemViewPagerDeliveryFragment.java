@@ -91,7 +91,7 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
                 .into(imageRestaurant);
 
         nameRestaurant.setText(restaurant.getName());
-        location.setText(restaurant.getAdressState());
+        location.setText(restaurant.getAdress_state());
         speciality.setText(restaurant.getCuisine());
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +99,7 @@ public class ItemViewPagerDeliveryFragment extends Fragment {
                 Intent intent = new Intent(getContext() , MenuActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id_restaurant" , restaurant.getId());
+                bundle.putString("name_restaurant" , restaurant.getName());
                 intent.putExtras(bundle);
 
 
