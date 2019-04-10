@@ -75,6 +75,7 @@ public class DialogBuilderFactory {
 
 
                 MenuActivity.priceText.setText("0 DT");
+                Utils.listOfOrderedMenu.clear();
                 Utils.price = 0 ;
                 ((Activity) context).finish();
             }

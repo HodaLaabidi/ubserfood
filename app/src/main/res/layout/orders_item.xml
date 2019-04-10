@@ -40,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/speciality_from_orders_fragment"
                         android:textColor="@color/colorBlack"
                         android:text="Restaurant Speciality"
                         android:textStyle="italic"
@@ -53,6 +54,7 @@
                         android:layout_height="10dp" />
                 </LinearLayout>
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/name_from_orders_fragment"
                     android:text="Restaurant Name"
                     android:textSize="12sp"
                     android:textColor="@color/gray_3"
@@ -70,12 +72,14 @@
                 android:layout_height="match_parent">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/price_from_orders_fragment"
                     android:text="Price 20TND"
                     android:textColor="@color/colorBlack"
                     android:textSize="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/date_from_orders_fragment"
                     android:layout_marginTop="5dp"
                     android:text="26/03/2019"
                     android:textSize="10sp"

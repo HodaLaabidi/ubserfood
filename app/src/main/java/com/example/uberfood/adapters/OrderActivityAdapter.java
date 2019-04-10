@@ -27,11 +27,11 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
 
 
     Context context ;
-    LinkedHashMap<Menu , Integer> listOfOrderedMenu ;
+    LinkedHashMap<Menu , Integer> listOfOrderedMenu = new LinkedHashMap<>() ;
 
 
     public OrderActivityAdapter(Context context , LinkedHashMap<Menu , Integer> listOfOrderedMenu){
-        this.listOfOrderedMenu = listOfOrderedMenu;
+        this.listOfOrderedMenu.putAll(listOfOrderedMenu);
         this.context = context ;
     }
     @NonNull
@@ -47,13 +47,9 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
 
 
         Menu menu = (new ArrayList<Menu>(listOfOrderedMenu.keySet())).get(position);
-        // this menu returns a null value i will keep it to next day to solve
-        //this menu returns a null value but it can be the error from LinkedHashMap<Menu , Integer >
-        // the solution is i will  debug it first and i will test if the problem was from inflating the item_order layout it can be a problem from displaying layout % layout_parent
-        // i will take a LinkedHashList values and test them at first
-        // second i will replace all the values in a static way
 
         Integer  numberOfOrders= (new ArrayList<Integer>(listOfOrderedMenu.values())).get(position);
+        Log.e("from order adapter" , numberOfOrders + menu.getItem_name() + " !");
         holder.orderLabel.setText(menu.getItem_name());
         holder.numberOfOrders.setText("*"+numberOfOrders);
 

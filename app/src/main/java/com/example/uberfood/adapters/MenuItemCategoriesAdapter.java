@@ -22,6 +22,7 @@ import com.example.uberfood.utils.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCategoriesAdapter.MyViewHolder> {
@@ -31,12 +32,16 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
     ArrayList<Menu> listOfMenus ;
     Context context ;
     Integer number = 0 ;
-    public static LinkedHashMap<Menu , Integer> listOfOrderedMenu = new LinkedHashMap<>() ;
+    ArrayList<Integer> listOfValues  = new ArrayList<>();
+
 
 
     public MenuItemCategoriesAdapter(Context context , ArrayList<Menu> listOfMenus){
         this.listOfMenus = listOfMenus;
         this.context = context;
+        if(Utils.listOfOrderedMenu != null){
+            listOfValues  = new ArrayList<Integer>(Utils.listOfOrderedMenu.values());
+        }
     }
     @NonNull
     @Override
@@ -62,9 +67,57 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
             public void onClick(View view) {
                 Utils.price += menu.getPrice();
                 MenuActivity.priceText.setText(Utils.price + " DT");
-                number ++;
                 notifyDataSetChanged();
-                listOfOrderedMenu.put(menu , number );
+                number+=1 ;
+
+               if (Utils.listOfOrderedMenu != null){
+                   if(Utils.getListOfOrderedMenu().size() != 0){
+                       if (Utils.listOfOrderedMenu.containsValue(menu)){
+                           Integer  numberOfOrders= (listOfValues).get(position);
+                           numberOfOrders++ ;
+                           Utils.listOfOrderedMenu.put(menu , numberOfOrders);
+                           Log.e("listOfOrderedM.contains" , numberOfOrders + menu.getItem_name() + " !");
+                           notifyDataSetChanged();
+                           if(Utils.listOfOrderedMenu != null){
+                               listOfValues.clear();
+                               listOfValues  = new ArrayList<Integer>(Utils.listOfOrderedMenu.values());
+                           }
+
+                       } else {
+                           Integer  numberOfOrders = (listOfValues).get(position);
+                           numberOfOrders++ ;
+                           Utils.listOfOrderedMenu.put(menu , numberOfOrders );
+                           notifyDataSetChanged();
+                           if(Utils.listOfOrderedMenu != null){
+                               listOfValues.clear();
+                               listOfValues  = new ArrayList<Integer>(Utils.listOfOrderedMenu.values());
+                           }
+                           Log.e("! listOfOrderedcontains" , number + menu.getItem_name() + " !");
+                       }
+                   } else {
+                       Log.e("listOfOrderedM.s=0" , number + menu.getItem_name() + " !");
+                       Utils.listOfOrderedMenu.put(menu , number );
+                       if(Utils.listOfOrderedMenu != null){
+                           listOfValues.clear();
+                           listOfValues  = new ArrayList<Integer>(Utils.listOfOrderedMenu.values());
+                       }
+                       notifyDataSetChanged();
+
+                       Log.e("from menitem adapter" , number + menu.getItem_name() + " !");
+                   }
+               } else {
+                   Utils.listOfOrderedMenu = new LinkedHashMap<>();
+                   Log.e("listOfOM null" , number + menu.getItem_name() + " !");
+
+                   Utils.listOfOrderedMenu.put(menu , number);
+                   notifyDataSetChanged();
+                   if(Utils.listOfOrderedMenu != null){
+                       listOfValues.clear();
+                       listOfValues  = new ArrayList<Integer>(Utils.listOfOrderedMenu.values());
+                   }
+                   Log.e("from menitem adapter" , number + menu.getItem_name() + " !");
+               }
+
 
 
             }

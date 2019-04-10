@@ -147,11 +147,13 @@ public class MenuActivity extends AppCompatActivity {
         panierLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
-                Bundle bundle = new Bundle();
-                bundle.putString("id_restaurant" , id );
-                intent.putExtras(bundle);
-                startActivity(intent );
+                if (Utils.price != 0){
+                    Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id_restaurant" , id );
+                    intent.putExtras(bundle);
+                    startActivity(intent );
+                }
             }
         });
 

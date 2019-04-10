@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.ViewPagerDeliveryAdapter;
@@ -49,6 +50,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private ViewPager viewPager;
+    ProgressBar progressBar ;
     private ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
     FirebaseAuth auth ;
     static HashMap<String,String> MenuReferences  = new HashMap<String, String>();
@@ -142,10 +144,12 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
         // Inflate the layout for this fragment
 
         final View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
+        progressBar = rootView.findViewById(R.id.progressBarDeliveryFragment);
 
         auth = FirebaseAuth.getInstance() ;
         final FirebaseUser firebaseUser = auth.getCurrentUser();
         userId = firebaseUser.getUid();
+        progressBar.setVisibility(View.VISIBLE);
 
         db.collection(RESTAURANT_KEY)
                 .get()
@@ -153,6 +157,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            progressBar.setVisibility(View.GONE);
                             for (final QueryDocumentSnapshot document : task.getResult()) {
                                 Log.e("FB" , document.getId() + " => " + document.getData());
 
@@ -196,7 +201,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
 
                         } else {
 
-
+                            progressBar.setVisibility(View.GONE);
 
                             Log.e("FB" ,"Error getting documents: ", task.getException());
                         }

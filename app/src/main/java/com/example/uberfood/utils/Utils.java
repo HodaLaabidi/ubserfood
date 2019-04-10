@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.uberfood.R;
+import com.example.uberfood.models.Menu;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.LinkedHashMap;
 
 public class Utils {
 
@@ -19,9 +22,20 @@ public class Utils {
     public static boolean exists = false ;
     public static boolean isNew = false ;
     public static double price = 0;
-
-
     private static Gson gson;
+    public static LinkedHashMap<Menu , Integer> listOfOrderedMenu  ;
+
+
+    public static LinkedHashMap getListOfOrderedMenu(){
+        if (listOfOrderedMenu == null){
+            return new LinkedHashMap<>();
+        } else {
+            return listOfOrderedMenu;
+        }
+    }
+
+
+
 
     public static Gson getGsonParser() {
         if(null == gson) {

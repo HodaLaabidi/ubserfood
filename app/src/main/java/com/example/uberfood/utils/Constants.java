@@ -10,6 +10,8 @@ public class Constants {
 
     public static final String MENU_COLLECTION = "menu" ;
 
+    public static final String PLACED_ORDER_KEY = "placed_order";
+
     public static final  String RESTAURANT_KEY ="Restaurants";
 
 

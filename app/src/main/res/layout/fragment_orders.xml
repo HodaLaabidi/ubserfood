@@ -5,9 +5,19 @@
     android:background="@drawable/background_color"
     android:layout_height="match_parent"
     tools:context=".fragments.OrdersFragment">
+    <ProgressBar
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:indeterminateTintMode="src_in"
+        android:indeterminateTint="@color/colorOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarOrdersFragment"
+        android:layout_centerInParent="true"/>
 
 
-  <ScrollView
+
+    <ScrollView
       android:layout_marginBottom="47dp"
       android:layout_width="match_parent"
       android:layout_height="match_parent">

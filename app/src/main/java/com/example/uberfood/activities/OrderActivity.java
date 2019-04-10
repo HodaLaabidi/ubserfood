@@ -2,6 +2,7 @@ package com.example.uberfood.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,8 +11,11 @@ import android.widget.LinearLayout;
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.MenuItemCategoriesAdapter;
 import com.example.uberfood.adapters.OrderActivityAdapter;
+import com.example.uberfood.adapters.OrdersFragmentAdapter;
 import com.example.uberfood.models.Menu;
 import com.example.uberfood.models.Order;
+import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +62,11 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        OrderActivityAdapter orderActivityAdapter = new OrderActivityAdapter(OrderActivity.this ,  MenuItemCategoriesAdapter.listOfOrderedMenu) ;
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(OrderActivity.this);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        OrderActivityAdapter orderActivityAdapter = new OrderActivityAdapter(OrderActivity.this ,  Utils.listOfOrderedMenu) ;
         recyclerView.setAdapter(orderActivityAdapter);
     }
 
