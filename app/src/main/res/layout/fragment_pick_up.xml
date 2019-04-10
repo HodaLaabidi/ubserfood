@@ -2,13 +2,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
     tools:context=".fragments.PickUpFragment">
+    <ProgressBar
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:indeterminateTintMode="src_in"
+        android:indeterminateTint="@color/colorOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarPickUpFragment"
+        android:layout_centerInParent="true"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.v4.view.ViewPager
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:id="@+id/viewPagerPickUp"
+        android:foregroundGravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:layout_height="match_parent"/>
 </FrameLayout>

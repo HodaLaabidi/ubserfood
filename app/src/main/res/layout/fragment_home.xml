@@ -26,7 +26,7 @@
 
             <android.support.v7.widget.AppCompatEditText
                 android:paddingLeft="7dp"
-                android:id="@+id/et-search"
+                android:id="@+id/restaurant_search_name"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="14sp"
                 android:backgroundTint="@android:color/transparent"
@@ -63,6 +63,16 @@
             </LinearLayout>
 
         </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:layout_marginTop="-20dp"
+            android:id="@+id/search_recylcer_view"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
 
         <lib.kingja.switchbutton.SwitchMultiButton
             android:layout_marginLeft="20dp"

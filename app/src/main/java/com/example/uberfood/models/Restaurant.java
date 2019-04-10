@@ -30,6 +30,7 @@ public class Restaurant {
     private Menu  menu ;
     private String logo ;
     private String cuisine ;
+    private boolean pick_up ;
 
     // i m using phone_Number twice !
 
@@ -44,10 +45,11 @@ public class Restaurant {
         this.logo = logo;
     }
 
-    public Restaurant(String _id,String adress_street, String cuisine  ,String logo , String adress_building, long adress_zipcode, GeoPoint adress_coord_longitude, String name, long avgprc, ArrayList opendays, String close_time, String open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, String inscription_date, Menu menu) {
+    public Restaurant(String _id,String adress_street,boolean pick_up ,  String cuisine  ,String logo , String adress_building, long adress_zipcode, GeoPoint adress_coord_longitude, String name, long avgprc, ArrayList opendays, String close_time, String open_time, String matricule_fiscale, String phone_number, String webSite, String adress_state, String description, Double number_of_orders, String email, String inscription_date, Menu menu) {
         this.id = _id;
         this.adress_street = adress_street;
         this.logo = logo ;
+        this.pick_up = pick_up;
         this.adress_building = adress_building;
         this.adress_zipcode = adress_zipcode;
         this.adress_coord = adress_coord_longitude;
@@ -69,6 +71,14 @@ public class Restaurant {
 
     }
 
+
+    public boolean isPick_up() {
+        return pick_up;
+    }
+
+    public void setPick_up(boolean pick_up) {
+        this.pick_up = pick_up;
+    }
 
     public String getId() {
         return id;

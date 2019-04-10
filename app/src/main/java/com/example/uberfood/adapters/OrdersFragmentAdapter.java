@@ -26,12 +26,12 @@ public class OrdersFragmentAdapter extends RecyclerView.Adapter<OrdersFragmentAd
 
 
     Context context ;
-    ArrayList<PlacedOrder> lisrOfPlacedOrder ;
+    ArrayList<PlacedOrder> listOfPlacedOrder ;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public OrdersFragmentAdapter(Context context, ArrayList<PlacedOrder> lisrOfPlacedOrder) {
+    public OrdersFragmentAdapter(Context context, ArrayList<PlacedOrder> listOfPlacedOrder) {
         this.context = context;
-        this.lisrOfPlacedOrder = lisrOfPlacedOrder;
+        this.listOfPlacedOrder = listOfPlacedOrder;
 
     }
 
@@ -51,7 +51,7 @@ public class OrdersFragmentAdapter extends RecyclerView.Adapter<OrdersFragmentAd
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
-        final PlacedOrder placedOrder = lisrOfPlacedOrder.get(position);
+        final PlacedOrder placedOrder = listOfPlacedOrder.get(position);
         String idRestaurant = placedOrder.getRestaurant_id();
         db.collection(RESTAURANT_KEY).document(idRestaurant).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -62,7 +62,7 @@ public class OrdersFragmentAdapter extends RecyclerView.Adapter<OrdersFragmentAd
                     holder.speciality.setText(restaurant.getCuisine());
                     holder.name.setText(restaurant.getName());
                     holder.price.setText(placedOrder.getPrice()+"");
-                    holder.price.setText(placedOrder.getOrder_time()+"");
+                    holder.date.setText(placedOrder.getOrder_time()+"");
 
 
 
@@ -80,7 +80,7 @@ public class OrdersFragmentAdapter extends RecyclerView.Adapter<OrdersFragmentAd
         public int getItemCount () {
             //return listOfRestaurants.size();
 
-            return lisrOfPlacedOrder.size();
+            return listOfPlacedOrder.size();
 
         }
 

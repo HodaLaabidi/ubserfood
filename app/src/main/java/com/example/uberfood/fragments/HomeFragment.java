@@ -8,18 +8,45 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.SearchActivityViewPager;
+import com.example.uberfood.adapters.SearchHomeFragmentAdapter;
 import com.example.uberfood.factories.DialogBuilderFactory;
+import com.example.uberfood.models.Restaurant;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tooltip.Tooltip;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
 import lib.kingja.switchbutton.SwitchMultiButton;
+
+import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 
 public class HomeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -32,8 +59,12 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     ViewPager viewPager ;
+    RecyclerView recyclerView ;
+    AppCompatEditText editTextSearch ;
     SwitchMultiButton switchMultiButton ;
     LinearLayout fiterIcon ;
+    SearchHomeFragmentAdapter searchHomeFragmentAdapter ;
+    ArrayList<Restaurant> restaurants = new ArrayList<>() ;
 
 
 
@@ -104,12 +135,100 @@ public class HomeFragment extends Fragment {
        View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
 
         viewPager = rootView.findViewById(R.id.home_fragment_view_pager);
+        editTextSearch = rootView.findViewById(R.id.restaurant_search_name);
+        recyclerView = rootView.findViewById(R.id.search_recylcer_view);
         switchMultiButton = rootView.findViewById(R.id.switch_multi_button_from_home_fragment);
         fiterIcon = rootView.findViewById(R.id.filter_icon);
         initializeViews();
         setClickableLayouts();
+        searchFunctionnality() ;
 
         return rootView ;
+    }
+
+    private void searchFunctionnality() {
+
+
+
+
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                if (!(s+"").equalsIgnoreCase("")){
+                    CollectionReference citiesRef = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
+                    Query query = citiesRef.whereEqualTo("name", s+"");
+
+                    //DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+                    //DatabaseReference dateRef = rootRef.child(RESTAURANT_KEY);
+                    // Query query = dateRef.orderByChild("name").equalTo(s.toString());
+
+                    // query.addSnapshotListener(new ValueEventListener() {
+                    /*  @Override
+                      public void onDataChange(DataSnapshot dataSnapshot) {
+                          for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                              Restaurant restaurant = postSnapshot.getValue(Restaurant.class);
+                              restaurants.add(restaurant);
+                          }
+
+                          searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurants);
+
+                          LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+                          recyclerView.setLayoutManager(mLayoutManager);
+                          recyclerView.setAdapter(searchHomeFragmentAdapter);
+
+                          searchHomeFragmentAdapter.notifyDataSetChanged();
+                          //mprogress.setVisibility(View.INVISIBLE);
+                      }
+
+                      @Override
+                      public void onCancelled(DatabaseError databaseError) {
+
+                          //mprogress.setVisibility(View.INVISIBLE);
+                      }
+                  });*/
+                    query
+                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable QuerySnapshot snapshots,
+                                                    @Nullable FirebaseFirestoreException e) {
+                                    if (e != null) {
+                                        System.err.println("Listen failed:" + e);
+                                        return;
+                                    }
+
+
+                                    for (DocumentSnapshot doc : snapshots) {
+                                        Restaurant restaurant = doc.toObject(Restaurant.class);
+                                        restaurants.add(restaurant);
+                                    }
+                                    searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurants);
+
+                                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+                                    recyclerView.setLayoutManager(mLayoutManager);
+                                    recyclerView.setAdapter(searchHomeFragmentAdapter);
+
+                                    searchHomeFragmentAdapter.notifyDataSetChanged();
+                                }
+                            });
+
+
+                }
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+    });
     }
 
     private void setClickableLayouts() {

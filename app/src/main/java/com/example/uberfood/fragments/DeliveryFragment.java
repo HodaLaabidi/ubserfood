@@ -133,10 +133,6 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
 
     }
 
-    private void getDataFromBackend() {
-
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

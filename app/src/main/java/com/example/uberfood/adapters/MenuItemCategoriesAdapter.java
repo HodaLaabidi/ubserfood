@@ -71,27 +71,30 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
                 number+=1 ;
 
                if (Utils.listOfOrderedMenu != null){
+
                    if(Utils.getListOfOrderedMenu().size() != 0){
+                       Integer numberOfOrders = Utils.listOfOrderedMenu.get(menu) ;
+                       numberOfOrders ++ ;
                        if (Utils.listOfOrderedMenu.containsValue(menu)){
-                           Integer  numberOfOrders= (listOfValues).get(position);
-                           numberOfOrders++ ;
+
                            Utils.listOfOrderedMenu.put(menu , numberOfOrders);
                            Log.e("listOfOrderedM.contains" , numberOfOrders + menu.getItem_name() + " !");
                            notifyDataSetChanged();
-                           if(Utils.listOfOrderedMenu != null){
-                               listOfValues.clear();
-                               listOfValues  = new ArrayList<Integer>(Utils.listOfOrderedMenu.values());
-                           }
+
 
                        } else {
-                           Integer  numberOfOrders = (listOfValues).get(position);
-                           numberOfOrders++ ;
+                          // Integer  numberOfOrders = (listOfValues).get(position) ;
+                           //numberOfOrders++ ;
+
+                            // listOfOrders = (listOfValues).get(position)
+                           // listOfOrderedMenu (position ) = key
+
                            Utils.listOfOrderedMenu.put(menu , numberOfOrders );
                            notifyDataSetChanged();
-                           if(Utils.listOfOrderedMenu != null){
+                          /* if(Utils.listOfOrderedMenu != null){
                                listOfValues.clear();
                                listOfValues  = new ArrayList<Integer>(Utils.listOfOrderedMenu.values());
-                           }
+                           }*/
                            Log.e("! listOfOrderedcontains" , number + menu.getItem_name() + " !");
                        }
                    } else {
@@ -104,6 +107,7 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
                        notifyDataSetChanged();
 
                        Log.e("from menitem adapter" , number + menu.getItem_name() + " !");
+
                    }
                } else {
                    Utils.listOfOrderedMenu = new LinkedHashMap<>();

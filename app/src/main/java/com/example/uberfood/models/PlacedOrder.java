@@ -3,6 +3,7 @@ package com.example.uberfood.models;
 import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PlacedOrder {
 
@@ -14,7 +15,7 @@ public class PlacedOrder {
        private Timestamp final_price ;
        private boolean food_ready ;
        private ArrayList<String> menu_item ;
-       private Timestamp order_time ;
+       private Date order_time ;
        double price ;
        String restaurant_id ;
 
@@ -25,7 +26,7 @@ public class PlacedOrder {
 
 
 
-    public PlacedOrder(Timestamp actual_delivery_time, String customer_id, String delivery_address, String estimated_delivery_time, Timestamp final_price, boolean food_ready, ArrayList<String> menu_item, Timestamp order_time, double price, String restaurant_id) {
+    public PlacedOrder(Timestamp actual_delivery_time, String customer_id, String delivery_address, String estimated_delivery_time, Timestamp final_price, boolean food_ready, ArrayList<String> menu_item, Date order_time, double price, String restaurant_id) {
         this.actual_delivery_time = actual_delivery_time;
         this.customer_id = customer_id;
         this.delivery_address = delivery_address;
@@ -94,11 +95,11 @@ public class PlacedOrder {
         this.menu_item = menu_item;
     }
 
-    public Timestamp getOrder_time() {
+    public Date getOrder_time() {
         return order_time;
     }
 
-    public void setOrder_time(Timestamp order_time) {
+    public void setOrder_time(Date order_time) {
         this.order_time = order_time;
     }
 
