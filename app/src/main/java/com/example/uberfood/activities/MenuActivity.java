@@ -22,6 +22,8 @@ import com.example.uberfood.models.Restaurant;
 import com.example.uberfood.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -147,13 +149,28 @@ public class MenuActivity extends AppCompatActivity {
         panierLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Utils.price != 0){
-                    Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id_restaurant" , id );
-                    intent.putExtras(bundle);
-                    startActivity(intent );
+
+
+
+                FirebaseAuth auth = FirebaseAuth.getInstance() ;
+                final FirebaseUser firebaseUser = auth.getCurrentUser();
+                if (firebaseUser == null) {
+                    Intent intent = new Intent(MenuActivity.this , LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                } else {
+
+                    if (Utils.price != 0){
+                        Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id_restaurant" , id );
+                        intent.putExtras(bundle);
+                        startActivity(intent );
+                    }
+
                 }
+
             }
         });
 

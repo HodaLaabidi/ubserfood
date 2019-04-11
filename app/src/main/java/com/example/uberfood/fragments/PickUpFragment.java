@@ -82,7 +82,7 @@ public class PickUpFragment extends Fragment implements DiscreteScrollView.OnIte
 
         auth = FirebaseAuth.getInstance() ;
         final FirebaseUser firebaseUser = auth.getCurrentUser();
-        userId = firebaseUser.getUid();
+        //userId = firebaseUser.getUid();
         progressBar.setVisibility(View.VISIBLE);
 
         db.collection(RESTAURANT_KEY)

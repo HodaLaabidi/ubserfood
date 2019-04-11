@@ -13,13 +13,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
@@ -27,25 +25,20 @@ import com.example.uberfood.adapters.SearchActivityViewPager;
 import com.example.uberfood.adapters.SearchHomeFragmentAdapter;
 import com.example.uberfood.factories.DialogBuilderFactory;
 import com.example.uberfood.models.Restaurant;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tooltip.Tooltip;
-
-import java.sql.Array;
 import java.util.ArrayList;
-
 import lib.kingja.switchbutton.SwitchMultiButton;
-
 import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 
 public class HomeFragment extends Fragment {
@@ -53,19 +46,19 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Context context ;
+    Context context;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    ViewPager viewPager ;
-    RecyclerView recyclerView ;
-    AppCompatEditText editTextSearch ;
-    SwitchMultiButton switchMultiButton ;
-    LinearLayout fiterIcon ;
-    SearchHomeFragmentAdapter searchHomeFragmentAdapter ;
-    ArrayList<Restaurant> restaurants = new ArrayList<>() ;
-
+    ViewPager viewPager;
+    RecyclerView recyclerView;
+    AppCompatEditText editTextSearch;
+    SwitchMultiButton switchMultiButton;
+    LinearLayout fiterIcon;
+    SearchHomeFragmentAdapter searchHomeFragmentAdapter;
+    ArrayList<Restaurant> restaurants = new ArrayList<>();
+    static  ArrayList<Restaurant> restaurantsForSearch = new ArrayList<>();
 
 
     public HomeFragment() {
@@ -97,9 +90,7 @@ public class HomeFragment extends Fragment {
         }
 
 
-
     }
-
 
 
     @Override
@@ -107,13 +98,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
     }
 
     private void initializeViews() {
 
         viewPager.setCurrentItem(0);
-        viewPager.setAdapter(new SearchActivityViewPager(getFragmentManager() , 2));
+        viewPager.setAdapter(new SearchActivityViewPager(getFragmentManager(), 2));
     }
 
     @Override
@@ -132,7 +122,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-       View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         viewPager = rootView.findViewById(R.id.home_fragment_view_pager);
         editTextSearch = rootView.findViewById(R.id.restaurant_search_name);
@@ -141,55 +131,176 @@ public class HomeFragment extends Fragment {
         fiterIcon = rootView.findViewById(R.id.filter_icon);
         initializeViews();
         setClickableLayouts();
-        searchFunctionnality() ;
+        searchFunctionnality();
 
-        return rootView ;
+        return rootView;
     }
 
     private void searchFunctionnality() {
 
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
 
 
 
         editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(final CharSequence s, int start, int before, int count) {
+
+                Log.e("editable search", s + "");
+
+                if ( s.toString().length() == 0){
+
+                } else {
+
+                }
 
 
-                if (!(s+"").equalsIgnoreCase("")){
-                    CollectionReference citiesRef = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
-                    Query query = citiesRef.whereEqualTo("name", s+"");
 
-                    //DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                //
 
-                    //DatabaseReference dateRef = rootRef.child(RESTAURANT_KEY);
-                    // Query query = dateRef.orderByChild("name").equalTo(s.toString());
+                // CollectionReference ref = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
+                /*    Task<QuerySnapshot> query = ref.whereArrayContains("name", s+"").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (final QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.e("FB2", document.getId() + " => " + document.getData());
 
-                    // query.addSnapshotListener(new ValueEventListener() {
-                    /*  @Override
-                      public void onDataChange(DataSnapshot dataSnapshot) {
-                          for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                              Restaurant restaurant = postSnapshot.getValue(Restaurant.class);
-                              restaurants.add(restaurant);
-                          }
 
-                          searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurants);
+                                    Restaurant restaurant = document.toObject(Restaurant.class);
+                                    restaurantsForSearch.add(restaurant);
+                                }
 
-                          LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-                          recyclerView.setLayoutManager(mLayoutManager);
-                          recyclerView.setAdapter(searchHomeFragmentAdapter);
+                                Log.e("restaurantsForSearch size =" , restaurantsForSearch.size()+"!");
+                                searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurantsForSearch);
 
-                          searchHomeFragmentAdapter.notifyDataSetChanged();
-                          //mprogress.setVisibility(View.INVISIBLE);
-                      }
+                                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+                                recyclerView.setLayoutManager(mLayoutManager);
+                                recyclerView.setAdapter(searchHomeFragmentAdapter);
 
-                      @Override
-                      public void onCancelled(DatabaseError databaseError) {
+                                searchHomeFragmentAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    });*/
 
-                          //mprogress.setVisibility(View.INVISIBLE);
-                      }
-                  });*/
-                    query
+               /* CollectionReference ref = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
+
+
+                Query query = ref.whereEqualTo("name", s+"");
+
+               query.get()  .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            for ( QueryDocumentSnapshot document : task.getResult()) {
+                                Restaurant restaurant = document.toObject(Restaurant.class);
+                                Log.e("rest name", restaurant.getName() + "!");
+                                restaurantsForSearch.add(restaurant);
+                            }
+
+                            Log.e("restaurantsForSearch size =", restaurantsForSearch.size() + "!");
+
+
+                            searchHomeFragmentAdapter.update(restaurantsForSearch);
+                            restaurantsForSearch.clear();
+
+
+                        }
+                    }
+                });
+
+
+
+*/
+/*
+                CollectionReference ref = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
+
+
+                Query query = ref.whereEqualTo("name", s + "");
+                query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
+                        for (DocumentSnapshot document : queryDocumentSnapshots) {
+                            Restaurant restaurant = document.toObject(Restaurant.class);
+                            Log.e("rest name", restaurant.getName() + "!");
+                            restaurantsForSearch.add(restaurant);
+                        }
+
+                        Log.e("restaurantsForSearch size =", restaurantsForSearch.size() + "!");
+
+
+                        searchHomeFragmentAdapter.update(restaurantsForSearch);
+                        restaurantsForSearch.clear();
+                    }
+                });*/
+
+
+
+
+
+
+                CollectionReference ref = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
+
+                //ref.whereEqualTo("name" , s+"")
+
+
+
+
+
+                        //ref.whereEqualTo("name" , s+"")
+
+                       ref.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                              if ( task.isSuccessful()){
+                                  for (QueryDocumentSnapshot document : task.getResult()){
+                                      Log.e("data" , document.getData()+"");
+                                      Restaurant restaurant = document.toObject(Restaurant.class);
+                                      if (restaurant.getName().contains(s+"")){
+                                          restaurantsForSearch.add(restaurant);
+                                          Log.e("rest name " , restaurant.getName());
+                                      }
+
+                                  }
+                              }
+                            }
+                        });
+
+
+                Query query = ref.whereEqualTo("name", s + "");
+              query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                         @Override
+                         public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                             for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                                 Restaurant restaurant = doc.toObject(Restaurant.class);
+                                 Log.e("rest name" , restaurant.getName()+"!");
+                                 restaurantsForSearch.add(restaurant);
+                             }
+
+                             Log.e("restaurantsForSearch size =" , restaurantsForSearch.size()+"!");
+
+
+
+                             searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurantsForSearch);
+
+
+
+                             recyclerView.setAdapter(searchHomeFragmentAdapter);
+                             searchHomeFragmentAdapter.update(restaurantsForSearch);
+                             restaurantsForSearch.clear();
+
+
+                         }
+                     });
+
+               /* CollectionReference ref = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
+
+
+                Query query = ref.whereEqualTo("name", s + "");
+                  query
                             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable QuerySnapshot snapshots,
@@ -202,9 +313,12 @@ public class HomeFragment extends Fragment {
 
                                     for (DocumentSnapshot doc : snapshots) {
                                         Restaurant restaurant = doc.toObject(Restaurant.class);
-                                        restaurants.add(restaurant);
+                                        restaurantsForSearch.add(restaurant);
+                                        Log.e("rest name" , restaurant.getName()+"!");
                                     }
-                                    searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurants);
+
+                                    Log.e("restaurantsForSearch size =" , restaurantsForSearch.size()+"!");
+                                    searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurantsForSearch);
 
                                     LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
                                     recyclerView.setLayoutManager(mLayoutManager);
@@ -213,9 +327,8 @@ public class HomeFragment extends Fragment {
                                     searchHomeFragmentAdapter.notifyDataSetChanged();
                                 }
                             });
+*/
 
-
-                }
 
             }
 
@@ -228,7 +341,7 @@ public class HomeFragment extends Fragment {
 
             }
 
-    });
+        });
     }
 
     private void setClickableLayouts() {
@@ -255,7 +368,7 @@ public class HomeFragment extends Fragment {
             public void onSwitch(int position, String tabText) {
 
 
-                if (position == 0){
+                if (position == 0) {
 
 
                     viewPager.setCurrentItem(0);
@@ -278,7 +391,7 @@ public class HomeFragment extends Fragment {
             public void onPageSelected(int position) {
 
 
-                if (position == 0){
+                if (position == 0) {
 
                     switchMultiButton.clearSelection();
                     switchMultiButton.setSelectedTab(0);
@@ -287,8 +400,6 @@ public class HomeFragment extends Fragment {
                 } else {
                     switchMultiButton.clearSelection();
                     switchMultiButton.setSelectedTab(1);
-
-
 
 
                 }
@@ -302,9 +413,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
-
 
 
 }

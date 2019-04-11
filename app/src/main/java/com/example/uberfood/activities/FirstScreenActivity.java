@@ -68,6 +68,10 @@ public class FirstScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                Intent intent =  new Intent(FirstScreenActivity.this , MainActivity.class);
+                startActivity(intent);
+
             }
         });
 

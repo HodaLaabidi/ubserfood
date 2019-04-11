@@ -144,7 +144,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
 
         auth = FirebaseAuth.getInstance() ;
         final FirebaseUser firebaseUser = auth.getCurrentUser();
-        userId = firebaseUser.getUid();
+        //userId = firebaseUser.getUid();
         progressBar.setVisibility(View.VISIBLE);
 
         db.collection(RESTAURANT_KEY)

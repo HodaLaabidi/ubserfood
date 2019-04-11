@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="20dp"
     android:padding="10dp"
-    android:layout_height="wrap_content">
+    android:visibility="visible">
 
     <LinearLayout
-        android:background="@android:color/white"
-        android:padding="10dp"
         android:id="@+id/layout_item_order"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <ImageView
-            android:src="@drawable/add_order"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/add_order" />
+
         <ImageView
-            android:src="@drawable/remove_order"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/remove_order" />
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/order_label"
-            android:layout_marginLeft="20dp"
-            android:textSize="16sp"
-            android:text="Your order"
-            android:layout_weight="10"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="10"
+            android:text="Your order"
+            android:textSize="16sp" />
 
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginRight="-8dp"
-        android:layout_marginTop="-8dp"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical"
-        android:layout_alignEnd="@+id/layout_item_order"
-        android:background="@drawable/black_circule"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/layout_item_order"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-8dp"
+        android:layout_marginRight="-8dp"
+        android:background="@drawable/black_circule"
+        android:orientation="horizontal">
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/number_of_orders"
             android:layout_width="wrap_content"

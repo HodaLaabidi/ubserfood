@@ -52,6 +52,17 @@ public class SearchHomeFragmentAdapter extends RecyclerView.Adapter<SearchHomeFr
 
 
 
+
+
+    }
+
+    public void update(ArrayList<Restaurant> listOfRestaurants){
+
+        listOfRestaurants.clear();
+        this.listOfRestaurants = listOfRestaurants;
+
+        notifyDataSetChanged();
+
     }
 
     @Override
