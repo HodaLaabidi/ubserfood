@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.uberfood.R;
@@ -111,28 +112,38 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0){
-            if (manager.getBackStackEntryCount() == 1){
-
-                finish();
-            }
-            super.onBackPressed();
-            Fragment currentFragment = manager.findFragmentById(R.id.main_frame);
-            if (currentFragment instanceof  HomeFragment){
-                mainNavBar.getMenu().getItem(0).setChecked(true);
-                setFragment(homeFragment);
-            } else if (currentFragment instanceof  ProfilFragment){
-                mainNavBar.getMenu().getItem(3).setChecked(true);
-            }else if (currentFragment instanceof SearchFragment){
-                mainNavBar.getMenu().getItem(1).setChecked(true);
-            } else if (currentFragment instanceof OrdersFragment){
-                mainNavBar.getMenu().getItem(2).setChecked(true);
-
-            }
+        if (HomeFragment.rlSearchLocation.getVisibility() == View.VISIBLE){
+            HomeFragment.closeFilter(HomeFragment.rlSearchLocation , getBaseContext());
+            mainNavBar.getMenu().getItem(0).setChecked(true);
+            setFragment(homeFragment);
         } else {
 
-            super.onBackPressed();
+            if (manager.getBackStackEntryCount() > 0){
+                if (manager.getBackStackEntryCount() == 1){
+                    super.onBackPressed();
+                    finish();
+                }
+                super.onBackPressed();
+                Fragment currentFragment = manager.findFragmentById(R.id.main_frame);
+                if (currentFragment instanceof  HomeFragment){
+                    mainNavBar.getMenu().getItem(0).setChecked(true);
+                    setFragment(homeFragment);
+                } else if (currentFragment instanceof  ProfilFragment){
+                    mainNavBar.getMenu().getItem(3).setChecked(true);
+                }else if (currentFragment instanceof SearchFragment){
+                    mainNavBar.getMenu().getItem(1).setChecked(true);
+                } else if (currentFragment instanceof OrdersFragment){
+                    mainNavBar.getMenu().getItem(2).setChecked(true);
+
+                }
+            } else {
+
+                super.onBackPressed();
+                finish();
+            }
+
         }
+
 
     }
 }

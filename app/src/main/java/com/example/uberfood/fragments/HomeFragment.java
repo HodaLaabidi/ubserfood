@@ -18,7 +18,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.SearchActivityViewPager;
@@ -52,10 +55,15 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     ViewPager viewPager;
+    public static RelativeLayout rlSearchLocation;
+    LinearLayout locationIcon ;
     RecyclerView recyclerView;
+    ImageView closeSearchLocationIcon ;
     AppCompatEditText editTextSearch;
     SwitchMultiButton switchMultiButton;
-    LinearLayout fiterIcon;
+    LinearLayout fiterIcon ;
+    public static LinearLayout searchToolbar;
+    public static LinearLayout llFragmentHome;
     SearchHomeFragmentAdapter searchHomeFragmentAdapter;
     ArrayList<Restaurant> restaurants = new ArrayList<>();
     static  ArrayList<Restaurant> restaurantsForSearch = new ArrayList<>();
@@ -127,6 +135,11 @@ public class HomeFragment extends Fragment {
         viewPager = rootView.findViewById(R.id.home_fragment_view_pager);
         editTextSearch = rootView.findViewById(R.id.restaurant_search_name);
         recyclerView = rootView.findViewById(R.id.search_recylcer_view);
+        llFragmentHome = rootView.findViewById(R.id.ll_fragment_home);
+        locationIcon = rootView.findViewById(R.id.location_icon);
+        closeSearchLocationIcon = rootView.findViewById(R.id.close_search_location_icon);
+        searchToolbar = rootView.findViewById(R.id.search_toolbar);
+        rlSearchLocation = rootView.findViewById(R.id.rl_search_location);
         switchMultiButton = rootView.findViewById(R.id.switch_multi_button_from_home_fragment);
         fiterIcon = rootView.findViewById(R.id.filter_icon);
         initializeViews();
@@ -347,6 +360,19 @@ public class HomeFragment extends Fragment {
     private void setClickableLayouts() {
 
 
+        locationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (rlSearchLocation.getVisibility() == View.GONE){
+
+                    openFilter(rlSearchLocation, getContext());
+                }
+
+            }
+        });
+
+
         fiterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -412,6 +438,40 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
+
+
+    private void openFilter(View view, final Context context) {
+        llFragmentHome.setVisibility(View.GONE);
+        searchToolbar.setVisibility(View.GONE);
+
+        view.startAnimation(AnimationUtils.loadAnimation(getContext(),
+                R.anim.slide_down));
+        view.setVisibility(View.VISIBLE);
+
+
+        closeSearchLocationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeFilter(rlSearchLocation , context);
+            }
+        });
+
+    }
+
+
+    public static void closeFilter(View view  , Context context) {
+        searchToolbar.setVisibility(View.VISIBLE);
+        llFragmentHome.setVisibility(View.VISIBLE);
+        view.startAnimation(AnimationUtils.loadAnimation(context,
+                R.anim.slide_up));
+        view.setVisibility(View.GONE);
+
+
+
+
+
+
     }
 
 
