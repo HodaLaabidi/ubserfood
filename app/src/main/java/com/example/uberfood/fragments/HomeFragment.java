@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,6 +42,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tooltip.Tooltip;
 import java.util.ArrayList;
+import java.util.List;
+
+import jrizani.jrspinner.JRSpinner;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 
@@ -55,13 +59,15 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     ViewPager viewPager;
-    public static RelativeLayout rlSearchLocation;
+    public static RelativeLayout rlSearchLocation , rlFilter;
     LinearLayout locationIcon ;
     RecyclerView recyclerView;
     ImageView closeSearchLocationIcon ;
     AppCompatEditText editTextSearch;
     SwitchMultiButton switchMultiButton;
     LinearLayout fiterIcon ;
+    ImageView iconCloseFilter ;
+    JRSpinner searchCitySpinner , searchQuarterSpinner;
     public static LinearLayout searchToolbar;
     public static LinearLayout llFragmentHome;
     SearchHomeFragmentAdapter searchHomeFragmentAdapter;
@@ -97,6 +103,31 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        //  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+        //  gotLocation from location manager i have to implement the class MyLocationManager  //
+        /*
+
+         setOnClickListener
+         if (hasPermissions ( )
+         {
+           getLocation override  => gotLocation
+           test lastlocation to send
+           get current lat / long
+           get addres from geocoder
+           show gps dialog
+           // link : https://stackoverflow.com/questions/2296377/how-to-get-city-name-from-latitude-and-longitude-coordinates-in-google-maps
+         }
+         */
+
+
+        // add the geolocation request permissions ad update the view after the icon button click ( use gotLocation from vyndTeamApp )
+
+        // list of geocoder values returns a string (adresses ) and take a latitude and longitude from previous request
+        //
+        // /  i will send a broadcast receiver ( for orders )
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
     }
 
@@ -137,8 +168,12 @@ public class HomeFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.search_recylcer_view);
         llFragmentHome = rootView.findViewById(R.id.ll_fragment_home);
         locationIcon = rootView.findViewById(R.id.location_icon);
+        rlFilter = rootView.findViewById(R.id.rl_filter);
+        iconCloseFilter = rootView.findViewById(R.id.close_filter);
         closeSearchLocationIcon = rootView.findViewById(R.id.close_search_location_icon);
         searchToolbar = rootView.findViewById(R.id.search_toolbar);
+        searchQuarterSpinner = rootView.findViewById(R.id.spn_search_quarter);
+        searchCitySpinner  = rootView.findViewById(R.id.spn_search_city);
         rlSearchLocation = rootView.findViewById(R.id.rl_search_location);
         switchMultiButton = rootView.findViewById(R.id.switch_multi_button_from_home_fragment);
         fiterIcon = rootView.findViewById(R.id.filter_icon);
@@ -372,12 +407,39 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //
+
+        // layout clicklistener:  i will use method openFiler and closeFilter after modifications
+
+        // add rlFilter animation
+
+
+
 
         fiterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.Tooltip)
+
+
+                   rlFilter.setVisibility(View.VISIBLE);
+
+                   iconCloseFilter.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+
+                           rlFilter.setVisibility(View.GONE);
+                           rlSearchLocation.setVisibility(View.GONE);
+                           searchToolbar.setVisibility(View.VISIBLE);
+                           llFragmentHome.setVisibility(View.VISIBLE);
+
+                       }
+                   });
+
+
+               }
+
+                /*Tooltip.Builder builder = new Tooltip.Builder(v, R.style.Tooltip)
                         .setCancelable(true)
                         .setArrowEnabled(false)
                         .setDismissOnClick(false)
@@ -386,7 +448,9 @@ public class HomeFragment extends Fragment {
                         .setText(R.string.filter_tooltip_text);
                 builder.show();
                 DialogBuilderFactory.showFilterDialog(getContext());
-            }
+            }*/
+
+                // add the animation here !
         });
 
         switchMultiButton.setOnSwitchListener(new SwitchMultiButton.OnSwitchListener() {
@@ -438,16 +502,135 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+
+            setSearchLocationLayout();
+    }
+
+    private void setSearchLocationLayout() {
+
+
+
+
+        final String[] cities = new String[5];
+        cities[0] = "Tunis";
+        cities[1] = "Ariana";
+        cities[2] = "Manouba";
+        cities[3] = "Ben arous";
+        cities[4] = "Bardoo";
+
+        searchCitySpinner.setItems(cities);
+        searchCitySpinner.setExpandTint(R.color.colorOrange);
+        searchCitySpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                searchCitySpinner.setText(cities[position]);
+                Log.e("position = " , position +" !");
+
+            }
+        });
+
+        searchCitySpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
+            @Override
+            public void onMultipleSelected(List<Integer> selectedPosition) {
+
+
+
+
+                // if i choose select i will open the new dialog search popup
+
+                // search pop up with dialogflow rq
+
+            }
+        });
+
+        searchQuarterSpinner.setItems(cities);
+        searchQuarterSpinner.setExpandTint(R.color.colorOrange);
+        searchQuarterSpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
+            @Override
+            public void onMultipleSelected(List<Integer> selectedPosition) {
+
+
+
+
+                // if i choose select i will open the new dialog search popup
+
+                //
+
+            }
+        });
+
+
+
+
+
+        searchQuarterSpinner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    searchQuarterSpinner.setItems(cities);
+                    searchQuarterSpinner.setExpandTint(R.color.colorOrange);
+                    searchQuarterSpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
+                        @Override
+                        public void onMultipleSelected(List<Integer> selectedPosition) {
+
+
+                            // Log.e( "position" , position );
+                            //
+
+
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+
+
+
+
     }
 
 
-    private void openFilter(View view, final Context context) {
-        llFragmentHome.setVisibility(View.GONE);
-        searchToolbar.setVisibility(View.GONE);
+    private void openFilter(final View view, final Context context) {
 
-        view.startAnimation(AnimationUtils.loadAnimation(getContext(),
-                R.anim.slide_down));
-        view.setVisibility(View.VISIBLE);
+
+        // use this animation to set up filter layout
+
+
+
+
+
+        Animation animation = AnimationUtils.loadAnimation(context , R.anim.slide_up);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+
+
+                AnimationUtils.loadAnimation(context,
+                        R.anim.slide_up);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.VISIBLE);
+                llFragmentHome.setVisibility(View.GONE);
+                searchToolbar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+        });
+
+
+
+        view.startAnimation(animation);
 
 
         closeSearchLocationIcon.setOnClickListener(new View.OnClickListener() {
@@ -460,14 +643,37 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public static void closeFilter(View view  , Context context) {
-        searchToolbar.setVisibility(View.VISIBLE);
-        llFragmentHome.setVisibility(View.VISIBLE);
-        view.startAnimation(AnimationUtils.loadAnimation(context,
-                R.anim.slide_up));
-        view.setVisibility(View.GONE);
+    public static void closeFilter(final View view  , final Context context) {
 
 
+
+        Animation animation = AnimationUtils.loadAnimation(context , R.anim.slide_down);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+                searchToolbar.setVisibility(View.VISIBLE);
+                llFragmentHome.setVisibility(View.VISIBLE);
+
+                AnimationUtils.loadAnimation(context,
+                        R.anim.slide_down);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+        });
+
+
+
+        view.startAnimation(animation);
 
 
 

@@ -67,6 +67,11 @@ dependencies {
 
     implementation 'me.relex:circleindicator:1.2.2'
 
+    implementation 'com.github.jrizani:JRSpinner:1.0.0'
+
+
+
+
 
 
 

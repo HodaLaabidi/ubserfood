@@ -7,118 +7,127 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_marginBottom="45dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
-            android:animateLayoutChanges="true"
-            android:id="@+id/search_toolbar"
-            android:padding="3dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/background_white_edittext"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-
-
-            <android.support.v7.widget.AppCompatEditText
-                android:paddingLeft="7dp"
-                android:id="@+id/restaurant_search_name"
-                android:textCursorDrawable="@drawable/color_cursor"
-                android:textSize="14sp"
-                android:backgroundTint="@android:color/transparent"
-                android:hint="@string/hint_search_text_from_search_activity"
-                android:layout_width="0dp"
-                android:layout_weight="14"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:id="@+id/filter_icon"
-                android:gravity="center"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp">
-                <ImageView
-                    android:layout_gravity="center"
-                    android:src="@drawable/filter"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/location_icon"
-                android:background="@drawable/background_grey_stroke"
-                android:gravity="center"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="25dp">
-                <ImageView
-
-                    android:layout_gravity="center"
-                    android:src="@drawable/location_icon"
-                    android:layout_width="23dp"
-                    android:layout_height="25dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:animateLayoutChanges="true"
-            android:id="@+id/ll_fragment_home"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                android:visibility="gone"
-                android:layout_marginTop="-20dp"
-                android:id="@+id/search_recylcer_view"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+
+
+            <LinearLayout
+                android:animateLayoutChanges="true"
+                android:id="@+id/search_toolbar"
+                android:padding="3dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/background_white_edittext"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:paddingLeft="7dp"
+                    android:id="@+id/restaurant_search_name"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="14sp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="@string/hint_search_text_from_search_activity"
+                    android:layout_width="0dp"
+                    android:layout_weight="14"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:id="@+id/filter_icon"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/filter"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/location_icon"
+                    android:background="@drawable/background_grey_stroke"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp">
+                    <ImageView
+
+                        android:layout_gravity="center"
+                        android:src="@drawable/location_icon"
+                        android:layout_width="23dp"
+                        android:layout_height="25dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:animateLayoutChanges="true"
+                android:id="@+id/ll_fragment_home"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                    android:visibility="gone"
+                    android:layout_marginTop="-20dp"
+                    android:id="@+id/search_recylcer_view"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            </android.support.v7.widget.RecyclerView>
+                </android.support.v7.widget.RecyclerView>
 
-            <lib.kingja.switchbutton.SwitchMultiButton
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:id="@+id/switch_multi_button_from_home_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                app:strokeRadius="5dp"
-                app:strokeWidth="1dp"
-                app:selectedTab="0"
-                app:disableColor="@color/colorOrange"
-                app:selectedColor="@color/colorOrange"
-                app:switchTabs="@array/switch_tabs"
-                app:textSize="16sp" />
-
-
-            <android.support.v4.view.ViewPager
-                android:layout_gravity="center"
-                android:id="@+id/home_fragment_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/switch_multi_button_from_home_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    app:strokeRadius="5dp"
+                    app:strokeWidth="1dp"
+                    app:selectedTab="0"
+                    app:disableColor="@color/colorOrange"
+                    app:selectedColor="@color/colorOrange"
+                    app:switchTabs="@array/switch_tabs"
+                    app:textSize="16sp" />
 
 
+                <android.support.v4.view.ViewPager
+                    android:layout_gravity="center"
+                    android:id="@+id/home_fragment_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <FrameLayout
-                android:visibility="gone"
-                android:background="@color/colorLightGrey"
-                android:id="@+id/fragment_home"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+
+
+                <FrameLayout
+                    android:visibility="gone"
+                    android:background="@color/colorLightGrey"
+                    android:id="@+id/fragment_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+
+
+
         </LinearLayout>
-
         <RelativeLayout
-            android:animateLayoutChanges="true"
             android:visibility="gone"
+            android:animateLayoutChanges="true"
             android:id="@+id/rl_search_location"
             android:background="@android:color/white"
             android:orientation="vertical"
@@ -149,7 +158,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.AppCompatEditText
-
+                    android:visibility="gone"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="12sp"
                     android:text="Grand Tunis"
@@ -159,6 +168,21 @@
                     android:layout_width="match_parent"
                     android:layout_margin="15dp"
                     android:layout_height="wrap_content" />
+                <jrizani.jrspinner.JRSpinner
+                    android:fontFamily="@font/lato"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:layout_margin="15dp"
+                    android:textSize="12sp"
+                    android:id="@+id/spn_search_city"
+                    android:layout_width="match_parent"
+                    android:textColorHint="@android:color/black"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/city_location_search"
+                    android:textColor="@android:color/black"
+                    app:backgroundTint="@color/colorDarkGrey"
+                    app:jrs_title="Choose"
+                    app:jrs_icon_tint="@color/colorOrange"
+                    app:jrs_multiple="true"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:textSize="14sp"
                     android:layout_marginTop="50dp"
@@ -167,6 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.AppCompatEditText
+                    android:visibility="gone"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="12sp"
                     android:text="Marsa"
@@ -176,6 +201,21 @@
                     android:layout_width="match_parent"
                     android:layout_margin="15dp"
                     android:layout_height="wrap_content" />
+                <jrizani.jrspinner.JRSpinner
+                    android:fontFamily="@font/lato"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:layout_margin="15dp"
+                    android:textSize="12sp"
+                    android:id="@+id/spn_search_quarter"
+                    android:layout_width="match_parent"
+                    android:textColorHint="@android:color/black"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_quarter_city"
+                    android:textColor="@android:color/black"
+                    app:backgroundTint="@color/colorDarkGrey"
+                    app:jrs_title="Choose"
+                    app:jrs_icon_tint="@color/colorOrange"
+                    app:jrs_multiple="true"/>
                 <LinearLayout
                     android:layout_marginTop="15dp"
                     android:orientation="horizontal"
@@ -217,8 +257,58 @@
             </LinearLayout>
 
         </RelativeLayout>
+        <RelativeLayout
+           android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:id="@+id/rl_filter"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                   android:orientation="horizontal"
+                    android:background="@color/colorOrange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/close_filter"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/close_white"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp" />
+                   <android.support.v7.widget.AppCompatTextView
+                       android:text="@string/filter"
+                       android:layout_marginLeft="15dp"
+                       android:textColor="@android:color/white"
+                       android:layout_gravity="center"
+                       android:textSize="18sp"
+                       android:textStyle="bold"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content" />
+                    <android.support.v7.widget.AppCompatTextView
+                        android:text="@string/reset"
+                        android:layout_marginRight="15dp"
+                        android:gravity="right"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@android:color/white"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
 
-    </LinearLayout>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
 
 </FrameLayout>

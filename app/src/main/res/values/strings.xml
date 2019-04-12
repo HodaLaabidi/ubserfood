@@ -77,5 +77,7 @@
     <string name="hint_quarter_city">Marsa</string>
     <string name="my_current_location">Use my current location</string>
     <string name="search_restarants">Search Restaurants</string>
+    <string name="filter">Filter</string>
+    <string name="reset">Reset</string>
 
 </resources>
