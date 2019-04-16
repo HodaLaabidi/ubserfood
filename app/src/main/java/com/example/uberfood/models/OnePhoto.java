@@ -29,6 +29,8 @@ import static com.example.uberfood.utils.Constants.countImg;
 
         }
 
+
+
         public  HashMap<String , String> getPhoto() {
             return photo;
         }
@@ -43,6 +45,16 @@ import static com.example.uberfood.utils.Constants.countImg;
 
         public void setId(String id) {
             this.id = id;
+        }
+
+
+        @Override
+        public String toString() {
+            return "OnePhoto{" +
+                    "photo=" + photo.toString() +
+                    ", id='" + id + '\'' +
+                    ", id_ad=" + id_ad +
+                    '}';
         }
     }
 

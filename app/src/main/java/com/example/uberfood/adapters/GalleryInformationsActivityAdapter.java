@@ -27,6 +27,9 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
     public GalleryInformationsActivityAdapter(Context context, ArrayList<OnePhoto> galleryArrayList) {
         this.context = context;
         this.galleryArrayList=galleryArrayList;
+        for (int i = 0 ; i < galleryArrayList.size() ; i++){
+            Log.e(" test "+i , galleryArrayList.get(i)+toString());
+        }
 
 
     }
@@ -42,6 +45,8 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
     }
 
     @Override
+    // add a new item to string with id not from firebase
+
     public long getItemId(int position) {
         return galleryArrayList.get(position).getId_ad();
     }
@@ -55,11 +60,15 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
         if(galleryArrayList.size()!=0)
         {
             progressBar.setVisibility(View.GONE);
-            Glide.with(context)
+            Log.e("test" , galleryArrayList.get(position).toString());
+            Log.e("test" , galleryArrayList.get(position).getPhoto().toString());
+
+
+           /* Glide.with(context)
                     .load(galleryArrayList.get(position).getPhoto().entrySet().)
 
-                    .into(ivPhoto  );
-            Log.e("test" ,galleryArrayList.get(position).getPhoto().entrySet() );
+                    .into(ivPhoto);
+            Log.e("test" ,galleryArrayList.get(position).getPhoto().entrySet() ); */
             //ivPhoto.setImageUrlWithoutBorderWithoutResizing(imageGalerieArrayList.get(position).getImage(),R.drawable.empty_business_photo,progressBar);
 
         }
@@ -70,7 +79,7 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
     public void refresh(Context context, ArrayList<OnePhoto> galleryArrayList)
     {
         this.context = context;
-        this.galleryArrayList=galleryArrayList;
+        this.galleryArrayList= galleryArrayList;
         notifyDataSetChanged();
     }
 

@@ -90,6 +90,7 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
 
                                 if (!galleryArrayList.contains(onePhoto)){
                                     galleryArrayList.add(onePhoto);
+                                    Log.e("test menu " , onePhoto.toString());
 
                                 }
 

@@ -79,7 +79,6 @@
     <string name="search_restarants">Search Restaurants</string>
     <string name="filter">Filter</string>
     <string name="reset">Reset</string>
-    <string name="text_splash_screen">By Start development</string>
     <string name="no_internet_connexion">Unable to reach the internet</string>
     <string name="no_internet_connexion_text">Check your internet connexion and try again !</string>
     <string name="no_results_found">No results found</string>
@@ -87,5 +86,6 @@
 
     <string name="undo">Undo</string>
     <string name="send_order_message">Successful order</string>
+    <string name="text_splash_screen">By start development</string>
 
 </resources>
