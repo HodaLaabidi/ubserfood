@@ -1,28 +1,22 @@
 package com.example.uberfood.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
-import com.example.uberfood.activities.OrderActivity;
 import com.example.uberfood.models.Menu;
 import com.example.uberfood.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCategoriesAdapter.MyViewHolder> {
@@ -74,7 +68,14 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
 
                    if(Utils.getListOfOrderedMenu().size() != 0){
                        Integer numberOfOrders = Utils.listOfOrderedMenu.get(menu) ;
-                       numberOfOrders ++ ;
+                       Log.e("test" , numberOfOrders+"!");
+                       if (numberOfOrders != null){
+                           numberOfOrders ++ ;
+
+                       } else  {
+                           numberOfOrders = 0 ;
+                           numberOfOrders ++ ;
+                       }
                        if (Utils.listOfOrderedMenu.containsValue(menu)){
 
                            Utils.listOfOrderedMenu.put(menu , numberOfOrders);
@@ -110,7 +111,7 @@ public class MenuItemCategoriesAdapter extends RecyclerView.Adapter<MenuItemCate
 
                    }
                } else {
-                   Utils.listOfOrderedMenu = new LinkedHashMap<>();
+                   Utils.listOfOrderedMenu = new LinkedHashMap<Menu, Integer>();
                    Log.e("listOfOM null" , number + menu.getItem_name() + " !");
 
                    Utils.listOfOrderedMenu.put(menu , number);

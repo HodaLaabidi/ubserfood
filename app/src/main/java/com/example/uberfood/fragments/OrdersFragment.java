@@ -13,13 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.OrdersFragmentAdapter;
 import com.example.uberfood.adapters.ViewPagerDeliveryAdapter;
 import com.example.uberfood.models.PlacedOrder;
 import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.ConnectivityService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,6 +46,8 @@ public class OrdersFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView ;
+    LinearLayout llNoInternetConnexion , llResultsNotFound ;
+    ScrollView scrollView ;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<PlacedOrder> listOfPlacedOrder = new ArrayList<>();
 
@@ -85,6 +90,9 @@ public class OrdersFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_orders, container, false);
         progressBar = rootView.findViewById(R.id.progressBarOrdersFragment);
+        llNoInternetConnexion = rootView.findViewById(R.id.ll_no_internet_connexion_fragment_orders);
+        llResultsNotFound = rootView.findViewById(R.id.ll_no_results_found_fragment_orders);
+        scrollView = rootView.findViewById(R.id.scroll_view_fragment_orders);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyler_view_orders_fragment);
         initializeFragment();
         return rootView ;
@@ -92,10 +100,22 @@ public class OrdersFragment extends Fragment {
 
 
     public void initializeFragment() {
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
-        getValuesFromBackend();
+
+        if (ConnectivityService.isOnline(getContext())){
+
+            scrollView.setVisibility(View.VISIBLE);
+            llResultsNotFound.setVisibility(View.GONE);
+            llNoInternetConnexion.setVisibility(View.GONE);
+
+
+            getValuesFromBackend();
+
+        } else {
+            scrollView.setVisibility(View.GONE);
+            llNoInternetConnexion.setVisibility(View.VISIBLE);
+            llResultsNotFound.setVisibility(View.GONE);
+
+        }
 
 
 
@@ -124,9 +144,21 @@ public class OrdersFragment extends Fragment {
                                     listOfPlacedOrder.add(placedOrder);
                                 }
 
+                                if (listOfPlacedOrder.size() == 0){
+                                    scrollView.setVisibility(View.GONE);
+                                    llResultsNotFound.setVisibility(View.VISIBLE);
+                                    llNoInternetConnexion.setVisibility(View.GONE);
 
-                                OrdersFragmentAdapter ordersFragmentAdapter = new OrdersFragmentAdapter(getContext() , listOfPlacedOrder);
-                                recyclerView.setAdapter(ordersFragmentAdapter);
+                                } else {
+
+                                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+                                    recyclerView.setLayoutManager(mLayoutManager);
+                                    OrdersFragmentAdapter ordersFragmentAdapter = new OrdersFragmentAdapter(getContext() , listOfPlacedOrder);
+                                    recyclerView.setAdapter(ordersFragmentAdapter);
+                                }
+
+
+
 
 
 

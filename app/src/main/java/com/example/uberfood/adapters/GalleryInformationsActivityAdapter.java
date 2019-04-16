@@ -1,10 +1,10 @@
 package com.example.uberfood.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,7 +43,7 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return galleryArrayList.get(position).getId();
+        return galleryArrayList.get(position).getId_ad();
     }
 
     @Override
@@ -56,8 +56,10 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
         {
             progressBar.setVisibility(View.GONE);
             Glide.with(context)
-                    .load(galleryArrayList.get(position).getUrl())
+                    .load(galleryArrayList.get(position).getPhoto().entrySet().)
+
                     .into(ivPhoto  );
+            Log.e("test" ,galleryArrayList.get(position).getPhoto().entrySet() );
             //ivPhoto.setImageUrlWithoutBorderWithoutResizing(imageGalerieArrayList.get(position).getImage(),R.drawable.empty_business_photo,progressBar);
 
         }

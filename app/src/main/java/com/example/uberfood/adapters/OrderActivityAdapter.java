@@ -3,7 +3,6 @@ package com.example.uberfood.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.uberfood.R;
+import com.example.uberfood.activities.MenuActivity;
 import com.example.uberfood.models.Menu;
-import com.example.uberfood.models.Order;
+import com.example.uberfood.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +27,10 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
 
 
     Context context ;
-    LinkedHashMap<Menu , Integer> listOfOrderedMenu = new LinkedHashMap<>() ;
+    HashMap<Menu , Integer> listOfOrderedMenu = new LinkedHashMap<>() ;
 
 
-    public OrderActivityAdapter(Context context , LinkedHashMap<Menu , Integer> listOfOrderedMenu){
+    public OrderActivityAdapter(Context context , HashMap<Menu , Integer> listOfOrderedMenu){
         this.listOfOrderedMenu.putAll(listOfOrderedMenu);
         this.context = context ;
     }
@@ -46,12 +46,48 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
 
-        Menu menu = (new ArrayList<Menu>(listOfOrderedMenu.keySet())).get(position);
+        final Menu menu = (new ArrayList<Menu>(listOfOrderedMenu.keySet())).get(position);
 
-        Integer  numberOfOrders= (new ArrayList<Integer>(listOfOrderedMenu.values())).get(position);
+        final Integer  numberOfOrders= (new ArrayList<Integer>(listOfOrderedMenu.values())).get(position);
         Log.e("from order adapter" , numberOfOrders + menu.getItem_name() + " !");
         holder.orderLabel.setText(menu.getItem_name());
         holder.numberOfOrders.setText("*"+numberOfOrders);
+        holder.llNumberOfOrders.bringToFront();
+        (holder.llNumberOfOrders.getParent()).requestLayout();
+        holder.addOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String number = holder.numberOfOrders.getText()+"";
+                int NumberOrders =  Integer.parseInt(number.substring(1));
+                NumberOrders++ ;
+                Log.e("number" , NumberOrders+" !");
+                holder.numberOfOrders.setText("*"+NumberOrders);
+                Utils.price += menu.getPrice();
+                notifyDataSetChanged();
+
+                listOfOrderedMenu.put(menu , NumberOrders);
+                Utils.listOfOrderedMenu.put(menu , NumberOrders);
+                MenuActivity.priceText.setText(Utils.price + " DT");
+            }
+        });
+
+        holder.deleteOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String number = holder.numberOfOrders.getText()+"";
+                int NumberOrders =  Integer.parseInt(number.substring(1));
+                NumberOrders-- ;
+                Utils.price -= menu.getPrice();
+                listOfOrderedMenu.put(menu , NumberOrders);
+                Utils.listOfOrderedMenu.put(menu , NumberOrders);
+                notifyDataSetChanged();
+                MenuActivity.priceText.setText(Utils.price + " DT");
+                Log.e("number" , NumberOrders+" !");
+                holder.numberOfOrders.setText("*"+NumberOrders);
+
+            }
+        });
 
 
 
@@ -66,6 +102,8 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
 
 
         AppCompatTextView orderLabel , numberOfOrders ;
+        LinearLayout llNumberOfOrders ;
+        ImageView addOrder , deleteOrder ;
 
 
         public MyViewHolder(View itemView){
@@ -73,6 +111,9 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
 
             orderLabel = itemView.findViewById(R.id.order_label);
             numberOfOrders = itemView.findViewById(R.id.number_of_orders);
+            addOrder = itemView.findViewById(R.id.add_order);
+            deleteOrder = itemView.findViewById(R.id.delete_order);
+            llNumberOfOrders = itemView.findViewById(R.id.ll_number_of_orders);
 
         }
     }

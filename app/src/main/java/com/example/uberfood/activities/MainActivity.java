@@ -74,11 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     setFragment(homeFragment);
                     return  true ;
 
-                }  else if (item.getItemId() == R.id.main_nav_search) {
-                    setFragment(searchFragment);
-                    return  true ;
-
-                } else if (item.getItemId() == R.id.main_nav_profil) {
+                }  else if (item.getItemId() == R.id.main_nav_profil) {
                     setFragment(profilFragment);
                     return  true ;
 
@@ -129,11 +125,9 @@ public class MainActivity extends AppCompatActivity {
                     mainNavBar.getMenu().getItem(0).setChecked(true);
                     setFragment(homeFragment);
                 } else if (currentFragment instanceof  ProfilFragment){
-                    mainNavBar.getMenu().getItem(3).setChecked(true);
-                }else if (currentFragment instanceof SearchFragment){
-                    mainNavBar.getMenu().getItem(1).setChecked(true);
-                } else if (currentFragment instanceof OrdersFragment){
                     mainNavBar.getMenu().getItem(2).setChecked(true);
+                } else if (currentFragment instanceof OrdersFragment){
+                    mainNavBar.getMenu().getItem(1).setChecked(true);
 
                 }
             } else {

@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
     ArrayList<Menu> listOfMenus = new ArrayList<>();
     ImageView arrowBack ;
     ImagePicker imagePicker ;
-    String id = "";
+    static String id_restaurant = "";
     public static LinearLayout panierLayout ;
     CameraImagePicker cameraPicker ;
     public static AppCompatTextView priceText  , restaurantName ;
@@ -78,7 +78,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
-        db.collection(RESTAURANT_KEY).document(id).collection(MENU_COLLECTION)
+        db.collection(RESTAURANT_KEY).document(id_restaurant).collection(MENU_COLLECTION)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -131,7 +131,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void initializeViews() {
 
-         id = getIntent().getExtras().getString("id_restaurant");
+         id_restaurant = getIntent().getExtras().getString("id_restaurant");
          restaurantName = findViewById(R.id.name_restaurant_from_menu_activity);
         recyclerViewCategories = findViewById(R.id.recyler_view_menu_activity);
         buttonInformations = findViewById(R.id.button_restaurant_informations);
@@ -164,7 +164,7 @@ public class MenuActivity extends AppCompatActivity {
                     if (Utils.price != 0){
                         Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
                         Bundle bundle = new Bundle();
-                        bundle.putString("id_restaurant" , id );
+                        bundle.putString("id_restaurant" , id_restaurant );
                         intent.putExtras(bundle);
                         startActivity(intent );
                     }
@@ -179,7 +179,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent (MenuActivity.this , RestaurantInformationsActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("id_restaurant" , id );
+                bundle.putString("id_restaurant" , id_restaurant );
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

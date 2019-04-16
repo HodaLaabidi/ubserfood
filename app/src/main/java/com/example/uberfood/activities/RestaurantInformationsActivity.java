@@ -9,7 +9,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.GalleryInformationsActivityAdapter;
 import com.example.uberfood.adapters.ViewPagerGalleryAdapter;
-import com.example.uberfood.models.Menu;
 import com.example.uberfood.models.OnePhoto;
 import com.example.uberfood.models.Restaurant;
 import com.example.uberfood.utils.ExpandableHeightGridView;
@@ -33,8 +31,10 @@ import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
 
-import static com.example.uberfood.utils.Constants.MENU_COLLECTION;
+import static com.example.uberfood.activities.MenuActivity.id_restaurant;
+import static com.example.uberfood.utils.Constants.GALLERY_COLLECTION;
 import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
+import static com.example.uberfood.utils.Constants.countImg;
 
 public class RestaurantInformationsActivity extends AppCompatActivity {
 
@@ -70,10 +70,33 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
 
         // static values
 
-        galleryArrayList.add(new OnePhoto("https://firebasestorage.googleapis.com/v0/b/restaurant-app-ac6c5.appspot.com/o/Restaurantlogo%2F1.jpg?alt=media&token=2627e948-d010-4f00-ba5d-aa1416389008" , 1));
+   /*     galleryArrayList.add(new OnePhoto("https://firebasestorage.googleapis.com/v0/b/restaurant-app-ac6c5.appspot.com/o/Restaurantlogo%2F1.jpg?alt=media&token=2627e948-d010-4f00-ba5d-aa1416389008" , 1));
         galleryArrayList.add(new OnePhoto("https://firebasestorage.googleapis.com/v0/b/restaurant-app-ac6c5.appspot.com/o/Restaurantlogo%2F1.jpg?alt=media&token=2627e948-d010-4f00-ba5d-aa1416389008" , 2));
         galleryArrayList.add(new OnePhoto("https://firebasestorage.googleapis.com/v0/b/restaurant-app-ac6c5.appspot.com/o/Restaurantlogo%2F1.jpg?alt=media&token=2627e948-d010-4f00-ba5d-aa1416389008" , 3));
-        galleryArrayList.add(new OnePhoto("https://firebasestorage.googleapis.com/v0/b/restaurant-app-ac6c5.appspot.com/o/Restaurantlogo%2F1.jpg?alt=media&token=2627e948-d010-4f00-ba5d-aa1416389008" , 4));
+        galleryArrayList.add(new OnePhoto("https://firebasestorage.googleapis.com/v0/b/restaurant-app-ac6c5.appspot.com/o/Restaurantlogo%2F1.jpg?alt=media&token=2627e948-d010-4f00-ba5d-aa1416389008" , 4));*/
+
+
+        // dynamic way
+        db.collection(RESTAURANT_KEY).document(id_restaurant).collection(GALLERY_COLLECTION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for ( QueryDocumentSnapshot document : task.getResult()) {
+                                Log.e("menu", document.getId() +document.getData() +" !");
+
+                                OnePhoto onePhoto = document.toObject(OnePhoto.class);
+
+                                if (!galleryArrayList.contains(onePhoto)){
+                                    galleryArrayList.add(onePhoto);
+
+                                }
+
+
+                            }
+                        }
+                    }});
 
         gridView.setExpanded(true);
         GalleryInformationsActivityAdapter galleryInformationsActivityAdapter = new GalleryInformationsActivityAdapter(RestaurantInformationsActivity.this,galleryArrayList );
@@ -163,11 +186,20 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
 
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countImg = 0 ;
+    }
+
+    @Override
     public void onBackPressed() {
        if (llImageSlider.getVisibility() == View.VISIBLE){
            llImageSlider.setVisibility(View.GONE);
        } else {
            finish();
        }
+
+
+
     }
 }

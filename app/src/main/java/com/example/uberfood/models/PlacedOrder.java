@@ -2,8 +2,8 @@ package com.example.uberfood.models;
 
 import com.google.firebase.Timestamp;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class PlacedOrder {
 
@@ -12,9 +12,9 @@ public class PlacedOrder {
        private String customer_id ;
        private String delivery_address;
        private String estimated_delivery_time ;
-       private Timestamp final_price ;
+       private double final_price ;
        private boolean food_ready ;
-       private ArrayList<String> menu_item ;
+       private HashMap<String, Integer> menu_item ;
        private Date order_time ;
        double price ;
        String restaurant_id ;
@@ -26,7 +26,7 @@ public class PlacedOrder {
 
 
 
-    public PlacedOrder(Timestamp actual_delivery_time, String customer_id, String delivery_address, String estimated_delivery_time, Timestamp final_price, boolean food_ready, ArrayList<String> menu_item, Date order_time, double price, String restaurant_id) {
+    public PlacedOrder(Timestamp actual_delivery_time, String customer_id, String delivery_address, String estimated_delivery_time, double final_price, boolean food_ready, HashMap<String, Integer> menu_item, Date order_time, double price, String restaurant_id) {
         this.actual_delivery_time = actual_delivery_time;
         this.customer_id = customer_id;
         this.delivery_address = delivery_address;
@@ -71,11 +71,11 @@ public class PlacedOrder {
         this.estimated_delivery_time = estimated_delivery_time;
     }
 
-    public Timestamp getFinal_price() {
+    public double getFinal_price() {
         return final_price;
     }
 
-    public void setFinal_price(Timestamp final_price) {
+    public void setFinal_price(double final_price) {
         this.final_price = final_price;
     }
 
@@ -87,11 +87,11 @@ public class PlacedOrder {
         this.food_ready = food_ready;
     }
 
-    public ArrayList<String> getMenu_item() {
+    public HashMap<String, Integer> getMenu_item() {
         return menu_item;
     }
 
-    public void setMenu_item(ArrayList<String> menu_item) {
+    public void setMenu_item(HashMap<String, Integer> menu_item) {
         this.menu_item = menu_item;
     }
 

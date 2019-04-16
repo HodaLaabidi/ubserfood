@@ -14,6 +14,7 @@ import com.example.uberfood.models.Menu;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Utils {
@@ -23,10 +24,10 @@ public class Utils {
     public static boolean isNew = false ;
     public static double price = 0;
     private static Gson gson;
-    public static LinkedHashMap<Menu , Integer> listOfOrderedMenu  ;
+    public static HashMap<Menu, Integer> listOfOrderedMenu  ;
 
 
-    public static LinkedHashMap getListOfOrderedMenu(){
+    public static HashMap<Menu, Integer> getListOfOrderedMenu(){
         if (listOfOrderedMenu == null){
             return new LinkedHashMap<>();
         } else {

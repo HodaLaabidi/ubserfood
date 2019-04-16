@@ -59,10 +59,12 @@ public class OrdersFragmentAdapter extends RecyclerView.Adapter<OrdersFragmentAd
                 if (task.isSuccessful()) {
 
                     Restaurant restaurant = task.getResult().toObject(Restaurant.class);
-                    holder.speciality.setText(restaurant.getCuisine());
-                    holder.name.setText(restaurant.getName());
-                    holder.price.setText(placedOrder.getPrice()+"");
-                    holder.date.setText(placedOrder.getOrder_time()+"");
+                   if (restaurant != null){
+                       holder.speciality.setText(restaurant.getCuisine());
+                       holder.name.setText(restaurant.getName());
+                       holder.price.setText(placedOrder.getPrice()+"");
+                       holder.date.setText(placedOrder.getOrder_time()+"");
+                   }
 
 
 

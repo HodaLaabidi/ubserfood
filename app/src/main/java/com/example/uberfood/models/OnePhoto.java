@@ -1,31 +1,48 @@
 package com.example.uberfood.models;
 
-public class OnePhoto {
+import java.util.HashMap;
 
-    String url ;
-    int id ;
+import static com.example.uberfood.utils.Constants.countImg;
 
-    public OnePhoto() {
+
+
+    public class OnePhoto {
+
+
+
+
+        HashMap<String , String> photo;
+        String id ;
+        long id_ad ;
+
+        public OnePhoto() {
+        }
+
+        public long getId_ad() {
+            return id_ad;
+        }
+
+        public OnePhoto( HashMap<String , String> photo, String id) {
+            this.photo = photo;
+            this.id = id;
+            id_ad = countImg ++ ;
+
+        }
+
+        public  HashMap<String , String> getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto( HashMap<String , String> photo) {
+            this.photo = photo;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
     }
 
-    public OnePhoto(String url, int id) {
-        this.url = url;
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-}

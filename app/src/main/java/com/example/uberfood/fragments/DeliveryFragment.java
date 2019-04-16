@@ -13,12 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.ViewPagerDeliveryAdapter;
 import com.example.uberfood.models.Restaurant;
 import com.example.uberfood.models.User;
+import com.example.uberfood.utils.ConnectivityService;
 import com.example.uberfood.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,6 +66,7 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LinearLayout llNoInternetConnexion , llNoResultsFound ;
 
     //private OnFragmentInteractionListener mListener;
 
@@ -141,68 +144,100 @@ public class DeliveryFragment extends Fragment implements DiscreteScrollView.OnI
 
         final View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
         progressBar = rootView.findViewById(R.id.progressBarDeliveryFragment);
-
+        viewPager = rootView.findViewById(R.id.viewPager);
         auth = FirebaseAuth.getInstance() ;
+        llNoResultsFound = rootView.findViewById(R.id.ll_no_results_found);
+        llNoInternetConnexion = rootView.findViewById(R.id.ll_no_internet_connexion);
         final FirebaseUser firebaseUser = auth.getCurrentUser();
         //userId = firebaseUser.getUid();
         progressBar.setVisibility(View.VISIBLE);
+        if (!ConnectivityService.isOnline(getContext())){
+            progressBar.setVisibility(View.GONE);
+            llNoInternetConnexion.setVisibility(View.VISIBLE);
+            llNoResultsFound.setVisibility(View.GONE);
+            viewPager.setVisibility(View.GONE);
 
-        db.collection(RESTAURANT_KEY)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            progressBar.setVisibility(View.GONE);
-                            for (final QueryDocumentSnapshot document : task.getResult()) {
-                                Log.e("FB" , document.getId() + " => " + document.getData());
+        } else {
+            llNoInternetConnexion.setVisibility(View.GONE);
+            viewPager.setVisibility(View.VISIBLE);
+            llNoResultsFound.setVisibility(View.GONE);
+
+            db.collection(RESTAURANT_KEY)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                progressBar.setVisibility(View.GONE);
+                                for (final QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.e("FB" , document.getId() + " => " + document.getData());
 
 
 
 
-                                Restaurant restaurant = document.toObject(Restaurant.class);
-                                //Restaurant restaurant = new Gson().fromJson(document.getData().toString(), Restaurant.class);
-                                Log.e("restaurant values " , restaurant.toString()+" !");
-                                if (!listOfRestaurants.contains(restaurant)){
-                                    listOfRestaurants.add(restaurant);
+                                    Restaurant restaurant = document.toObject(Restaurant.class);
+                                    //Restaurant restaurant = new Gson().fromJson(document.getData().toString(), Restaurant.class);
+                                    Log.e("restaurant values " , restaurant.toString()+" !");
+                                    if (!listOfRestaurants.contains(restaurant)){
+                                        listOfRestaurants.add(restaurant);
+                                    }
+
+                                    if (listOfRestaurants.size() == 0){
+                                        viewPager.setVisibility(View.GONE);
+                                        llNoResultsFound.setVisibility(View.VISIBLE);
+                                        llNoInternetConnexion.setVisibility(View.GONE);
+
+
+                                    } else {
+                                        viewPager.setVisibility(View.VISIBLE);
+                                        llNoInternetConnexion.setVisibility(View.GONE);
+                                        llNoResultsFound.setVisibility(View.GONE);
+                                        adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext() , listOfRestaurants);
+
+
+                                        viewPager.setAdapter( adapter);
+                                        viewPager.setPadding(60, 0 , 60 ,50);
+                                        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                                            @Override
+                                            public void onPageScrolled(int i, float v, int i1) {
+                                                adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onPageSelected(int i) {
+
+                                            }
+
+                                            @Override
+                                            public void onPageScrollStateChanged(int i) {
+
+
+                                            }
+                                        });
+                                    }
+
+
+
+
+
                                 }
 
 
-                                adapter = new ViewPagerDeliveryAdapter(getFragmentManager() , getContext() , listOfRestaurants);
+                            } else {
 
-                                viewPager = rootView.findViewById(R.id.viewPager);
-                                viewPager.setAdapter( adapter);
-                                viewPager.setPadding(60, 0 , 60 ,50);
-                                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                                    @Override
-                                    public void onPageScrolled(int i, float v, int i1) {
-                                        adapter.notifyDataSetChanged();
-                                    }
+                                progressBar.setVisibility(View.GONE);
+                                llNoResultsFound.setVisibility(View.GONE);
+                                viewPager.setVisibility(View.GONE);
+                                llNoInternetConnexion.setVisibility(View.GONE);
 
-                                    @Override
-                                    public void onPageSelected(int i) {
-
-                                    }
-
-                                    @Override
-                                    public void onPageScrollStateChanged(int i) {
-
-
-                                    }
-                                });
-
-
+                                Log.e("FB" ,"Error getting documents: ", task.getException());
                             }
-
-
-                        } else {
-
-                            progressBar.setVisibility(View.GONE);
-
-                            Log.e("FB" ,"Error getting documents: ", task.getException());
                         }
-                    }
-                });
+                    });
+
+        }
+
+
 
 
 
