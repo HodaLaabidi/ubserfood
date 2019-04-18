@@ -39,14 +39,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import jrizani.jrspinner.JRSpinner;
 import lib.kingja.switchbutton.SwitchMultiButton;
-
 import static com.example.uberfood.utils.Constants.PERMISSIONS_LOCATION;
 import static com.example.uberfood.utils.Constants.RESTAURANT_KEY;
 import static com.example.uberfood.utils.Utils.hasPermissions;
@@ -77,7 +73,7 @@ public class HomeFragment extends Fragment {
 
     SearchHomeFragmentAdapter searchHomeFragmentAdapter ;
     ArrayList<Restaurant> restaurants = new ArrayList<>();
-    ArrayList<Restaurant> restaurantsForSearch = new ArrayList<>();
+    private static ArrayList<Restaurant> restaurantsForSearch = new ArrayList<>();
 
 
     public HomeFragment() {
@@ -180,6 +176,37 @@ public class HomeFragment extends Fragment {
     private void searchFunctionnality() {
 
 
+        CollectionReference ref = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
+
+        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull final Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    restaurantsForSearch = new ArrayList<>();
+                    Log.e("test22", task.getResult().getDocuments().toString());
+                    for (final QueryDocumentSnapshot document : task.getResult()) {
+                        Restaurant restaurant = document.toObject(Restaurant.class);
+                        if (!restaurantsForSearch.contains(restaurant)){
+                            if (restaurant.getName() !=  null) {
+
+                                restaurantsForSearch.add(restaurant);
+
+
+                            }
+                        }
+
+
+                    }
+
+
+
+
+
+
+                }
+            }});
+
+
 
 
 
@@ -191,7 +218,7 @@ public class HomeFragment extends Fragment {
 
                 setRecyclerViewForSearchResults( s.toString());
 
-                        };
+                        }
 
 
             @Override
@@ -211,74 +238,62 @@ public class HomeFragment extends Fragment {
     private void setRecyclerViewForSearchResults(final String string) {
 
         Log.e("editable search", string + "");
-        restaurantsForSearch.clear();
+         ArrayList<Restaurant> restaurantsForSearch2 = new ArrayList<>();
+
+     for (int i = 0 ; i < restaurantsForSearch.size() ; i++){
+
+         if (restaurantsForSearch.get(i).getName().contains(string)){
+
+                 if (i == 0){
+                    restaurantsForSearch2.clear();
+                  }
+                 restaurantsForSearch2.add(restaurantsForSearch.get(i));
+                 Log.e("resttest", restaurantsForSearch.get(i).getName());
+
+             }
+     }
+
+        if (string.length() == 0 ) {
+
+            llNoResultsFound.setVisibility(View.GONE);
+            llFragmentHome.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            viewPager.setVisibility(View.VISIBLE);
+            switchMultiButton.setVisibility(View.VISIBLE);
+            restaurantsForSearch2.clear();
 
 
-        CollectionReference ref = FirebaseFirestore.getInstance().collection(RESTAURANT_KEY);
-
-        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull final Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    restaurantsForSearch.clear();
-                    restaurantsForSearch = new ArrayList<>();
-                    Log.e("test22", task.getResult().getDocuments().toString());
-                    for (final QueryDocumentSnapshot document : task.getResult()) {
-                        Restaurant restaurant = document.toObject(Restaurant.class);
-                        if (restaurant.getName() != null) {
-                            if (restaurant.getName().contains(string )){
-                                restaurantsForSearch.add(restaurant);
-                                Log.e("resttest ", restaurant.getName());
-                            }
-
-                        }
+        } else {
+            if (restaurantsForSearch2.size() == 0) {
+                switchMultiButton.setVisibility(View.VISIBLE);
+                viewPager.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
+                llFragmentHome.setVisibility(View.VISIBLE);
+                llNoResultsFound.setVisibility(View.VISIBLE);
+                restaurantsForSearch2.clear();
 
 
-                    }
+            } else {
+                switchMultiButton.setVisibility(View.GONE);
+                viewPager.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                llNoResultsFound.setVisibility(View.GONE);
+                llFragmentHome.setVisibility(View.VISIBLE);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setHasFixedSize(true);
+                searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurantsForSearch2);
+                recyclerView.setAdapter(searchHomeFragmentAdapter);
+                searchHomeFragmentAdapter.notifyDataSetChanged();
+                restaurantsForSearch2.clear();
 
-                    for (int i = 0 ; i < restaurantsForSearch.size() ; i++){
-                        Log.e("testrestaurant"+i, restaurantsForSearch.get(i).getName()+"!");
-                    }
-                    if (string.length() == 0 ) {
-
-                        llNoResultsFound.setVisibility(View.GONE);
-                        llFragmentHome.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.GONE);
-                        viewPager.setVisibility(View.VISIBLE);
-                        switchMultiButton.setVisibility(View.VISIBLE);
-                        restaurantsForSearch.clear();
-
-                    } else {
-                        if (restaurantsForSearch.size() == 0) {
-                            switchMultiButton.setVisibility(View.VISIBLE);
-                            viewPager.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.GONE);
-                            llFragmentHome.setVisibility(View.VISIBLE);
-                            llNoResultsFound.setVisibility(View.VISIBLE);
-                            restaurantsForSearch.clear();
-
-                        } else {
-                            switchMultiButton.setVisibility(View.GONE);
-                            viewPager.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
-                            llNoResultsFound.setVisibility(View.GONE);
-                            llFragmentHome.setVisibility(View.VISIBLE);
-                            LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-                            recyclerView.setLayoutManager(mLayoutManager);
-                            recyclerView.setHasFixedSize(true);
-                            searchHomeFragmentAdapter = new SearchHomeFragmentAdapter(getContext(), restaurantsForSearch);
-                            recyclerView.setAdapter(searchHomeFragmentAdapter);
-                            searchHomeFragmentAdapter.notifyDataSetChanged();
-                            restaurantsForSearch.clear();
-                        }
-                    }
+            }
+        }
 
 
 
 
 
-                }
-            }});
 
     }
 

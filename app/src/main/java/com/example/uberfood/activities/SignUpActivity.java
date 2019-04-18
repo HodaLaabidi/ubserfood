@@ -3,9 +3,11 @@ package com.example.uberfood.activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.uberfood.R;
 import com.example.uberfood.models.User;
 import com.example.uberfood.utils.ConnectivityService;
@@ -37,9 +40,14 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.kbeanie.multipicker.api.ImagePicker;
+import com.kbeanie.multipicker.api.callbacks.ImagePickerCallback;
+import com.kbeanie.multipicker.api.entity.ChosenImage;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.yalantis.ucrop.UCrop;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -57,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth auth ;
     DatabaseReference reference ;
     String userId ;
+    private Uri croppedImage;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static final String TAG = "SignUpActivity";
     ProgressDialog progressDialog ;
@@ -88,7 +97,49 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            croppedImage = resultUri;
+            updateImage();
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
+            Log.e("ucrop result " , cropError.toString());
+        }
+
     }
+
+
+    private void updateImage() {
+
+
+            /*try {
+                imgProfile = new ImageGalerie(0, croppedImage.getPath(), croppedImage.getPath(), true);
+                ivProfilPhoto.setImageUriWithoutProgress(imgProfile.getImage(), this);
+                ivPhotoProfilIcon.setImageResource(R.drawable.tick_green);
+                lblProfile.setTextColor(getResources().getColor(R.color.black));
+                try {
+                    business.setImage(imgProfile.getImage());
+                    businessReady.setImage(imgProfile.getImage());
+
+                }catch (NullPointerException e)
+                {
+
+                }
+
+            } catch (NullPointerException e) {
+                System.out.println("null");
+            }
+       */
+        Glide.with(getBaseContext())
+                .load(croppedImage.getPath())
+                .into(image);
+
+
+
+
+    }
+
 
     private void inscriptionProcess() {
 
@@ -228,8 +279,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (hasPermissions(SignUpActivity.this, Constants.MY_PERMISSIONS_REQUEST_STORAGE, PERMISSIONS_PHOTO)) {
-                    //addCoverPhoto = true;
-                    //addProfilPhoto = false;
                     uploadImageDialog();
                 }
             }
@@ -246,7 +295,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void uploadImageDialog() {
-        //gridviewPhoto.setVisibility(View.GONE);
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 SignUpActivity.this, R.style.AlertDialogCustom);
 
@@ -256,9 +304,8 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //imageFromGallerie();
+                imageFromGallerie();
                 dialog.dismiss();
-                //gridviewPhoto.setVisibility(View.VISIBLE);
 
             }
         });
@@ -269,7 +316,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //imageFromCamera();
                 dialog.dismiss();
-                //gridviewPhoto.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -281,20 +328,51 @@ public class SignUpActivity extends AppCompatActivity {
         alert.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                // gridviewPhoto.setVisibility(View.VISIBLE);
+
             }
         });
     }
 
-  /*  private void imageFromGallerie() {
+
+
+
+    private void imageFromGallerie() {
         imagePicker = new ImagePicker(this);
         imagePicker.shouldGenerateMetadata(true);
         imagePicker.shouldGenerateThumbnails(true);
-        imagePicker.setImagePickerCallback(SignUpActivity.this);
+        imagePicker.setImagePickerCallback(new ImagePickerCallback() {
+            @Override
+            public void onImagesChosen(List<ChosenImage> list) {
+
+                if ( list != null){
+                    UCrop.Options options = new UCrop.Options();
+                    options.setToolbarColor(ContextCompat.getColor(SignUpActivity.this , R.color.colorOrange));
+                    options.setStatusBarColor(ContextCompat.getColor(SignUpActivity.this , R.color.colorOrange));
+                    options.setActiveWidgetColor(ContextCompat.getColor(SignUpActivity.this , R.color.colorOrange));
+                    options.setDimmedLayerColor(ContextCompat.getColor(SignUpActivity.this , R.color.colorWhite));
+
+                    UCrop.of(Uri.fromFile(new File((list.get(0).getOriginalPath()))),
+                            Uri.fromFile(new File((list.get(0).getOriginalPath()))))
+                            .withOptions(options)
+                            .withMaxResultSize(1000, 1000)
+                            .start(SignUpActivity.this);
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onError(String s) {
+
+                Log.e("imagepicker callback " , s + " !");
+
+            }
+        });
         imagePicker.allowMultiple();
         imagePicker.pickImage();
-    }*/
-
+    }
 
 
 }
