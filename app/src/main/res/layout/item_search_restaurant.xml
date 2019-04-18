@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/restaurant_search_name"
-        android:textSize="14sp"
-        android:padding="20dp"
+   <LinearLayout
+       android:background="@android:color/white"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:background="@android:color/white"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+           <com.mikhaellopez.circularimageview.CircularImageView
+               android:background="@android:color/white"
+               android:layout_gravity="center"
+               android:id="@+id/image_item_search_restaurant"
+               app:civ_border_color="@color/colorWhite"
+               app:civ_border_width="2dp"
+               app:civ_shadow="true"
+               app:civ_shadow_radius="15"
+               app:civ_shadow_color="@color/colorWhite"
+               android:transitionName="image_transition"
+               android:scaleType="centerCrop"
+               android:layout_width="70dp"
+               android:layout_height="70dp" />
+       </LinearLayout>
+       <android.support.v7.widget.AppCompatTextView
+           android:id="@+id/search_name_from_item_SR"
+           android:textColor="@android:color/black"
+           android:textSize="12sp"
+           android:padding="20dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+   </LinearLayout>
+    <LinearLayout
+        android:background="@color/colorGrey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="1dp"></LinearLayout>
+
 
 </LinearLayout>

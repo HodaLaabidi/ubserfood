@@ -38,7 +38,7 @@ public class ViewPagerGalleryAdapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.one_photo_gallery_view_pager ,container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_photo_from_gallery_view_pager);
         Glide.with(context)
-                .load(listOfPhotos.get(position).getPhoto().entrySet())
+                .load( listOfPhotos.get(position).getPhoto().values().toArray()[0])
                 .into(imageView);
         container.addView(view , 0);
         return view;

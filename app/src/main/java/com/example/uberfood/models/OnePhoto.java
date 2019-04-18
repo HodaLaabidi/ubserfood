@@ -25,7 +25,7 @@ import static com.example.uberfood.utils.Constants.countImg;
         public OnePhoto( HashMap<String , String> photo, String id) {
             this.photo = photo;
             this.id = id;
-            id_ad = countImg ++ ;
+            id_ad = (long) Math.random() ;
 
         }
 

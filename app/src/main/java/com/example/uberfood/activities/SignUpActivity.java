@@ -1,10 +1,12 @@
 package com.example.uberfood.activities;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
@@ -34,14 +36,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.kbeanie.multipicker.api.ImagePicker;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.example.uberfood.utils.Constants.PERMISSIONS_PHOTO;
 import static com.example.uberfood.utils.Constants.USER_COLLECTION;
 import static com.example.uberfood.utils.Utils.exists;
+import static com.example.uberfood.utils.Utils.hasPermissions;
 import static com.example.uberfood.utils.Utils.isNew;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -57,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
     ProgressDialog progressDialog ;
     LinearLayout layoutImage ;
     CircularImageView image ;
+    ImagePicker imagePicker ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,6 +222,18 @@ public class SignUpActivity extends AppCompatActivity {
             finish();
         }
     });
+
+
+        layoutImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (hasPermissions(SignUpActivity.this, Constants.MY_PERMISSIONS_REQUEST_STORAGE, PERMISSIONS_PHOTO)) {
+                    //addCoverPhoto = true;
+                    //addProfilPhoto = false;
+                    uploadImageDialog();
+                }
+            }
+        });
     }
 
     @Override
@@ -225,6 +243,57 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+    private void uploadImageDialog() {
+        //gridviewPhoto.setVisibility(View.GONE);
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                SignUpActivity.this, R.style.AlertDialogCustom);
+
+        builder.setTitle("Ajouter une photo");
+        builder.setMessage("Prenez une photo ou bien sélectionnez depuis vos photos");
+        builder.setPositiveButton("GALLERIE", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //imageFromGallerie();
+                dialog.dismiss();
+                //gridviewPhoto.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        builder.setNegativeButton("CAMERA", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //imageFromCamera();
+                dialog.dismiss();
+                //gridviewPhoto.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        AlertDialog alert = builder.create();
+        alert.show();
+        alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorOrange));
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorOrange));
+        alert.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                // gridviewPhoto.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+  /*  private void imageFromGallerie() {
+        imagePicker = new ImagePicker(this);
+        imagePicker.shouldGenerateMetadata(true);
+        imagePicker.shouldGenerateThumbnails(true);
+        imagePicker.setImagePickerCallback(SignUpActivity.this);
+        imagePicker.allowMultiple();
+        imagePicker.pickImage();
+    }*/
 
 
 

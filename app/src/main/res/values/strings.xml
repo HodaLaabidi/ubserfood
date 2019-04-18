@@ -87,5 +87,9 @@
     <string name="undo">Undo</string>
     <string name="send_order_message">Successful order</string>
     <string name="text_splash_screen">By start development</string>
+    <string name="see_more">More</string>
+    <string name="no_orders">You have no orders yet !</string>
+    <string name="no_panel">You didn\'t add any menu to your panel !</string>
+    <string name="active_gps">Active GPS , Please !</string>
 
 </resources>

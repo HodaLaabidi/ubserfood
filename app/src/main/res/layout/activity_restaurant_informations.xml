@@ -74,28 +74,32 @@
                             android:src="@drawable/arrow_back" />
                     </LinearLayout>
                     <LinearLayout
-                        android:id="@+id/panier"
+                        android:id="@+id/panier_from_infos_activity"
                         android:layout_margin="20dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:layout_alignParentEnd="true"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:background="@drawable/background_menu_icon"
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <android.support.v7.widget.AppCompatTextView
+                            android:layout_margin="3dp"
                             android:id="@+id/price_from_informations_activity"
                             android:textStyle="bold"
-                            android:textSize="12dp"
+                            android:textSize="10dp"
                             android:layout_gravity="center"
                             android:textColor="@color/colorWhite"
                             android:text="0 DT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <ImageView
-                            android:padding="3dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
                             android:src="@drawable/shopping_cart"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp" />
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
 
                     </LinearLayout>
 
@@ -298,14 +302,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+            <LinearLayout
                 android:layout_marginLeft="20dp"
-                android:textColor="@color/colorBlack"
-                android:text="@string/gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/see_more_photos"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/colorGrey"
+                    android:text="@string/see_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <com.example.uberfood.utils.ExpandableHeightGridView
                 android:scrollbars="none"
                 android:id="@+id/gv_from_infos_activity"

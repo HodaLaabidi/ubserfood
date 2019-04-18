@@ -19,6 +19,7 @@ import com.example.uberfood.adapters.MenuCategoriesAdapter;
 import com.example.uberfood.factories.DialogBuilderFactory;
 import com.example.uberfood.models.Menu;
 import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.CustomToast;
 import com.example.uberfood.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -165,8 +166,12 @@ public class MenuActivity extends AppCompatActivity {
                         Intent intent = new Intent(MenuActivity.this, OrderActivity.class );
                         Bundle bundle = new Bundle();
                         bundle.putString("id_restaurant" , id_restaurant );
+                        bundle.putString("from_search_layout_adapter", "no");
                         intent.putExtras(bundle);
                         startActivity(intent );
+                    } else {
+                        new CustomToast(MenuActivity.this, getResources().getString(R.string.warning), getResources().getString(R.string.no_panel), R.drawable.warning_icon, CustomToast.WARNING).show();
+
                     }
 
                 }

@@ -1,5 +1,6 @@
 package com.example.uberfood.activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
@@ -18,10 +19,13 @@ import com.example.uberfood.adapters.GalleryInformationsActivityAdapter;
 import com.example.uberfood.adapters.ViewPagerGalleryAdapter;
 import com.example.uberfood.models.OnePhoto;
 import com.example.uberfood.models.Restaurant;
+import com.example.uberfood.utils.CustomToast;
 import com.example.uberfood.utils.ExpandableHeightGridView;
 import com.example.uberfood.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -40,6 +44,7 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
 
     private static final String TAG =  "RestaurantInfosActivity" ;
     static String id = "";
+    String fromSearchLayout = "";
     private static int currentPage = 0 ;
     LinearLayout  arrowBack  , llImageSlider;
     ViewPager viewPager ;
@@ -49,7 +54,8 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
     private  ArrayList<OnePhoto> galleryArrayList = new ArrayList<>();
     ExpandableHeightGridView gridView ;
     AppCompatTextView restaurantName  , price;
-
+    AppCompatTextView more ;
+    LinearLayout panierLayout;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageView logo ;
     @Override
@@ -77,62 +83,82 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
 
 
         // dynamic way
-        db.collection(RESTAURANT_KEY).document(id_restaurant).collection(GALLERY_COLLECTION)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for ( QueryDocumentSnapshot document : task.getResult()) {
-                                Log.e("menu", document.getId() +document.getData() +" !");
+        if (id_restaurant.trim() != ""){
+            db.collection(RESTAURANT_KEY).document(id_restaurant).collection(GALLERY_COLLECTION)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for ( QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.e("menu", document.getId() +document.getData() +" !");
 
-                                OnePhoto onePhoto = document.toObject(OnePhoto.class);
+                                    OnePhoto onePhoto = document.toObject(OnePhoto.class);
 
-                                if (!galleryArrayList.contains(onePhoto)){
-                                    galleryArrayList.add(onePhoto);
-                                    Log.e("test menu " , onePhoto.toString());
+                                    if (!galleryArrayList.contains(onePhoto)){
+                                        galleryArrayList.add(onePhoto);
+                                        Log.e("test menu " , onePhoto.toString());
+
+                                    }
+
 
                                 }
 
 
+                                gridView.setExpanded(true);
+                                GalleryInformationsActivityAdapter galleryInformationsActivityAdapter = new GalleryInformationsActivityAdapter(RestaurantInformationsActivity.this,galleryArrayList );
+
+
+
+                                gridView.setAdapter(galleryInformationsActivityAdapter);
+
+                                more.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        setViewPagerGallery(galleryArrayList);
+
+                                    }
+                                });
+
+                                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                        setViewPagerGallery(galleryArrayList);
+                                    }
+                                });
                             }
-                        }
-                    }});
-
-        gridView.setExpanded(true);
-        GalleryInformationsActivityAdapter galleryInformationsActivityAdapter = new GalleryInformationsActivityAdapter(RestaurantInformationsActivity.this,galleryArrayList );
+                        }});
 
 
+        }
 
-        gridView.setAdapter(galleryInformationsActivityAdapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (llImageSlider.getVisibility() == View.VISIBLE){
-                    llImageSlider.setVisibility(View.GONE);
-                }  else {
-                    llImageSlider.setVisibility(View.VISIBLE);
+    }
 
-                    Log.e("list of photos " , galleryArrayList.size() +" !");
-                    viewPager.setAdapter( new ViewPagerGalleryAdapter(RestaurantInformationsActivity.this , galleryArrayList));
-                    CircleIndicator indicator = findViewById(R.id.circle_indicator_gallery_view_pager);
-                    indicator.setViewPager(viewPager);
-                    new Handler();
-                    final Runnable update = new Runnable() {
-                        @Override
-                        public void run() {
-                            if (currentPage == galleryArrayList.size()){
-                                currentPage = 0 ;
-                            }
-                            viewPager.setCurrentItem(currentPage++ , true);
-                        }
-                    };
+    private void setViewPagerGallery(final ArrayList<OnePhoto> galleryArrayList) {
+
+        if (llImageSlider.getVisibility() == View.VISIBLE){
+            llImageSlider.setVisibility(View.GONE);
+        }  else {
+            llImageSlider.setVisibility(View.VISIBLE);
+
+            Log.e("list of photos " , galleryArrayList.size() +" !");
+            viewPager.setAdapter( new ViewPagerGalleryAdapter(RestaurantInformationsActivity.this , galleryArrayList));
+            CircleIndicator indicator = findViewById(R.id.circle_indicator_gallery_view_pager);
+            indicator.setViewPager(viewPager);
+            new Handler();
+            final Runnable update = new Runnable() {
+                @Override
+                public void run() {
+                    if (currentPage == galleryArrayList.size()){
+                        currentPage = 0 ;
+                    }
+                    viewPager.setCurrentItem(currentPage++ , true);
                 }
-            }
-        });
-
-
+            };
+        }
     }
 
     private void setDynamicValues() {
@@ -166,7 +192,8 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-
+        panierLayout = findViewById(R.id.panier_from_infos_activity);
+        more = findViewById(R.id.see_more_photos);
         id = getIntent().getExtras().getString("id_restaurant");
         viewPager = findViewById(R.id.view_pager_gallery);
         price = findViewById(R.id.price_from_informations_activity);
@@ -182,6 +209,40 @@ public class RestaurantInformationsActivity extends AppCompatActivity {
             }
         });
         price.setText(Utils.price + " DT");
+         fromSearchLayout = getIntent().getExtras().getString("from_search_layout_adapter");
+
+
+
+        panierLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                FirebaseAuth auth = FirebaseAuth.getInstance() ;
+                final FirebaseUser firebaseUser = auth.getCurrentUser();
+                if (firebaseUser == null) {
+                    Intent intent = new Intent(RestaurantInformationsActivity.this , LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                } else {
+
+                    if (Utils.price != 0){
+                        Intent intent = new Intent(RestaurantInformationsActivity.this, OrderActivity.class );
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id_restaurant" , id_restaurant );
+                        intent.putExtras(bundle);
+                        startActivity(intent );
+                    }  else {
+                        new CustomToast(RestaurantInformationsActivity.this, getResources().getString(R.string.warning), getResources().getString(R.string.no_panel), R.drawable.warning_icon, CustomToast.WARNING).show();
+
+                    }
+
+                }
+
+            }
+        });
 
     }
 

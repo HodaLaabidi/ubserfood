@@ -85,25 +85,26 @@
             </LinearLayout>
 
         </LinearLayout>
-        <LinearLayout
-           android:layout_below="@+id/toolbar"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ScrollView
-                android:layout_marginBottom="65dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:orientation="vertical"
+
+
+                <RelativeLayout
+                    android:layout_below="@+id/toolbar"
+                    android:layout_marginBottom="65dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view_orders"
+                    <ScrollView
+                        android:id="@+id/nested_scroll_recyler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view_orders"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </ScrollView>
                     <LinearLayout
+                        android:gravity="bottom"
+                        android:layout_below="@id/nested_scroll_recyler_view"
                         android:layout_margin="20dp"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -173,12 +174,15 @@
 
                         </LinearLayout>
                         <LinearLayout
+                            android:gravity="right"
                             android:layout_marginBottom="5dp"
                             android:layout_gravity="right"
                             android:orientation="horizontal"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <android.support.v7.widget.AppCompatTextView
+                                android:layout_gravity="right"
+                                android:gravity="right"
                                 android:textStyle="bold"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginRight="20dp"
@@ -186,11 +190,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <android.support.v7.widget.AppCompatTextView
+                                android:gravity="right"
                                 android:id="@+id/total"
                                 android:textStyle="bold"
                                 android:textColor="@color/colorBlack"
                                 android:text="@string/price"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 
 
@@ -199,10 +204,10 @@
 
                     </LinearLayout>
 
-                </LinearLayout>
-            </ScrollView>
+                </RelativeLayout>
 
-        </LinearLayout>
+
+
         <LinearLayout
             android:layout_margin="20dp"
             android:layout_alignParentBottom="true"

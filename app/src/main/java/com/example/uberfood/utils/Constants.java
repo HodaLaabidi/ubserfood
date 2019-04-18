@@ -19,9 +19,19 @@ public class Constants {
     public static final  String GALLERY_COLLECTION = "gallery";
 
 
-    private String[] PERMISSIONS_PHOTO = {
+    public static final int MY_PERMISSIONS_REQUEST_STORAGE = 130;
+
+
+    public static final String[] PERMISSIONS_PHOTO = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
+    };
+
+
+
+    public static  final String[] PERMISSIONS_LOCATION = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
     };
 
 

@@ -11,12 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.util.Util;
 import com.example.uberfood.R;
 import com.example.uberfood.adapters.OrderActivityAdapter;
 import com.example.uberfood.models.Menu;
+import com.example.uberfood.models.Order;
 import com.example.uberfood.models.PlacedOrder;
 import com.example.uberfood.models.Restaurant;
 import com.example.uberfood.models.User;
+import com.example.uberfood.utils.CustomToast;
 import com.example.uberfood.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,12 +49,12 @@ public class OrderActivity extends AppCompatActivity {
     private static final double DELIVERY_FREE = 6.0;
     LinearLayout arrowBack ;
     LinearLayout cancel , ok ;
-    PlacedOrder placedOrder = new PlacedOrder();
+    public static PlacedOrder placedOrder = new PlacedOrder();
     User user = new User();
-    double operationResult = 0;
-    RecyclerView recyclerView;
-    Restaurant restaurant = new Restaurant() ;
-    AppCompatTextView subtotal , taxAmount , deliveryFree , Total ;
+    public static double operationResult = 0;
+    public static RecyclerView recyclerView;
+    public static Restaurant restaurant = new Restaurant() ;
+    public static AppCompatTextView subtotal , taxAmount , deliveryFree , Total ;
     LinkedHashMap<Menu, Integer> listOfOrderedMenu = new LinkedHashMap<>() ;
 
     @Override
@@ -59,7 +62,7 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         initializeViews();
-        calculateValues();
+        calculateValues(Utils.price);
 
     }
 
@@ -120,22 +123,28 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                setPlacedOrderObject();
-                sendPlacedOrderObjectToBackend();
-                Utils.price = 0;
-                MenuActivity.priceText.setText(Utils.price + " DT");
-                Utils.listOfOrderedMenu.clear();
-                Snackbar snackbar = Snackbar.make(MenuActivity.priceText, R.string.send_order_message, Snackbar.LENGTH_LONG)
+               if (Utils.price != 0){
+                   setPlacedOrderObject();
+                   sendPlacedOrderObjectToBackend();
+                   Utils.price = 0;
+                   MenuActivity.priceText.setText(Utils.price + " DT");
+                   Utils.listOfOrderedMenu.clear();
+                   Snackbar snackbar = Snackbar.make(MenuActivity.priceText, R.string.send_order_message, Snackbar.LENGTH_LONG)
 
-                        .setAction(R.string.undo, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Respond to the click, such as by undoing the modification that caused
-                                // this message to be displayed
-                            }
-                        });
-                snackbar.show();
-                finish();
+                           .setAction(R.string.undo, new View.OnClickListener() {
+                               @Override
+                               public void onClick(View v) {
+                                   // Respond to the click, such as by undoing the modification that caused
+                                   // this message to be displayed
+                               }
+                           });
+                   snackbar.show();
+                   finish();
+               } else {
+                   new CustomToast(OrderActivity.this, getResources().getString(R.string.warning), getResources().getString(R.string.no_orders), R.drawable.warning_icon, CustomToast.WARNING).show();
+                   finish();
+
+               }
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +188,7 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
-    private void setPlacedOrderObject() {
+    public static void setPlacedOrderObject() {
 
 
         placedOrder.setDelivery_address(restaurant.getAdress_street());
@@ -200,13 +209,13 @@ public class OrderActivity extends AppCompatActivity {
         placedOrder.setRestaurant_id(restaurant.getId());
     }
 
-    private void calculateValues() {
+    public static void calculateValues(double price) {
 
 
-        subtotal.setText(Utils.price+" DT");
+        subtotal.setText(price+" DT");
         taxAmount.setText(TAX_AMOUNT +" DT");
         deliveryFree.setText(DELIVERY_FREE +" DT");
-         operationResult = Utils.price + (Utils.price*TAX_AMOUNT) + DELIVERY_FREE ;
+         operationResult = Utils.price + (price*TAX_AMOUNT) + DELIVERY_FREE ;
         Total.setText(operationResult+" DT");
 
 

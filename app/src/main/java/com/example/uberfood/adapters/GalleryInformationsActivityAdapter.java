@@ -12,6 +12,9 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.uberfood.R;
 import com.example.uberfood.models.OnePhoto;
+import com.example.uberfood.models.Photo;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 
@@ -27,9 +30,6 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
     public GalleryInformationsActivityAdapter(Context context, ArrayList<OnePhoto> galleryArrayList) {
         this.context = context;
         this.galleryArrayList=galleryArrayList;
-        for (int i = 0 ; i < galleryArrayList.size() ; i++){
-            Log.e(" test "+i , galleryArrayList.get(i)+toString());
-        }
 
 
     }
@@ -60,15 +60,17 @@ public class GalleryInformationsActivityAdapter extends BaseAdapter {
         if(galleryArrayList.size()!=0)
         {
             progressBar.setVisibility(View.GONE);
-            Log.e("test" , galleryArrayList.get(position).toString());
-            Log.e("test" , galleryArrayList.get(position).getPhoto().toString());
+            Log.e("test1" , galleryArrayList.get(position).toString());
+            Log.e("test2" , galleryArrayList.get(position).getPhoto().toString());
+            Log.e("test3" ,galleryArrayList.get(position).getId_ad()+"!" );
+            Log.e("test4" ,galleryArrayList.get(position).getPhoto().values().toArray()[0] +"!!");
 
 
-           /* Glide.with(context)
-                    .load(galleryArrayList.get(position).getPhoto().entrySet().)
 
+            Glide.with(context)
+                    .load(galleryArrayList.get(position).getPhoto().values().toArray()[0])
                     .into(ivPhoto);
-            Log.e("test" ,galleryArrayList.get(position).getPhoto().entrySet() ); */
+
             //ivPhoto.setImageUrlWithoutBorderWithoutResizing(imageGalerieArrayList.get(position).getImage(),R.drawable.empty_business_photo,progressBar);
 
         }

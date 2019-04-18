@@ -1,18 +1,28 @@
 package com.example.uberfood.adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.transition.TransitionManager;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.util.Util;
 import com.example.uberfood.R;
 import com.example.uberfood.activities.MenuActivity;
+import com.example.uberfood.activities.OrderActivity;
 import com.example.uberfood.models.Menu;
 import com.example.uberfood.utils.Utils;
 
@@ -48,26 +58,41 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
 
         final Menu menu = (new ArrayList<Menu>(listOfOrderedMenu.keySet())).get(position);
 
+
+
         final Integer  numberOfOrders= (new ArrayList<Integer>(listOfOrderedMenu.values())).get(position);
-        Log.e("from order adapter" , numberOfOrders + menu.getItem_name() + " !");
+           holder.price.setText(menu.getPrice()*numberOfOrders + " DT");
+                Log.e("from order adapter" , numberOfOrders + menu.getItem_name() + " !");
         holder.orderLabel.setText(menu.getItem_name());
         holder.numberOfOrders.setText("*"+numberOfOrders);
+        holder.number.setText("*"+numberOfOrders);
         holder.llNumberOfOrders.bringToFront();
         (holder.llNumberOfOrders.getParent()).requestLayout();
+        final Animation animFadeIn = AnimationUtils.loadAnimation(context,R.anim.fade_in);
+        Animation animFadeOut = AnimationUtils.loadAnimation(context,R.anim.fade_out);
         holder.addOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*holder.llNumberOfOrders.setVisibility(View.GONE);
+                holder.invisiblePrice.startAnimation(animFadeIn);
+                holder.price.setVisibility(View.GONE);
+                holder.number.setVisibility(View.VISIBLE);
+                holder.number.startAnimation(animFadeIn);*/
                 String number = holder.numberOfOrders.getText()+"";
                 int NumberOrders =  Integer.parseInt(number.substring(1));
                 NumberOrders++ ;
                 Log.e("number" , NumberOrders+" !");
                 holder.numberOfOrders.setText("*"+NumberOrders);
+                holder.price.setText(menu.getPrice()*NumberOrders + " DT");
+                holder.invisiblePrice.setText(menu.getPrice()*NumberOrders + " DT");
+                holder.number.setText("*"+NumberOrders);
                 Utils.price += menu.getPrice();
                 notifyDataSetChanged();
 
                 listOfOrderedMenu.put(menu , NumberOrders);
                 Utils.listOfOrderedMenu.put(menu , NumberOrders);
                 MenuActivity.priceText.setText(Utils.price + " DT");
+                OrderActivity.calculateValues(Utils.price);
             }
         });
 
@@ -79,15 +104,54 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
                 int NumberOrders =  Integer.parseInt(number.substring(1));
                 NumberOrders-- ;
                 Utils.price -= menu.getPrice();
-                listOfOrderedMenu.put(menu , NumberOrders);
-                Utils.listOfOrderedMenu.put(menu , NumberOrders);
-                notifyDataSetChanged();
-                MenuActivity.priceText.setText(Utils.price + " DT");
-                Log.e("number" , NumberOrders+" !");
-                holder.numberOfOrders.setText("*"+NumberOrders);
+
+
+               if (NumberOrders == 0){
+
+                   holder.itemView.animate().alpha(0f).setDuration(1000).start();
+                   new Handler().postDelayed(new Runnable() {
+                       @Override
+                       public void run() {
+
+                           listOfOrderedMenu.remove(menu);
+                           Utils.listOfOrderedMenu.remove(menu);
+                           holder.itemView.setVisibility(View.GONE);
+                           notifyItemRemoved(position);
+                           notifyItemRangeChanged(position, listOfOrderedMenu.size());
+                           MenuActivity.priceText.setText(Utils.price + " DT");
+                           OrderActivity.calculateValues(Utils.price);
+                           //updateView();
+
+                       }
+                   }, 1000);
+
+               } else {
+                   listOfOrderedMenu.put(menu , NumberOrders);
+                   Utils.listOfOrderedMenu.put(menu , NumberOrders);
+                   notifyDataSetChanged();
+                   MenuActivity.priceText.setText(Utils.price + " DT");
+                   Log.e("number" , NumberOrders+" !");
+                   holder.numberOfOrders.setText("*"+NumberOrders);
+                   holder.price.setText(menu.getPrice()*NumberOrders + " DT");
+                   holder.invisiblePrice.setText(menu.getPrice()*NumberOrders + " DT");
+                   holder.number.setText("*"+NumberOrders);
+                   OrderActivity.calculateValues(Utils.price);
+               }
+
+                // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
             }
         });
+
+
+
+    }
+
+    private void updateView() {
+        this.listOfOrderedMenu.clear();
+        this.listOfOrderedMenu.putAll(Utils.listOfOrderedMenu);
+        notifyDataSetChanged();
 
 
 
@@ -101,7 +165,7 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
 
-        AppCompatTextView orderLabel , numberOfOrders ;
+        AppCompatTextView orderLabel , numberOfOrders , number , price , invisiblePrice ;
         LinearLayout llNumberOfOrders ;
         ImageView addOrder , deleteOrder ;
 
@@ -114,6 +178,9 @@ public class OrderActivityAdapter extends RecyclerView.Adapter<OrderActivityAdap
             addOrder = itemView.findViewById(R.id.add_order);
             deleteOrder = itemView.findViewById(R.id.delete_order);
             llNumberOfOrders = itemView.findViewById(R.id.ll_number_of_orders);
+            number = itemView.findViewById(R.id.number_tv);
+            price = itemView.findViewById(R.id.price_tv);
+            invisiblePrice = itemView.findViewById(R.id.price_invisible);
 
         }
     }
