@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.e("token" , FirebaseInstanceId.getInstance().getToken() +" !");
 
 
 
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                        user.setToken(refreshedToken);
                        HashMap<String, String> map = new HashMap<>();
                        map.put("token" , refreshedToken);
+
 
                         FirebaseFirestore.getInstance().collection(USER_COLLECTION).document(uid).set(map,SetOptions.merge())
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {

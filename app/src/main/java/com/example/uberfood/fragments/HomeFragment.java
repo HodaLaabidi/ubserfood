@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
@@ -669,7 +670,7 @@ public class HomeFragment extends Fragment {
                                     }
                                 }); */
                             }else {
-                                showGpsDialog();
+                                showGpsDialog(getActivity());
                                 Log.e("test dialog gps" , "ok");
                             }
                         }
@@ -697,13 +698,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //login with facebook api
+
     }
 
 
 
-        private void showGpsDialog() {
+        public void showGpsDialog(Context context) {
 
-            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        //
+            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
 
             View viewAlerte = this.getLayoutInflater().inflate(R.layout.active_gps, null);
 

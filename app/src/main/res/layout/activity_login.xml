@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:background="@color/colorOrange"
+    android:background="@drawable/background_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
@@ -14,18 +14,97 @@
         android:layout_height="match_parent">
 
     <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/arrow_back_from_login"
             android:layout_margin="10dp"
             android:src="@drawable/arrow_back"
             android:layout_width="60dp"
             android:layout_height="30dp" />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
 
 
     </LinearLayout>
+        <LinearLayout
+            android:id="@+id/login_facebook_button"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="#4168b7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:text="@string/sign_in_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginRight="100dp"
+            android:layout_marginLeft="100dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginRight="10dp"
+                android:background="@android:color/white"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"/>
+            <android.support.v7.widget.AppCompatTextView
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:text="@string/or"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/white"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_gravity="center"
+          android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatTextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:text="@string/infos_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
 
 
@@ -37,29 +116,27 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_marginLeft="20dp"
+            android:textSize="14sp"
+            android:textColor="#b56b49"
+            android:text="@string/username_or_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <LinearLayout
-            android:padding="5dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/background_white_edittext"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_gravity="center"
-                android:src="@drawable/person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_email_sign_in"
+                android:textColorHint="#b56b49"
+                android:textColor="@android:color/white"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="14sp"
                 android:textStyle="normal"
-                android:backgroundTint="@android:color/transparent"
+                android:backgroundTint="@android:color/white"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
@@ -71,19 +148,9 @@
         <LinearLayout
             android:padding="5dp"
             android:layout_margin="20dp"
-            android:background="@drawable/background_white_edittext"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_gravity="center"
-                android:src="@drawable/password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_password_sign_in"

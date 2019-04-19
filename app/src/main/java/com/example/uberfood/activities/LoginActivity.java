@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,10 @@ import android.widget.LinearLayout;
 import com.example.uberfood.R;
 import com.example.uberfood.utils.ConnectivityService;
 import com.example.uberfood.utils.CustomToast;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     ProgressDialog progressDialog ;
+    LinearLayout loginFacebookButon ;
 
     @Override
     public void onBackPressed() {
@@ -44,6 +50,60 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initializeViews();
+        connectToPlatfmWithFacebook();
+    }
+
+    private void connectToPlatfmWithFacebook() {
+
+
+        // *************%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%************* //
+
+
+                    // https://developers.facebook.com/docs/facebook-login/android
+
+                    // https://firebase.google.com/docs/auth/android/facebook-login?authuser=0
+
+
+        // *************%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%************* //
+
+        // étape a suivre : génération d'une clé de hachage de développement
+        // i ' m working on https://developers.facebook.com/docs/facebook-login/android#
+
+
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        // tâches à terminer :
+        //   1) add splash screen animation
+        //   2) add the constraint layout to all the screens
+        //   3) add facebook api for login and signup
+        //   4) add skeleton librairy
+        //   5) set the orders fragments value ( new  design )
+
+        //   6) add the skeleton images to cards for homeActivity
+/*
+        CallbackManager  mCallbackManager = CallbackManager.Factory.create();
+
+        loginFacebookButon.setReadPermissions("email", "public_profile");
+        loginFacebookButon.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.e( "facebook:onSuccess:" + loginResult,"ok");
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.e( "facebook:onCancel","ok");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("facebook:onError", error);
+                // ...
+            }
+        });*/
+
     }
 
     private void initializeViews() {
@@ -55,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
         arrowBack = findViewById(R.id.arrow_back_from_login);
         mail = findViewById(R.id.et_email_sign_in);
+        loginFacebookButon = findViewById(R.id.login_facebook_button);
         password = findViewById(R.id.et_password_sign_in);
         signUpText = findViewById(R.id.sign_up);
         loginButton = findViewById(R.id.login);

@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorOrange">#e27b58</color>
     <color name="colorDarkOrange">#FF5F6D</color>
+    <color name="darkOrange">#e37c59</color>
     <color name="colorLightOrange">#FFC371</color>
     <color name="glide_slider_background_color">@color/colorLightGrey</color>
     <color name="glide_slider_indicator_color">#FFFFFF</color>
