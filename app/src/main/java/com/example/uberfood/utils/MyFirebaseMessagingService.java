@@ -27,27 +27,21 @@ import static com.example.uberfood.utils.Constants.USER_COLLECTION;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static int count = 0;
+    public static String refreshedToken = null;
 
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-        sendRegistrationToServer(token);
+        Log.e("token== " , token + "!");
+        refreshedToken = token ;
 
     }
 
     private void sendRegistrationToServer(String token) {
 
 
-        HashMap<String, Object> tokenToFirebase = new HashMap<>();
-        tokenToFirebase.put("token" , token);
-        FirebaseFirestore.getInstance().collection(USER_COLLECTION)
-                // add this field to your application and set up the firebase application to get only the new token " don't miss to reload the token after each update
-               //
 
 
-
-
-      // sen dtoken to backend and add this to lis t
 
 
     }

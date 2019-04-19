@@ -9,6 +9,7 @@ public class User  {
     String email ;
     String postal_code ;
     String phone_number ;
+    String token;
 
 
     public User(String username, String location, String email,  String postalCode, String phoneNumber) {
@@ -23,6 +24,22 @@ public class User  {
     public User() {
     }
 
+    public User(String username, String location, String email, String postal_code, String phone_number, String token) {
+        this.username = username;
+        this.location = location;
+        this.email = email;
+        this.postal_code = postal_code;
+        this.phone_number = phone_number;
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getUsername() {
         return username;

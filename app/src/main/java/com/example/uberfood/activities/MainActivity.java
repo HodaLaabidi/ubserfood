@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,8 +19,22 @@ import com.example.uberfood.fragments.HomeFragment;
 import com.example.uberfood.fragments.OrdersFragment;
 import com.example.uberfood.fragments.ProfilFragment;
 import com.example.uberfood.fragments.SearchFragment;
+import com.example.uberfood.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.uberfood.utils.Constants.USER_COLLECTION;
+import static com.example.uberfood.utils.MyFirebaseMessagingService.refreshedToken;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout mainFrameLayout ;
 
     BottomNavigationView mainNavBar ;
+    User user ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
           //startActivity(intent);
           //finish();
 
+        } else {
+            sendTokenToBackend(firebaseUser.getUid());
         }
 
 
@@ -86,9 +104,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
+    private void sendTokenToBackend(final String uid) {
 
+        if (refreshedToken != null){
+            if (!refreshedToken.trim().equals("")){
+
+
+                FirebaseFirestore.getInstance().collection(USER_COLLECTION).document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        Log.e( "DocumentSnapshot data: " , documentSnapshot.getData().toString());
+                        user =  documentSnapshot.toObject(User.class);
+                       user.setToken(refreshedToken);
+                       HashMap<String, String> map = new HashMap<>();
+                       map.put("token" , refreshedToken);
+
+                        FirebaseFirestore.getInstance().collection(USER_COLLECTION).document(uid).set(map,SetOptions.merge())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.e( "add token: " , "ok");
+
+                                    }
+                                });
+
+
+                    }});
+
+            }
+        }
+    }
 
 
     private void setFragment(Fragment fragment) {
