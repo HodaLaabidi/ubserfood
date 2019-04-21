@@ -25,9 +25,9 @@ public class SearchActivityViewPager  extends FragmentStatePagerAdapter {
             case 0:
                 DeliveryFragment deliveryFragment = new DeliveryFragment();
                 return  deliveryFragment;
-            case 1:
+           /* case 1:
                 PickUpFragment pickUpFragment = new PickUpFragment();
-                return pickUpFragment;
+                return pickUpFragment;*/
         }
         return null;
     }

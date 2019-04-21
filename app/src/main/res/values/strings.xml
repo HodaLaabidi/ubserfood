@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">UberFood</string>
+    <string name="app_name">Uber Food</string>
     <string name="first_screen_search_text">Start by typing your address or simply let APPNAME automatically detect your location.</string>
     <string name="hint_search_text">Enter your suburb or postcode</string>
     <string name="first_screen_button">let\'s  start</string>
     <string name="text_signin">Already have an account? Sign in</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="text_login">Login</string>
-    <string name="sign_up_text">Don\'t have an account? Sign up</string>
+    <string name="text_login">Sign in</string>
+    <string name="sign_up_text">Not a Member yet ? join us now </string>
     <string name="hint_confirm_password">Confirm password</string>
     <string name="hint_first_name">First name </string>
     <string name="hint_last_name">Last name </string>
@@ -81,8 +81,8 @@
     <string name="reset">Reset</string>
     <string name="no_internet_connexion">Unable to reach the internet</string>
     <string name="no_internet_connexion_text">Check your internet connexion and try again !</string>
-    <string name="no_results_found">No results found</string>
-    <string name="no_results_found_text">No restaurants found</string>
+    <string name="no_results_found">Oups !</string>
+    <string name="no_results_found_text">It seems your plate is going to be empty try looking for restaurants in other location.</string>
 
     <string name="undo">Undo</string>
     <string name="send_order_message">Successful order</string>
@@ -99,6 +99,7 @@
     <string name="username_or_mail">username / email or phone number</string>
     <string name="facebook_app_id">[644908225950663]</string>
     <string name="fb_login_protocol_scheme">fb[644908225950663]</string>
+    <string name="login">IT SEEMS YOU\'RE NOT LOGGED IN</string>
 
 
 </resources>

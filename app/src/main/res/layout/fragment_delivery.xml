@@ -54,11 +54,14 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
       <ImageView
-          android:src="@drawable/no_iternet_icon"
+          android:src="@drawable/not_found_image"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content" />
       <android.support.v7.widget.AppCompatTextView
-          android:textSize="14sp"
+         android:layout_marginTop="40dp"
+          android:layout_marginRight="40dp"
+          android:layout_marginLeft="40dp"
+          android:textSize="18sp"
           android:textStyle="bold"
           android:textColor="@android:color/white"
           android:gravity="center"
@@ -67,8 +70,10 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content" />
       <android.support.v7.widget.AppCompatTextView
+          android:layout_marginLeft="40dp"
+          android:layout_marginRight="40dp"
           android:textColor="@android:color/white"
-          android:textSize="12sp"
+          android:textSize="16sp"
           android:gravity="center"
           android:layout_gravity="center"
           android:text="@string/no_results_found_text"

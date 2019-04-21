@@ -10,6 +10,15 @@
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="android:windowActivityTransitions">true</item>
     </style>
+    <style name="FacebookLoginButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/background_facebook_button</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_marginRight">40dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
         <item name="android:popupBackground">@color/lightWhite</item>

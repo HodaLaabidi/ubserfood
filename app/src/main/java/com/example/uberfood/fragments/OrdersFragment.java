@@ -52,6 +52,7 @@ public class OrdersFragment extends Fragment {
     ArrayList<PlacedOrder> listOfPlacedOrder = new ArrayList<>();
 
 
+
     public OrdersFragment() {
         // Required empty public constructor
     }
@@ -93,6 +94,7 @@ public class OrdersFragment extends Fragment {
         llNoInternetConnexion = rootView.findViewById(R.id.ll_no_internet_connexion_fragment_orders);
         llResultsNotFound = rootView.findViewById(R.id.ll_no_results_found_fragment_orders);
         scrollView = rootView.findViewById(R.id.scroll_view_fragment_orders);
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyler_view_orders_fragment);
         initializeFragment();
         return rootView ;
@@ -101,8 +103,10 @@ public class OrdersFragment extends Fragment {
 
     public void initializeFragment() {
 
-        if (ConnectivityService.isOnline(getContext())){
 
+
+
+        if (ConnectivityService.isOnline(getContext())){
             scrollView.setVisibility(View.VISIBLE);
             llResultsNotFound.setVisibility(View.GONE);
             llNoInternetConnexion.setVisibility(View.GONE);
@@ -123,7 +127,8 @@ public class OrdersFragment extends Fragment {
 
     private void getValuesFromBackend() {
 
-        progressBar.setVisibility(View.VISIBLE);
+       progressBar.setVisibility(View.VISIBLE);
+
         db.collection(PLACED_ORDER_KEY)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -153,6 +158,7 @@ public class OrdersFragment extends Fragment {
 
                                     LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
                                     recyclerView.setLayoutManager(mLayoutManager);
+
                                     OrdersFragmentAdapter ordersFragmentAdapter = new OrdersFragmentAdapter(getContext() , listOfPlacedOrder);
                                     recyclerView.setAdapter(ordersFragmentAdapter);
                                 }
@@ -168,6 +174,7 @@ public class OrdersFragment extends Fragment {
                         } else {
 
                             progressBar.setVisibility(View.GONE);
+
 
                             Log.e("FB" ,"Error getting documents: ", task.getException());
                         }

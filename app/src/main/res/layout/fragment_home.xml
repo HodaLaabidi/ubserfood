@@ -92,6 +92,7 @@
 
                    </android.support.v7.widget.RecyclerView>
                 <lib.kingja.switchbutton.SwitchMultiButton
+                    android:visibility="gone"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/switch_multi_button_from_home_fragment"

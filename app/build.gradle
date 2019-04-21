@@ -25,6 +25,8 @@ android {
     packagingOptions {
         exclude 'META-INF/androidx.versionedparcelable_versionedparcelable.version'
         exclude 'META-INF/androidx.core_core.version'
+        exclude 'META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version'
+
     }
 }
 
@@ -45,6 +47,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.6.0'
     implementation 'com.google.firebase:firebase-firestore:18.2.0'
     implementation 'com.google.firebase:firebase-storage:16.1.0'
+    implementation 'com.google.firebase:firebase-database:16.0.6'
 
     implementation 'com.facebook.android:facebook-login:[4,5)'
 
@@ -72,6 +75,11 @@ dependencies {
 
 
     implementation 'com.github.yalantis:ucrop:2.2.3-native'
+
+
+    implementation "com.airbnb.android:lottie:2.0.0"
+
+   // implementation 'com.faltenreich:skeletonlayout:2.0.0'
 
 
 

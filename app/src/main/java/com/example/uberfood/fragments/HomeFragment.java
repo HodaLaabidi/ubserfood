@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
         llFragmentHome.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
         viewPager.setCurrentItem(0);
-        viewPager.setAdapter(new SearchActivityViewPager(getFragmentManager(), 2));
+        viewPager.setAdapter(new SearchActivityViewPager(getFragmentManager(), 1));
     }
 
     @Override
@@ -260,13 +260,13 @@ public class HomeFragment extends Fragment {
             llFragmentHome.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
             viewPager.setVisibility(View.VISIBLE);
-            switchMultiButton.setVisibility(View.VISIBLE);
+            switchMultiButton.setVisibility(View.GONE);
             restaurantsForSearch2.clear();
 
 
         } else {
             if (restaurantsForSearch2.size() == 0) {
-                switchMultiButton.setVisibility(View.VISIBLE);
+                switchMultiButton.setVisibility(View.GONE);
                 viewPager.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
                 llFragmentHome.setVisibility(View.VISIBLE);
@@ -379,14 +379,14 @@ public class HomeFragment extends Fragment {
                     viewPager.setCurrentItem(0);
 
                 } else {
-                    viewPager.setCurrentItem(1);
+                    viewPager.setCurrentItem(0);
                 }
 
             }
         });
 
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+  /*      viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 
@@ -416,7 +416,7 @@ public class HomeFragment extends Fragment {
             public void onPageScrollStateChanged(int i) {
 
             }
-        });
+        });*/
 
 
             setSearchLocationLayout();

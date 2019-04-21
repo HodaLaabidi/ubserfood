@@ -15,20 +15,33 @@ import android.widget.LinearLayout;
 import com.example.uberfood.R;
 import com.example.uberfood.utils.ConnectivityService;
 import com.example.uberfood.utils.CustomToast;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     ProgressDialog progressDialog ;
-    LinearLayout loginFacebookButon ;
+    LoginButton loginFacebookButon ;
+
 
     @Override
     public void onBackPressed() {
@@ -40,7 +53,9 @@ public class LoginActivity extends AppCompatActivity {
 
     ImageView arrowBack;
     LinearLayout signUpText ;
+    CallbackManager  mCallbackManager = CallbackManager.Factory.create();;
     LinearLayout loginButton;
+    private FirebaseAuth mAuth;
     AppCompatEditText mail , password ;
 
 
@@ -51,6 +66,45 @@ public class LoginActivity extends AppCompatActivity {
 
         initializeViews();
         connectToPlatfmWithFacebook();
+    }
+
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.e( "handleFacebookAccessToken:" , token.getToken());
+        progressDialog.show();
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.e( "signInWithCredential:success","ok");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+
+
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
+
+
+    private void updateUI(FirebaseUser currentUser) {
+
+
+
+            startActivity(new Intent(LoginActivity.this , MainActivity.class));
+            finish();
+
+
+
     }
 
     private void connectToPlatfmWithFacebook() {
@@ -72,45 +126,57 @@ public class LoginActivity extends AppCompatActivity {
 
         // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        // tâches à terminer :
-        //   1) add splash screen animation
-        //   2) add the constraint layout to all the screens
-        //   3) add facebook api for login and signup
-        //   4) add skeleton librairy
-        //   5) set the orders fragments value ( new  design )
 
-        //   6) add the skeleton images to cards for homeActivity
-/*
-        CallbackManager  mCallbackManager = CallbackManager.Factory.create();
+
 
         loginFacebookButon.setReadPermissions("email", "public_profile");
+
         loginFacebookButon.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                progressDialog.dismiss();
                 Log.e( "facebook:onSuccess:" + loginResult,"ok");
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
+                progressDialog.dismiss();
                 Log.e( "facebook:onCancel","ok");
                 // ...
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.e("facebook:onError", error);
+                progressDialog.dismiss();
+                Log.e("facebook:onError", error.toString());
                 // ...
             }
-        });*/
+        });
 
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+    }
+
+
+
+
 
     private void initializeViews() {
 
 
 
 
+// ...
+// Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
 
         arrowBack = findViewById(R.id.arrow_back_from_login);
@@ -137,11 +203,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        /*
-
-
-         */
-
         signUpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +211,26 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        mCallbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
     }
 
     private void verifyFromFireStore() {
