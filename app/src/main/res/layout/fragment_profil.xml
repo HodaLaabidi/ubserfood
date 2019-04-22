@@ -7,19 +7,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ProfilFragment">
     <LinearLayout
-        android:gravity="right"
-        android:layout_gravity="right"
+        android:gravity="left"
+        android:layout_gravity="left"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/more"
-            android:padding="2dp"
-            android:layout_margin="5dp"
-            android:layout_gravity="right"
-            android:src="@drawable/more"
-            android:layout_width="60dp"
-            android:layout_height="30dp" />
+            android:layout_gravity="left"
+            android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:background="@android:color/white"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:id="@+id/more"
+               android:padding="3dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="right"
+                android:src="@drawable/notification_icon"
+                android:layout_width="60dp"
+                android:layout_height="30dp" />
+        </LinearLayout>
 
     </LinearLayout>
 

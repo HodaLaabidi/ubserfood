@@ -100,6 +100,11 @@
     <string name="facebook_app_id">[644908225950663]</string>
     <string name="fb_login_protocol_scheme">fb[644908225950663]</string>
     <string name="login">IT SEEMS YOU\'RE NOT LOGGED IN</string>
+    <string name="use_x_to_join_use">use your phone number to join us</string>
+    <string name="username">name</string>
+    <string name="hint_username">Name</string>
+    <string name="mail">e-mail</string>
+    <string name="sign_up">Already a member ? sign in now</string>
 
 
 </resources>
